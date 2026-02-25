@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>TfL JamCam Live Map</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #080c10;
+      font-family: 'JetBrains Mono', monospace;
+      color: #e0f0e8;
+    }
+
+    #map { height: 100vh; width: 100%; }
+
+    /* ── Leaflet popup shell ── */
+    .leaflet-popup-content-wrapper {
+      background: #0d1117;
+      border: 1px solid #1f3a2a;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,255,136,0.12);
+      padding: 0;
+      overflow: hidden;
+    }
+    .leaflet-popup-content { margin: 0; width: 440px !important; }
+    .leaflet-popup-tip-container { display: none; }
+
+    /* ── Header ── */
+    .popup-header {
+      padding: 12px 14px 10px;
+      border-bottom: 1px solid #1a2e1f;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .popup-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #00ff88;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .popup-meta {
+      font-size: 10px;
+      color: #4a7a5a;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Status badge ── */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 11px;
+      color: #00ff88;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .status-badge.idle    { color: #4a7a5a; border-color: rgba(74,122,90,0.3); background: transparent; }
+    .status-badge.loading { color: #ffaa00; border-color: rgba(255,170,0,0.3); background: rgba(255,170,0,0.05); }
+    .status-badge.error   { color: #ff4466; border-color: rgba(255,68,102,0.3); background: rgba(255,68,102,0.05); }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+    .dot.live { animation: pulse 1.2s ease-in-out infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.3; transform: scale(0.6); }
+    }
+
+    /* ── Stream container ── */
+    .feed-wrap {
+      position: relative;
+      width: 440px;
+      background: #000;
+      line-height: 0;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feed-wrap img.stream {
+      width: 440px;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .feed-wrap img.stream.loaded { opacity: 1; }
+
+    /* Scanline overlay */
+    .feed-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 2px,
+        rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Loading spinner shown before first frame */
+    .feed-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #2a5a3a;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+    }
+    .spinner {
+      width: 28px; height: 28px;
+      border: 2px solid #1a3a2a;
+      border-top-color: #00ff88;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Vehicle breakdown chips ── */
+    .breakdown {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 8px 14px;
+      min-height: 32px;
+      border-top: 1px solid #1a2e1f;
+    }
+    .vtag {
+      background: rgba(0,255,136,0.06);
+      border: 1px solid rgba(0,255,136,0.15);
+      border-radius: 3px;
+      padding: 2px 7px;
+      font-size: 10px;
+      color: #6bbf8a;
+      letter-spacing: 0.05em;
+    }
+    .vtag.car        { border-color: rgba(0,255,136,0.3);  color: #00ff88; }
+    .vtag.truck      { border-color: rgba(0,170,255,0.3);  color: #00aaff; }
+    .vtag.bus        { border-color: rgba(136,68,255,0.3); color: #8844ff; }
+    .vtag.motorcycle { border-color: rgba(255,100,0,0.3);  color: #ff6400; }
+
+    /* ── Controls bar ── */
+    .controls {
+      display: flex;
+      border-top: 1px solid #1a2e1f;
+    }
+
+    .ctrl-btn {
+      flex: 1;
+      padding: 9px;
+      background: transparent;
+      border: none;
+      border-right: 1px solid #1a2e1f;
+      color: #4a7a5a;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.15s, color 0.15s;
+    }
+    .ctrl-btn:last-child { border-right: none; }
+    .ctrl-btn:hover  { background: rgba(0,255,136,0.07); color: #00ff88; }
+    .ctrl-btn:active { background: rgba(0,255,136,0.14); }
+    .ctrl-btn.active { color: #00ff88; }
+    .ctrl-btn:disabled { color: #1a3a2a; cursor: default; }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+const API_URL    = "http://localhost:3000/api/cameras";
+const STREAM_URL = "http://localhost:3000/api/stream";
+
+// ── Map setup ──────────────────────────────────────────────────────────────────
+const map = L.map("map", {
+  center: [51.5074, -0.1278],
+  zoom: 11,
+  layers: [L.tileLayer(
+    "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+    { attribution: "&copy; OpenStreetMap & Carto", subdomains: "abcd", maxZoom: 19 }
+  )]
+});
+
+// Active stream img elements — so we can kill them when popup closes
+const activeStreams = new Map();
+
+// ── Build popup DOM ────────────────────────────────────────────────────────────
+function buildPopup(cam) {
+  const uid = cam.id.replace(/[^a-zA-Z0-9]/g, "_");
+
+  const root = document.createElement("div");
+  root.innerHTML = `
+    <div class="popup-header">
+      <div>
+        <div class="popup-title">${cam.name}</div>
+        <div class="popup-meta">${cam.view || "London"}</div>
+      </div>
+      <div class="status-badge idle" id="badge_${uid}">
+        <span class="dot"></span>
+        <span class="badge-text">off</span>
+      </div>
+    </div>
+
+    <div class="feed-wrap" id="feedwrap_${uid}">
+      <div class="feed-placeholder" id="placeholder_${uid}">
+        <div class="spinner"></div>
+        LOADING STREAM
+      </div>
+      <img class="stream" id="stream_${uid}" alt="" />
+    </div>
+
+    <div class="breakdown" id="breakdown_${uid}">
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-btn active" id="btnLive_${uid}">⏵ live detection</button>
+      <button class="ctrl-btn" id="btnRaw_${uid}">⏵ raw feed</button>
+      <button class="ctrl-btn" id="btnStop_${uid}">⏹ stop</button>
+    </div>
+  `;
+
+  return { root, uid };
+}
+
+// ── Stream management ──────────────────────────────────────────────────────────
+function startDetectionStream(cam, uid) {
+  stopStream(uid);
+
+  const badge       = document.getElementById(`badge_${uid}`);
+  const placeholder = document.getElementById(`placeholder_${uid}`);
+  const imgEl       = document.getElementById(`stream_${uid}`);
+  const breakdown   = document.getElementById(`breakdown_${uid}`);
+
+  // Reset state
+  badge.className   = "status-badge loading";
+  badge.querySelector(".badge-text").textContent = "connecting…";
+  badge.querySelector(".dot").classList.remove("live");
+  imgEl.classList.remove("loaded");
+  placeholder.style.display = "flex";
+  breakdown.innerHTML = "";
+
+  const url = `${STREAM_URL}?videoUrl=${encodeURIComponent(cam.videoUrl)}&fps=10`;
+  imgEl.src = url;
+
+  activeStreams.set(uid, { type: "detection", url });
+
+  imgEl.onload = () => {
+    placeholder.style.display = "none";
+    imgEl.classList.add("loaded");
+    badge.className = "status-badge";
+    badge.querySelector(".badge-text").textContent = "live detection";
+    badge.querySelector(".dot").classList.add("live");
+  };
+
+  imgEl.onerror = () => {
+    badge.className = "status-badge error";
+    badge.querySelector(".badge-text").textContent = "stream error";
+    badge.querySelector(".dot").classList.remove("live");
+    placeholder.style.display = "none";
+    imgEl.classList.add("loaded"); // show broken state
+  };
+}
+
+function startRawFeed(cam, uid) {
+  stopStream(uid);
+
+  const badge       = document.getElementById(`badge_${uid}`);
+  const placeholder = document.getElementById(`placeholder_${uid}`);
+  const imgEl       = document.getElementById(`stream_${uid}`);
+
+  // Show the original TfL video URL inside a <video> tag
+  // We swap the img for a video element temporarily
+  const feedWrap = document.getElementById(`feedwrap_${uid}`);
+
+  // Remove any existing raw video
+  const existing = feedWrap.querySelector("video.raw");
+  if (existing) existing.remove();
+
+  const vid = document.createElement("video");
+  vid.className   = "raw";
+  vid.src         = `${cam.videoUrl}?t=${Date.now()}`;
+  vid.autoplay    = true;
+  vid.muted       = true;
+  vid.loop        = true;
+  vid.controls    = true;
+  vid.playsInline = true;
+  vid.style.cssText = "width:440px;display:block;";
+
+  imgEl.style.display = "none";
+  feedWrap.appendChild(vid);
+  placeholder.style.display = "none";
+
+  badge.className = "status-badge";
+  badge.querySelector(".badge-text").textContent = "raw feed";
+  badge.querySelector(".dot").classList.add("live");
+
+  activeStreams.set(uid, { type: "raw", vid });
+}
+
+function stopStream(uid) {
+  const imgEl   = document.getElementById(`stream_${uid}`);
+  const feedWrap = document.getElementById(`feedwrap_${uid}`);
+  const badge   = document.getElementById(`badge_${uid}`);
+  const placeholder = document.getElementById(`placeholder_${uid}`);
+
+  if (imgEl) {
+    imgEl.src = "";
+    imgEl.classList.remove("loaded");
+    imgEl.style.display = "";
+  }
+
+  // Remove raw video if present
+  const rawVid = feedWrap && feedWrap.querySelector("video.raw");
+  if (rawVid) {
+    rawVid.pause();
+    rawVid.src = "";
+    rawVid.remove();
+  }
+
+  if (placeholder) placeholder.style.display = "none";
+
+  if (badge) {
+    badge.className = "status-badge idle";
+    badge.querySelector(".badge-text").textContent = "off";
+    badge.querySelector(".dot").classList.remove("live");
+  }
+
+  activeStreams.delete(uid);
+}
+
+// ── Load cameras ───────────────────────────────────────────────────────────────
+async function loadCameras() {
+  const res     = await fetch(API_URL);
+  const cameras = await res.json();
+
+  cameras.forEach(cam => {
+    if (!cam.available) return;
+
+    const marker = L.circleMarker([cam.lat, cam.lon], {
+      radius: 5,
+      color: "#00ff88",
+      fillColor: "#00ff88",
+      fillOpacity: 0.7,
+      weight: 1.5
+    }).addTo(map);
+
+    const { root, uid } = buildPopup(cam);
+    const popup = L.popup({ maxWidth: 460, minWidth: 440 }).setContent(root);
+
+    marker.bindPopup(popup);
+
+    marker.on("popupopen", () => {
+      // Auto-start detection stream
+      startDetectionStream(cam, uid);
+
+      document.getElementById(`btnLive_${uid}`).onclick = () => {
+        setActive(uid, "btnLive");
+        startDetectionStream(cam, uid);
+      };
+      document.getElementById(`btnRaw_${uid}`).onclick = () => {
+        setActive(uid, "btnRaw");
+        startRawFeed(cam, uid);
+      };
+      document.getElementById(`btnStop_${uid}`).onclick = () => {
+        setActive(uid, "btnStop");
+        stopStream(uid);
+      };
+    });
+
+    marker.on("popupclose", () => {
+      stopStream(uid);
+    });
+  });
+}
+
+function setActive(uid, active) {
+  ["btnLive", "btnRaw", "btnStop"].forEach(id => {
+    const el = document.getElementById(`${id}_${uid}`);
+    if (el) el.classList.toggle("active", id === active);
+  });
+}
+
+loadCameras();
+</script>
+</body>
+</html>
