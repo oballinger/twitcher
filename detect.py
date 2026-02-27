@@ -3,14 +3,20 @@ import cv2
 import numpy as np
 import traceback
 import time
+import threading
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from flask import Flask, request, Response, jsonify
 from police_detector import is_police_vehicle
 
 app = Flask(__name__)
 
-model = YOLO("yolo11l.pt")
+model        = YOLO("yolo11n.pt")
+model_lock   = threading.Lock()
+police_lock  = threading.Lock()
 
-VEHICLES = ["car", "truck", "bus", "motorcycle"]
+VEHICLES        = ["car", "truck", "bus", "motorcycle"]
+CONF_THRESHOLD  = 0.60
 
 LABEL_COLORS = {
     "car":        (136, 255, 0),
@@ -73,7 +79,8 @@ def draw_boxes(frame, vehicles):
 
 
 def run_detection(frame):
-    results  = model(frame, verbose=False)[0]
+    with model_lock:
+        results = model(frame, verbose=False)[0]
     vehicles = []
 
     for box in results.boxes:
@@ -88,8 +95,9 @@ def run_detection(frame):
         x1, y1 = max(0, x1), max(0, y1)
         x2, y2 = min(fw, x2), min(fh, y2)
 
-        crop   = frame[y1:y2, x1:x2]
-        police = is_police_vehicle(crop) if crop.size > 0 else {}
+        crop = frame[y1:y2, x1:x2]
+        with police_lock:
+            police = is_police_vehicle(crop) if crop.size > 0 else {}
 
         vehicles.append({
             "label":       label,
@@ -130,7 +138,7 @@ def generate_stream(video_url, target_fps=10):
                 break
 
         if frame_i % skip == 0:
-            last_vehicles = run_detection(frame)
+            last_vehicles = run_detection(frame)  # lock is inside run_detection
 
         annotated = draw_boxes(frame.copy(), last_vehicles)
 
@@ -161,6 +169,31 @@ def stream():
     )
 
 
+def fetch_frame(url, timeout=8):
+    """Return a single BGR frame from a URL (image or video)."""
+    # Try as a static image first (JPEG snapshots from TfL S3)
+    bare = url.split("?")[0].lower()
+    if any(bare.endswith(e) for e in (".jpg", ".jpeg", ".png", ".bmp")):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "TwitcherBot/1.0"})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                raw = r.read()
+            frame = cv2.imdecode(np.frombuffer(raw, dtype=np.uint8), cv2.IMREAD_COLOR)
+            if frame is not None:
+                return frame
+        except Exception:
+            pass  # fall through to VideoCapture
+
+    cap = cv2.VideoCapture(url)
+    if not cap.isOpened():
+        return None
+    for _ in range(5):
+        cap.grab()
+    ret, frame = cap.read()
+    cap.release()
+    return frame if ret else None
+
+
 @app.route("/detect", methods=["POST"])
 def detect():
     try:
@@ -169,15 +202,9 @@ def detect():
         if not url:
             return jsonify({"error": "missing videoUrl"}), 400
 
-        cap = cv2.VideoCapture(url)
-        if not cap.isOpened():
+        frame = fetch_frame(url)
+        if frame is None:
             return jsonify({"error": f"Cannot open: {url}"}), 500
-        for _ in range(5):
-            cap.grab()
-        ret, frame = cap.read()
-        cap.release()
-        if not ret or frame is None:
-            return jsonify({"error": "No frame read"}), 500
 
         vehicles = run_detection(frame)
         h, w     = frame.shape[:2]
@@ -188,6 +215,63 @@ def detect():
             "frameWidth":   w,
             "frameHeight":  h,
         })
+
+    except Exception as e:
+        print(traceback.format_exc())
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/detect-batch", methods=["POST"])
+def detect_batch():
+    try:
+        data = request.get_json()
+        urls = data.get("urls", [])
+        if not urls:
+            return jsonify({"results": []}), 200
+
+        # Fetch all frames in parallel (I/O bound — no GPU involved yet)
+        fetch5 = lambda u: fetch_frame(u, timeout=5)
+        with ThreadPoolExecutor(max_workers=min(len(urls), 16)) as ex:
+            frames_raw = list(ex.map(fetch5, urls))
+
+        valid_idx    = [i for i, f in enumerate(frames_raw) if f is not None]
+        valid_frames = [frames_raw[i] for i in valid_idx]
+        results      = [None] * len(urls)
+
+        if valid_frames:
+            # Single batched forward pass — much more GPU-efficient than N serial calls
+            with model_lock:
+                batch_results = model(valid_frames, verbose=False)
+
+            for slot, (orig_idx, result) in enumerate(zip(valid_idx, batch_results)):
+                frame = valid_frames[slot]
+                fh, fw = frame.shape[:2]
+                vehicles = []
+
+                for box in result.boxes:
+                    cls  = int(box.cls[0])
+                    label = model.names[cls]
+                    conf  = float(box.conf[0])
+
+                    if label not in VEHICLES or conf < CONF_THRESHOLD:
+                        continue
+
+                    x1, y1, x2, y2 = map(int, box.xyxy[0])
+                    x1, y1 = max(0, x1), max(0, y1)
+                    x2, y2 = min(fw, x2), min(fh, y2)
+                    crop = frame[y1:y2, x1:x2]
+                    with police_lock:
+                        police = is_police_vehicle(crop) if crop.size > 0 else {}
+
+                    vehicles.append({
+                        "label":      label,
+                        "confidence": round(conf, 3),
+                        "is_police":  police.get("is_police", False),
+                    })
+
+                results[orig_idx] = {"count": len(vehicles), "vehicles": vehicles}
+
+        return jsonify({"results": results})
 
     except Exception as e:
         print(traceback.format_exc())

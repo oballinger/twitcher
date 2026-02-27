@@ -23,10 +23,10 @@ Output:
 """
 
 import os
+import re
 import random
 import csv
 import argparse
-from pathlib import Path
 
 import torch
 import torch.nn as nn
@@ -38,6 +38,30 @@ from PIL import Image
 # ══════════════════════════════════════════════════════════════════════════════
 # DATASET
 # ══════════════════════════════════════════════════════════════════════════════
+
+def dedup_5min(paths):
+    """Keep at most one image per camera per 5-minute window.
+
+    Filename: JamCams_{cam1}_{cam2}_{YYYYMMDD}_{HHMMSS}_{ms}_{conf}pct_{hash}.jpg
+    Bucket key: (cam1_cam2, date, hour, minute // 5)
+    """
+    seen = set()
+    kept = []
+    for path in paths:
+        name = os.path.basename(path)
+        m = re.match(r"JamCams_(\d+)_(\d+)_(\d{8})_(\d{6})_", name)
+        if not m:
+            kept.append(path)   # unknown format — keep as-is
+            continue
+        cam    = m.group(1) + "_" + m.group(2)
+        date   = m.group(3)
+        t      = m.group(4)    # HHMMSS
+        bucket = (cam, date, t[0:2], int(t[2:4]) // 5)
+        if bucket not in seen:
+            seen.add(bucket)
+            kept.append(path)
+    return kept
+
 
 class PoliceDataset(Dataset):
     """Binary dataset: police (1) vs not-police (0)."""
@@ -80,28 +104,42 @@ def collect_samples(dataset_dir,
     confirmed_dir = os.path.join(dataset_dir, confirmed_folder)
     confirmed_names = set()
     if os.path.isdir(confirmed_dir):
-        for f in os.listdir(confirmed_dir):
-            if f.lower().endswith((".jpg", ".jpeg", ".png")):
-                positives.append((os.path.join(confirmed_dir, f), 1))
-                confirmed_names.add(f)
+        paths = [os.path.join(confirmed_dir, f) for f in os.listdir(confirmed_dir)
+                 if f.lower().endswith((".jpg", ".jpeg", ".png"))]
+        for p in dedup_5min(paths):
+            positives.append((p, 1))
+            confirmed_names.add(os.path.basename(p))
 
     # ── Unconfirmed police (rejected candidates) → hard negatives ─────────
     unconfirmed_dir = os.path.join(dataset_dir, unconfirmed_folder)
     hard_neg = 0
     if os.path.isdir(unconfirmed_dir):
-        for f in os.listdir(unconfirmed_dir):
-            if f.lower().endswith((".jpg", ".jpeg", ".png")) and f not in confirmed_names:
-                negatives.append((os.path.join(unconfirmed_dir, f), 0))
-                hard_neg += 1
+        paths = [os.path.join(unconfirmed_dir, f) for f in os.listdir(unconfirmed_dir)
+                 if f.lower().endswith((".jpg", ".jpeg", ".png"))
+                 and f not in confirmed_names]
+        for p in dedup_5min(paths):
+            negatives.append((p, 0))
+            hard_neg += 1
+
+    # ── Explicitly rejected candidates → hard negatives ───────────────────
+    rejected_dir = os.path.join(dataset_dir, "police_rejected")
+    if os.path.isdir(rejected_dir):
+        paths = [os.path.join(rejected_dir, f) for f in os.listdir(rejected_dir)
+                 if f.lower().endswith((".jpg", ".jpeg", ".png"))
+                 and f not in confirmed_names]
+        for p in dedup_5min(paths):
+            negatives.append((p, 0))
+            hard_neg += 1
 
     # ── Soft negatives (car/truck/etc.) ───────────────────────────────────
     for folder in negative_folders:
         d = os.path.join(dataset_dir, folder)
         if not os.path.isdir(d):
             continue
-        for f in os.listdir(d):
-            if f.lower().endswith((".jpg", ".jpeg", ".png")):
-                negatives.append((os.path.join(d, f), 0))
+        paths = [os.path.join(d, f) for f in os.listdir(d)
+                 if f.lower().endswith((".jpg", ".jpeg", ".png"))]
+        for p in dedup_5min(paths):
+            negatives.append((p, 0))
 
     random.shuffle(negatives)
     if neg_cap and len(negatives) > neg_cap:
@@ -113,24 +151,25 @@ def collect_samples(dataset_dir,
 # ══════════════════════════════════════════════════════════════════════════════
 # AUGMENTATION
 # ══════════════════════════════════════════════════════════════════════════════
-# Aggressive augmentation is critical with ~10 positives. Every training
-# epoch sees a different distorted version of each image.
+# With ~100 positives, augmentation is still important but no longer needs to
+# be as extreme as the 10-sample regime. Preserve the battenburg / livery
+# signal (keep colour jitter moderate, avoid over-cropping the vehicle).
 
 def get_train_transform():
     return transforms.Compose([
         transforms.Resize((128, 128)),
         transforms.RandomHorizontalFlip(),
-        transforms.RandomAffine(degrees=15, translate=(0.15, 0.15),
-                                scale=(0.75, 1.3), shear=10),
-        transforms.ColorJitter(brightness=0.4, contrast=0.4,
-                               saturation=0.4, hue=0.08),
+        transforms.RandomAffine(degrees=15, translate=(0.1, 0.1),
+                                scale=(0.85, 1.15), shear=8),
+        transforms.ColorJitter(brightness=0.25, contrast=0.25,
+                               saturation=0.25, hue=0.05),
         transforms.RandomGrayscale(p=0.05),
-        transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 1.5)),
-        transforms.RandomPerspective(distortion_scale=0.2, p=0.3),
+        transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 1.2)),
+        transforms.RandomPerspective(distortion_scale=0.15, p=0.3),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406],
                              [0.229, 0.224, 0.225]),
-        transforms.RandomErasing(p=0.2, scale=(0.02, 0.15)),
+        transforms.RandomErasing(p=0.1, scale=(0.02, 0.1)),
     ])
 
 
@@ -147,14 +186,28 @@ def get_val_transform():
 # MODEL
 # ══════════════════════════════════════════════════════════════════════════════
 
-def build_model(unfreeze_backbone=False):
+def build_model(unfreeze_backbone=False, partial_unfreeze_blocks=0):
     """
     MobileNetV2 backbone (pretrained) + small binary head.
-    Backbone is frozen by default — we only train the head.
+
+    unfreeze_backbone=True       — train entire network
+    partial_unfreeze_blocks=N    — freeze all but last N of the 19 feature blocks;
+                                   use differential LR in the optimizer (handled in train())
+    default (both False/0)       — head-only (original behaviour for tiny datasets)
     """
     backbone = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.DEFAULT)
 
-    if not unfreeze_backbone:
+    if unfreeze_backbone:
+        pass  # all params remain trainable
+    elif partial_unfreeze_blocks > 0:
+        # Freeze everything, then selectively unfreeze the tail
+        for param in backbone.features.parameters():
+            param.requires_grad = False
+        n_blocks = len(backbone.features)
+        for block in backbone.features[n_blocks - partial_unfreeze_blocks:]:
+            for param in block.parameters():
+                param.requires_grad = True
+    else:
         for param in backbone.features.parameters():
             param.requires_grad = False
 
@@ -208,14 +261,13 @@ def train(args):
     val_samples = positives[:n_val_pos] + negatives[:n_val_neg]
     train_samples = positives[n_val_pos:] + negatives[n_val_neg:]
 
-    # If very few positives, duplicate them in training set so the sampler
-    # has enough to work with
+    # Safety net: with very few positives, repeat so the sampler has material.
+    # With ~100 deduplicated samples this branch won't normally fire.
     train_pos = [s for s in train_samples if s[1] == 1]
     train_neg = [s for s in train_samples if s[1] == 0]
 
-    if len(train_pos) < 5:
-        # Repeat positives to at least 5x so augmentation has material
-        repeats = max(1, 10 // len(train_pos))
+    if len(train_pos) < 10:
+        repeats = max(1, 20 // max(1, len(train_pos)))
         train_pos = train_pos * repeats
 
     train_samples = train_pos + train_neg
@@ -244,16 +296,29 @@ def train(args):
                           num_workers=num_workers, pin_memory=torch.cuda.is_available())
 
     # ── Model, loss, optimizer ────────────────────────────────────────────
-    model = build_model(unfreeze_backbone=args.unfreeze).to(device)
+    model = build_model(unfreeze_backbone=args.unfreeze,
+                        partial_unfreeze_blocks=args.partial_unfreeze).to(device)
     criterion = nn.BCEWithLogitsLoss()
 
-    # Only optimise parameters that require grad
-    params = [p for p in model.parameters() if p.requires_grad]
-    optimizer = torch.optim.Adam(params, lr=args.lr, weight_decay=1e-4)
+    # Differential LR: unfrozen backbone blocks train at 10× lower rate to
+    # avoid catastrophic forgetting of ImageNet features.
+    head_params     = [p for n, p in model.named_parameters()
+                       if "classifier" in n and p.requires_grad]
+    backbone_params = [p for n, p in model.named_parameters()
+                       if "classifier" not in n and p.requires_grad]
+    param_groups = [{"params": head_params, "lr": args.lr}]
+    if backbone_params:
+        param_groups.append({"params": backbone_params, "lr": args.lr * 0.1})
+    optimizer = torch.optim.Adam(param_groups, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
 
-    print(f"\nTraining for {args.epochs} epochs (lr={args.lr}, "
-          f"{'backbone unfrozen' if args.unfreeze else 'backbone frozen'})...\n")
+    if args.unfreeze:
+        mode = "full backbone"
+    elif args.partial_unfreeze:
+        mode = f"last {args.partial_unfreeze} backbone blocks (backbone lr={args.lr*0.1:.0e})"
+    else:
+        mode = "head only"
+    print(f"\nTraining for {args.epochs} epochs  lr={args.lr}  mode={mode}\n")
 
     log = []
     best_val_acc = 0.0
@@ -357,10 +422,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset",     type=str,   default="./dataset")
     parser.add_argument("--output",      type=str,   default="police_classifier.pt")
-    parser.add_argument("--epochs",      type=int,   default=50)
-    parser.add_argument("--batch-size",  type=int,   default=16)
+    parser.add_argument("--epochs",      type=int,   default=100)
+    parser.add_argument("--batch-size",  type=int,   default=32)
     parser.add_argument("--lr",          type=float, default=1e-3)
-    parser.add_argument("--neg-cap",     type=int,   default=300,
+    parser.add_argument("--neg-cap",     type=int,   default=500,
                         help="Max negatives to use (prevents extreme imbalance)")
     parser.add_argument("--confirmed-folder",   type=str, default="police_confirmed",
                         help="Folder of confirmed positives")
@@ -368,7 +433,9 @@ if __name__ == "__main__":
                         help="Folder of candidates; those not in confirmed become hard negatives")
     parser.add_argument("--neg-folders", type=str,   default="car,truck,bus,motorcycle",
                         help="Comma-separated folder names for soft negatives")
+    parser.add_argument("--partial-unfreeze", type=int, default=5,
+                        help="Unfreeze last N MobileNetV2 feature blocks with 0.1x LR (0=head only)")
     parser.add_argument("--unfreeze",    action="store_true",
-                        help="Also fine-tune backbone (use with more data)")
+                        help="Fine-tune entire backbone (use with 500+ samples)")
     args = parser.parse_args()
     train(args)

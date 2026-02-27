@@ -23,11 +23,15 @@ Output:
 """
 
 import os
+import re
 import csv
+import json
 import shutil
 import base64
 import argparse
+import webbrowser
 from datetime import datetime
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 import torch
 import torch.nn as nn
@@ -35,6 +39,34 @@ from torchvision import transforms, models
 from PIL import Image
 import cv2
 import numpy as np
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# DEDUP
+# ══════════════════════════════════════════════════════════════════════════════
+
+def dedup_5min(paths):
+    """Keep at most one image per camera per 5-minute window.
+
+    Filename: JamCams_{cam1}_{cam2}_{YYYYMMDD}_{HHMMSS}_{ms}_{conf}pct_{hash}.jpg
+    Bucket key: (cam1_cam2, date, hour, minute // 5)
+    """
+    seen = set()
+    kept = []
+    for path in paths:
+        name = os.path.basename(path)
+        m = re.match(r"JamCams_(\d+)_(\d+)_(\d{8})_(\d{6})_", name)
+        if not m:
+            kept.append(path)
+            continue
+        cam    = m.group(1) + "_" + m.group(2)
+        date   = m.group(3)
+        t      = m.group(4)
+        bucket = (cam, date, t[0:2], int(t[2:4]) // 5)
+        if bucket not in seen:
+            seen.add(bucket)
+            kept.append(path)
+    return kept
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -138,7 +170,7 @@ def scan_dataset(model, device, dataset_dir, folders=None, threshold=0.5):
         folders = sorted([
             e for e in os.listdir(dataset_dir)
             if os.path.isdir(os.path.join(dataset_dir, e))
-            and e not in ("police", "police_confirmed")
+            and e not in ("police_confirmed")
         ])
 
     results = []
@@ -151,10 +183,12 @@ def scan_dataset(model, device, dataset_dir, folders=None, threshold=0.5):
             print(f"  [skip] {folder}")
             continue
 
-        files = [f for f in os.listdir(folder_path)
-                 if f.lower().endswith((".jpg", ".jpeg", ".png"))
-                 and f not in confirmed_names]
-        print(f"  [{folder}] {len(files)} images...", end=" ", flush=True)
+        all_files = [f for f in os.listdir(folder_path)
+                     if f.lower().endswith((".jpg", ".jpeg", ".png"))
+                     and f not in confirmed_names]
+        deduped = dedup_5min([os.path.join(folder_path, f) for f in all_files])
+        files = [os.path.basename(p) for p in deduped]
+        print(f"  [{folder}] {len(files)}/{len(all_files)} after dedup...", end=" ", flush=True)
 
         fpaths = [os.path.join(folder_path, f) for f in files]
         scores = score_files_batch(model, device, fpaths)
@@ -191,9 +225,13 @@ def _img_to_data_uri(path, max_dim=200):
     return f"data:image/jpeg;base64,{base64.b64encode(buf.tobytes()).decode()}"
 
 
-def generate_review_html(results, output_path, threshold=0.5, max_items=500):
+def generate_review_html(results, output_path, threshold=0.5, max_items=500, shown_fnames=None, confirm_url=None):
     above = [(s, fld, fn, fp) for s, fld, fn, fp in results if s >= threshold][:max_items]
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    if shown_fnames is None:
+        shown_fnames = [fn for _, _, fn, _ in above]
+    shown_js = json.dumps(shown_fnames)
+    confirm_url_js = json.dumps(confirm_url)  # "http://..." or null
 
     cards = []
     for s, folder, fname, fpath in above:
@@ -230,13 +268,13 @@ body {{ margin:0; padding:20px; background:#0a0e14; color:#c8d8c0;
 h1 {{ color:#00ff88; font-size:18px; }}
 .stats {{ color:#6a8a6a; margin-bottom:16px; font-size:12px; }}
 .controls {{ position:sticky; top:0; z-index:10; background:#0a0e14;
-             padding:10px 0 14px; border-bottom:1px solid #1a2e1f;
+             padding:10px 0 6px; border-bottom:1px solid #1a2e1f;
              display:flex; gap:10px; align-items:center; flex-wrap:wrap; }}
 .controls button {{ background:#1a2e1f; border:1px solid #2a4a2f; color:#00ff88;
                     padding:6px 14px; cursor:pointer; font-family:inherit; font-size:12px; }}
 .controls button:hover {{ background:#2a4a2f; }}
-#output {{ background:#111820; border:1px solid #1a2e1f; padding:8px; margin-top:8px;
-           font-size:11px; color:#ffaa00; max-height:120px; overflow-y:auto;
+#output {{ width:100%; background:#111820; border:1px solid #1a2e1f; padding:8px;
+           font-size:11px; color:#ffaa00; max-height:80px; overflow-y:auto;
            display:none; white-space:pre-wrap; }}
 .grid {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
          gap:10px; margin-top:14px; }}
@@ -260,8 +298,8 @@ h1 {{ color:#00ff88; font-size:18px; }}
   <button onclick="selectNone()">Clear</button>
   <button onclick="exportSelected()">Export filenames</button>
   <span id="countLabel" style="color:#6a8a6a;font-size:12px">0 selected</span>
+  <pre id="output"></pre>
 </div>
-<pre id="output"></pre>
 <div class="grid">{"".join(cards)}</div>
 <script>
 function getCards(){{return document.querySelectorAll('.card')}}
@@ -279,13 +317,35 @@ function selectAll(){{getCards().forEach(c=>{{c.querySelector('input').checked=t
   c.classList.add('selected')}});updateCount()}}
 function selectNone(){{getCards().forEach(c=>{{c.querySelector('input').checked=false;
   c.classList.remove('selected')}});updateCount()}}
-function exportSelected(){{const fnames=[...getChecked()].map(cb=>cb.value);
-  const out=document.getElementById('output');out.style.display='block';
-  out.textContent=fnames.join('\\n');
-  const blob=new Blob([fnames.join('\\n')],{{type:'text/plain'}});
+const SHOWN={shown_js};
+const CONFIRM_URL={confirm_url_js};
+function _download(confirmed){{
+  const blob=new Blob([confirmed.join('\\n')],{{type:'text/plain'}});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download='confirmed.txt';a.click();
-  navigator.clipboard.writeText(fnames.join('\\n')).catch(()=>{{}})}}
+  a.download='confirmed.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);
+}}
+async function exportSelected(){{
+  const confirmed=[...getChecked()].map(cb=>cb.value);
+  const out=document.getElementById('output');
+  out.style.display='block';
+  if(confirmed.length===0){{out.textContent='Nothing selected.';return;}}
+  if(!CONFIRM_URL){{
+    out.textContent='Downloaded confirmed.txt -- run: python sweep.py --confirm confirmed.txt (or re-run with --serve)';
+    _download(confirmed);return;
+  }}
+  out.textContent='Sending to server...';
+  try{{
+    const r=await fetch(CONFIRM_URL,{{method:'POST',
+      headers:{{'Content-Type':'application/json'}},
+      body:JSON.stringify({{confirmed,shown:SHOWN}})}});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    out.textContent='confirmed='+d.confirmed+'  new='+d.appended+'  rejected='+d.rejected;
+  }}catch(e){{
+    out.textContent='Server error: '+e.message+' -- downloaded confirmed.txt';
+    _download(confirmed);
+  }}
+}}
 </script></body></html>"""
 
     with open(output_path, "w") as f:
@@ -303,9 +363,11 @@ def confirm_crops(dataset_dir, confirmed_file, dest_folder="police_confirmed"):
     with open(confirmed_file) as f:
         fnames = {line.strip() for line in f if line.strip()}
 
+    skip = {os.path.abspath(os.path.join(dataset_dir, d))
+            for d in (dest_folder, "police_rejected")}
     moved = 0
     for root, _, files in os.walk(dataset_dir):
-        if os.path.abspath(root) == os.path.abspath(dest):
+        if os.path.abspath(root) in skip:
             continue
         for fname in files:
             if fname in fnames:
@@ -314,6 +376,116 @@ def confirm_crops(dataset_dir, confirmed_file, dest_folder="police_confirmed"):
                 print(f"  + {fname}")
 
     print(f"\nMoved {moved}/{len(fnames)} to {dest}/")
+
+
+def reject_crops(dataset_dir, shown_fnames, confirmed_fnames, dest_folder="police_rejected"):
+    """Move everything shown in review but not confirmed to police_rejected/."""
+    rejected = set(shown_fnames) - set(confirmed_fnames)
+    if not rejected:
+        print("  (no rejects)")
+        return
+    dest = os.path.join(dataset_dir, dest_folder)
+    os.makedirs(dest, exist_ok=True)
+
+    skip = {os.path.abspath(os.path.join(dataset_dir, d))
+            for d in ("police_confirmed","police_rejected", dest_folder)}
+    moved = 0
+    for root, _, files in os.walk(dataset_dir):
+        if os.path.abspath(root) in skip:
+            continue
+        for fname in files:
+            if fname in rejected:
+                shutil.move(os.path.join(root, fname), os.path.join(dest, fname))
+                moved += 1
+                print(f"  - {fname}")
+
+    print(f"\nMoved {moved}/{len(rejected)} to {dest}/")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SERVE
+# ══════════════════════════════════════════════════════════════════════════════
+
+def serve_review(dataset_dir, html_path, confirmed_path, shown_fnames, port=5001):
+    """Serve the review page and handle confirm/reject actions via HTTP."""
+    shown_set = set(shown_fnames)
+
+    def make_handler():
+        class Handler(BaseHTTPRequestHandler):
+            def log_message(self, *args): pass  # suppress access log noise
+
+            def do_GET(self):
+                if self.path == "/":
+                    with open(html_path, "rb") as f:
+                        body = f.read()
+                    self.send_response(200)
+                    self.send_header("Content-Type", "text/html; charset=utf-8")
+                    self.send_header("Content-Length", len(body))
+                    self.end_headers()
+                    self.wfile.write(body)
+                else:
+                    self.send_response(404)
+                    self.end_headers()
+
+            def do_POST(self):
+                if self.path == "/confirm":
+                    try:
+                        data = json.loads(
+                            self.rfile.read(int(self.headers["Content-Length"]))
+                        )
+                        confirmed_fnames = set(data.get("confirmed", []))
+
+                        # Append new names to confirmed.txt
+                        existing = set()
+                        if os.path.exists(confirmed_path):
+                            with open(confirmed_path) as f:
+                                existing = {l.strip() for l in f if l.strip()}
+                        new_fnames = confirmed_fnames - existing
+                        with open(confirmed_path, "a") as f:
+                            for fname in sorted(new_fnames):
+                                f.write(fname + "\n")
+
+                        # Move confirmed → police_confirmed/
+                        confirm_crops(dataset_dir, confirmed_path)
+
+                        # Move rejects → police_rejected/
+                        reject_crops(dataset_dir, shown_set, confirmed_fnames)
+
+                        result = json.dumps({
+                            "appended":  len(new_fnames),
+                            "confirmed": len(confirmed_fnames),
+                            "rejected":  len(shown_set - confirmed_fnames),
+                        }).encode()
+                        self.send_response(200)
+                        self.send_header("Content-Type", "application/json")
+                        self.send_header("Content-Length", len(result))
+                        self.end_headers()
+                        self.wfile.write(result)
+                    except Exception as exc:
+                        import traceback
+                        traceback.print_exc()
+                        result = json.dumps({"error": str(exc)}).encode()
+                        self.send_response(500)
+                        self.send_header("Content-Type", "application/json")
+                        self.send_header("Content-Length", len(result))
+                        self.end_headers()
+                        self.wfile.write(result)
+                else:
+                    self.send_response(404)
+                    self.end_headers()
+
+        return Handler
+
+    httpd = HTTPServer(("", port), make_handler())
+    print(f"\n[sweep] Serving review at http://localhost:{port}/")
+    print("[sweep] Click 'Export filenames' in the page to confirm & reject.")
+    print("[sweep] Press Ctrl+C to stop.\n")
+    webbrowser.open(f"http://localhost:{port}/")
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    httpd.server_close()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -328,10 +500,23 @@ if __name__ == "__main__":
     parser.add_argument("--threshold",  type=float, default=0.5)
     parser.add_argument("--max-review", type=int, default=500)
     parser.add_argument("--confirm",    type=str, help="File of confirmed filenames to move")
+    parser.add_argument("--serve",      action="store_true",
+                        help="Start local review server after scanning (opens browser)")
+    parser.add_argument("--port",       type=int, default=5001)
     args = parser.parse_args()
 
     if args.confirm:
         confirm_crops(args.dataset, args.confirm)
+        # Also reject unconfirmed images from the last review session
+        shown_path = os.path.join(args.dataset, "review_shown.txt")
+        if os.path.exists(shown_path):
+            with open(shown_path) as f:
+                shown = {l.strip() for l in f if l.strip()}
+            with open(args.confirm) as f:
+                confirmed = {l.strip() for l in f if l.strip()}
+            reject_crops(args.dataset, shown, confirmed)
+        else:
+            print("  [no review_shown.txt — skipping reject step]")
     else:
         print(f"[sweep] Loading {args.model}...")
         model, device = load_model(args.model)
@@ -339,8 +524,9 @@ if __name__ == "__main__":
         print(f"[sweep] Scanning {args.dataset}...\n")
         results = scan_dataset(model, device, args.dataset, args.folders, args.threshold)
 
-        csv_path = os.path.join(args.dataset, "scores.csv")
-        html_path = os.path.join(args.dataset, "review.html")
+        csv_path   = os.path.join(args.dataset, "scores.csv")
+        html_path  = os.path.join(args.dataset, "review.html")
+        shown_path = os.path.join(args.dataset, "review_shown.txt")
 
         with open(csv_path, "w", newline="") as f:
             w = csv.writer(f)
@@ -349,7 +535,13 @@ if __name__ == "__main__":
                 w.writerow([s, fld, fn, fp])
         print(f"\n  Scores -> {csv_path}")
 
-        generate_review_html(results, html_path, args.threshold, args.max_review)
+        shown_fnames = [fn for s, fld, fn, fp in results if s >= args.threshold][:args.max_review]
+        with open(shown_path, "w") as f:
+            f.write("\n".join(shown_fnames))
+
+        confirm_url = f"http://localhost:{args.port}/confirm" if args.serve else None
+        generate_review_html(results, html_path, args.threshold, args.max_review,
+                             shown_fnames=shown_fnames, confirm_url=confirm_url)
         print(f"  Review -> {html_path}")
 
         top = [(s, fld, fn) for s, fld, fn, _ in results if s >= args.threshold][:20]
@@ -357,3 +549,8 @@ if __name__ == "__main__":
             print(f"\n  Top candidates:")
             for s, fld, fn in top:
                 print(f"    {s:.3f}  [{fld}]  {fn}")
+
+        if args.serve:
+            confirmed_path = os.path.join(args.dataset, "..", "confirmed.txt")
+            confirmed_path = os.path.normpath(confirmed_path)
+            serve_review(args.dataset, html_path, confirmed_path, shown_fnames, args.port)

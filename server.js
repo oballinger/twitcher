@@ -7,6 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 const TFL_KEY = process.env.TFL_KEY;
+if (!TFL_KEY) console.warn("[warn] TFL_KEY not set — /api/cameras will fail");
 
 // ── Cameras list ──────────────────────────────────────────────────────────────
 app.get("/api/cameras", async (req, res) => {
@@ -14,6 +15,11 @@ app.get("/api/cameras", async (req, res) => {
     const response = await fetch(
       `https://api.tfl.gov.uk/Place/Type/JamCam?app_key=${TFL_KEY}`
     );
+    if (!response.ok) {
+      const text = await response.text();
+      console.error(`TfL API error ${response.status}: ${text.slice(0, 200)}`);
+      return res.status(502).json({ error: `TfL API returned ${response.status}` });
+    }
     const rawData = await response.json();
 
     const cleaned = rawData.map(cam => {
@@ -86,5 +92,33 @@ app.post("/api/detect", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// ── Batch detection ───────────────────────────────────────────────────────────
+app.post("/api/detect-batch", async (req, res) => {
+  try {
+    const pyRes = await fetch("http://localhost:5000/detect-batch", {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify(req.body)
+    });
+    if (!pyRes.ok) {
+      const text = await pyRes.text();
+      return res.status(502).json({ error: text });
+    }
+    res.json(await pyRes.json());
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ── Client config (non-secret keys for browser use) ──────────────────────────
+app.get("/api/config", (_req, res) => {
+  res.json({ googleKey: process.env.GOOGLE_KEY || null });
+});
+
+// ── Police stations (static JSON file) ───────────────────────────────────────
+const stations = require("./police_stations.json");
+app.get("/api/police-stations", (_req, res) => res.json(stations));
 
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));

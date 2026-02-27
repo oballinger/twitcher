@@ -194,16 +194,175 @@
     .ctrl-btn:active { background: rgba(0,255,136,0.14); }
     .ctrl-btn.active { color: #00ff88; }
     .ctrl-btn:disabled { color: #1a3a2a; cursor: default; }
+
+    /* ── Filter panel ── */
+    #filter-panel {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+      background: #0d1117;
+      border: 1px solid #1f3a2a;
+      border-radius: 8px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 16px rgba(0,255,136,0.08);
+      min-width: 148px;
+    }
+    .filter-title {
+      font-size: 9px;
+      color: #2a5a3a;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #1a2e1f;
+    }
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 3px 0;
+      cursor: pointer;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      transition: opacity 0.15s;
+    }
+    .filter-row input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 10px; height: 10px;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      opacity: 0.7;
+    }
+    .filter-row input[type="checkbox"]:checked { opacity: 1; }
+    .filter-row input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      background: currentColor;
+      border-radius: 1px;
+    }
+    .filter-row.car        { color: #00ff88; }
+    .filter-row.truck      { color: #00aaff; }
+    .filter-row.bus        { color: #8844ff; }
+    .filter-row.motorcycle { color: #ff6400; }
+    .filter-row.police     { color: #4488ff; }
+    .filter-count {
+      margin-left: auto;
+      font-size: 9px;
+      opacity: 0.55;
+    }
+    .filter-stats {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid #1a2e1f;
+      font-size: 9px;
+      color: #2a4a3a;
+      letter-spacing: 0.06em;
+    }
+    #btn-3d {
+      display: none;
+      width: 100%;
+      margin-top: 8px;
+      padding: 5px;
+      background: #0d1117;
+      border: 1px solid #1f3a2a;
+      border-radius: 4px;
+      color: #4a7a5a;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    #btn-3d:hover  { background: rgba(0,255,136,0.07); color: #00ff88; }
+    #btn-3d.active { color: #00ff88; border-color: rgba(0,255,136,0.4); }
+
+    /* ── Cesium container ── */
+    #cesium-container { display: none; height: 100vh; width: 100%; }
+    /* Kill Cesium's default credits bar colour clash */
+    .cesium-widget-credits { display: none !important; }
+
+    /* ── Floating popup for 3D mode ── */
+    #cesium-popup {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      width: 440px;
+      background: #0d1117;
+      border: 1px solid #1f3a2a;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,255,136,0.12);
+      overflow: hidden;
+    }
+    #cesium-popup-close {
+      position: absolute;
+      top: 8px; right: 10px;
+      background: none;
+      border: none;
+      color: #4a7a5a;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 10;
+      padding: 0 2px;
+    }
+    #cesium-popup-close:hover { color: #00ff88; }
   </style>
 </head>
 <body>
 
 <div id="map"></div>
+<div id="cesium-container"></div>
+<div id="cesium-popup">
+  <button id="cesium-popup-close" onclick="closeCesiumPopup()">&#x2715;</button>
+</div>
+
+<div id="filter-panel">
+  <div class="filter-title">filter by type</div>
+  <label class="filter-row car">
+    <input type="checkbox" value="car" checked><span>car</span>
+    <span class="filter-count" id="fc-car">—</span>
+  </label>
+  <label class="filter-row truck">
+    <input type="checkbox" value="truck" checked><span>truck</span>
+    <span class="filter-count" id="fc-truck">—</span>
+  </label>
+  <label class="filter-row bus">
+    <input type="checkbox" value="bus" checked><span>bus</span>
+    <span class="filter-count" id="fc-bus">—</span>
+  </label>
+  <label class="filter-row motorcycle">
+    <input type="checkbox" value="motorcycle" checked><span>moto</span>
+    <span class="filter-count" id="fc-motorcycle">—</span>
+  </label>
+  <label class="filter-row police">
+    <input type="checkbox" value="police" checked><span>police</span>
+    <span class="filter-count" id="fc-police">—</span>
+  </label>
+  <div class="filter-stats" id="filter-stats">loading cameras…</div>
+  <button id="btn-3d" onclick="toggle3D()">3D tiles</button>
+</div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-const API_URL    = "http://localhost:3000/api/cameras";
-const STREAM_URL = "http://localhost:3000/api/stream";
+const API_URL      = "http://localhost:3000/api/cameras";
+const STREAM_URL   = "http://localhost:3000/api/stream";
+const STATIONS_URL = "http://localhost:3000/api/police-stations";
+const DETECT_URL        = "http://localhost:3000/api/detect";
+const DETECT_BATCH_URL  = "http://localhost:3000/api/detect-batch";
+const BATCH_SIZE        = 8;               // cameras per GPU forward pass
+const RESCAN_INTERVAL   = 3 * 60 * 1000;  // ms — matches TfL snapshot refresh
+
+// per-camera detection state
+const camDetections = new Map(); // uid → { car, truck, bus, motorcycle, police, total }
+const camMarkers    = new Map(); // uid → L.circleMarker
+const activeFilters = new Set(["car", "truck", "bus", "motorcycle", "police"]);
 
 // ── Map setup ──────────────────────────────────────────────────────────────────
 const map = L.map("map", {
@@ -363,48 +522,62 @@ function stopStream(uid) {
 }
 
 // ── Load cameras ───────────────────────────────────────────────────────────────
-async function loadCameras() {
-  const res     = await fetch(API_URL);
-  const cameras = await res.json();
+function addCameraMarker(cam) {
+  const { root, uid } = buildPopup(cam);
+  camerasByUid.set(uid, cam);
 
-  cameras.forEach(cam => {
-    if (!cam.available) return;
+  const marker = L.circleMarker([cam.lat, cam.lon], {
+    radius: 4,
+    color: "#00ff88",
+    fillColor: "#00ff88",
+    fillOpacity: 0.3,
+    weight: 1.5
+  }).addTo(map);
 
-    const marker = L.circleMarker([cam.lat, cam.lon], {
-      radius: 5,
-      color: "#00ff88",
-      fillColor: "#00ff88",
-      fillOpacity: 0.7,
-      weight: 1.5
-    }).addTo(map);
+  camMarkers.set(uid, marker);
 
-    const { root, uid } = buildPopup(cam);
-    const popup = L.popup({ maxWidth: 460, minWidth: 440 }).setContent(root);
+  const popup = L.popup({ maxWidth: 460, minWidth: 440 }).setContent(root);
+  marker.bindPopup(popup);
 
-    marker.bindPopup(popup);
-
-    marker.on("popupopen", () => {
-      // Auto-start detection stream
-      startDetectionStream(cam, uid);
-
-      document.getElementById(`btnLive_${uid}`).onclick = () => {
-        setActive(uid, "btnLive");
-        startDetectionStream(cam, uid);
-      };
-      document.getElementById(`btnRaw_${uid}`).onclick = () => {
-        setActive(uid, "btnRaw");
-        startRawFeed(cam, uid);
-      };
-      document.getElementById(`btnStop_${uid}`).onclick = () => {
-        setActive(uid, "btnStop");
-        stopStream(uid);
-      };
-    });
-
-    marker.on("popupclose", () => {
-      stopStream(uid);
-    });
+  marker.on("popupopen", () => {
+    const det = camDetections.get(uid);
+    if (det) {
+      const bd = document.getElementById(`breakdown_${uid}`);
+      if (bd) bd.innerHTML = renderBreakdown(det);
+    }
+    startDetectionStream(cam, uid);
+    document.getElementById(`btnLive_${uid}`).onclick = () => { setActive(uid, "btnLive"); startDetectionStream(cam, uid); };
+    document.getElementById(`btnRaw_${uid}`).onclick  = () => { setActive(uid, "btnRaw");  startRawFeed(cam, uid); };
+    document.getElementById(`btnStop_${uid}`).onclick = () => { setActive(uid, "btnStop"); stopStream(uid); };
   });
+
+  marker.on("popupclose", () => stopStream(uid));
+}
+
+async function loadCameras() {
+  const res      = await fetch(API_URL);
+  const cameras  = await res.json();
+  const available = cameras.filter(c => c.available);
+
+  available.forEach(addCameraMarker);
+
+  document.getElementById("filter-stats").textContent = `0 / ${available.length} scanned`;
+  detectAll(available);
+
+  // Re-scan when TfL snapshots refresh, also picks up newly available cameras
+  setInterval(async () => {
+    try {
+      const r     = await fetch(API_URL);
+      const all   = await r.json();
+      const avail = all.filter(c => c.available);
+      avail.forEach(cam => {
+        const uid = cam.id.replace(/[^a-zA-Z0-9]/g, "_");
+        if (!camMarkers.has(uid)) addCameraMarker(cam);
+      });
+      document.getElementById("filter-stats").textContent = "rescanning…";
+      detectAll(avail);
+    } catch (_) {}
+  }, RESCAN_INTERVAL);
 }
 
 function setActive(uid, active) {
@@ -414,6 +587,337 @@ function setActive(uid, active) {
   });
 }
 
+// ── Batch detection scan ───────────────────────────────────────────────────────
+function markerRadius(n) {
+  return Math.max(3, Math.log(n + 1) * 10 + 3);
+}
+
+function filteredCount(det) {
+  // count of vehicles in the currently selected filter types
+  return [...activeFilters].reduce((s, t) => s + (det[t] || 0), 0);
+}
+
+function renderBreakdown(det) {
+  const TYPES = ["car", "truck", "bus", "motorcycle", "police"];
+  return TYPES
+    .filter(t => (det[t] || 0) > 0)
+    .map(t => `<span class="vtag ${t === "police" ? "" : t}">${t}: ${det[t]}</span>`)
+    .join("");
+}
+
+function applyCamResult(uid, result) {
+  const counts = { car: 0, truck: 0, bus: 0, motorcycle: 0, police: 0 };
+  for (const v of result.vehicles || []) {
+    const label = v.is_police ? "police" : v.label;
+    if (label in counts) counts[label]++;
+  }
+  counts.total = result.count || 0;
+  camDetections.set(uid, counts);
+
+  if (is3D && cesiumViewer) {
+    if (cesiumEntities.has(uid)) _updateCesiumEntity(uid);
+    else { const cam = camerasByUid.get(uid); if (cam) _addCesiumEntity(uid, cam); }
+  }
+
+  const marker = camMarkers.get(uid);
+  if (marker) {
+    const n = filteredCount(counts);
+    marker.setRadius(markerRadius(n));
+    marker.setStyle({ fillOpacity: n > 0 ? 0.85 : 0.45 });
+  }
+}
+
+async function detectAll(cameras) {
+  const total   = cameras.length;
+  let   scanned = 0;
+
+  // Chunk into batches — each batch is one GPU forward pass
+  const batches = [];
+  for (let i = 0; i < cameras.length; i += BATCH_SIZE)
+    batches.push(cameras.slice(i, i + BATCH_SIZE));
+
+  const queue = batches.slice();
+
+  async function worker() {
+    while (queue.length) {
+      const batch = queue.shift();
+      const urls  = batch.map(c => c.imageUrl || c.videoUrl);
+      const uids  = batch.map(c => c.id.replace(/[^a-zA-Z0-9]/g, "_"));
+
+      try {
+        const res = await fetch(DETECT_BATCH_URL, {
+          method:  "POST",
+          headers: { "Content-Type": "application/json" },
+          body:    JSON.stringify({ urls })
+        });
+        if (res.ok) {
+          const { results = [] } = await res.json();
+          results.forEach((r, i) => { if (r) applyCamResult(uids[i], r); });
+          updateFilterCounts();
+          applyFilters();
+        }
+      } catch (_) {}
+
+      scanned = Math.min(scanned + batch.length, total);
+      document.getElementById("filter-stats").textContent =
+        `${scanned} / ${total} scanned`;
+    }
+  }
+
+  // 4 parallel workers — each holds 1 batch in flight at a time
+  await Promise.all(Array.from({ length: 4 }, worker));
+  document.getElementById("filter-stats").textContent = `${total} cameras scanned`;
+}
+
+// ── Filter logic ───────────────────────────────────────────────────────────────
+function applyFilters() {
+  const allChecked = activeFilters.size === 5;
+
+  for (const [uid, marker] of camMarkers) {
+    const det = camDetections.get(uid);
+
+    if (!det) {
+      // not yet scanned
+      marker.setRadius(4);
+      marker.setStyle({ opacity: allChecked ? 1 : 0.2, fillOpacity: allChecked ? 0.3 : 0.1 });
+      continue;
+    }
+
+    const n = filteredCount(det);
+    if (n > 0) {
+      marker.setRadius(markerRadius(n));
+      marker.setStyle({ opacity: 1, fillOpacity: 0.85 });
+    } else {
+      marker.setRadius(3);
+      marker.setStyle({ opacity: allChecked ? 1 : 0.1, fillOpacity: allChecked ? 0.45 : 0.05 });
+    }
+  }
+}
+
+function updateFilterCounts() {
+  const totals = { car: 0, truck: 0, bus: 0, motorcycle: 0, police: 0 };
+  for (const det of camDetections.values()) {
+    for (const t of Object.keys(totals)) totals[t] += det[t] || 0;
+  }
+  for (const t of Object.keys(totals)) {
+    const el = document.getElementById(`fc-${t}`);
+    if (el) el.textContent = totals[t];
+  }
+}
+
+// ── Police stations ────────────────────────────────────────────────────────────
+const policeIcon = L.divIcon({
+  className: "",
+  html: `<div style="width:9px;height:9px;background:#4488ff;border:1.5px solid #88bbff;transform:rotate(45deg);opacity:0.9;"></div>`,
+  iconSize: [9, 9], iconAnchor: [4, 4],
+});
+
+async function loadPoliceStations() {
+  try {
+    const stations = await fetch(STATIONS_URL).then(r => r.json());
+    stations.forEach(s => {
+      L.marker([s.latitude, s.longitude], { icon: policeIcon })
+        .addTo(map)
+        .bindPopup(`
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;
+                      background:#0d1117;color:#88bbff;padding:8px 12px;
+                      border-radius:6px;border:1px solid #1a2e4a;">
+            <div style="font-weight:700;letter-spacing:0.05em;">${s.name}</div>
+            <div style="color:#3a5a8a;font-size:10px;margin-top:2px;">${s.police_force || ""}</div>
+            <div style="color:#2a4a6a;font-size:10px;margin-top:2px;">${s.address || ""}</div>
+          </div>`);
+    });
+  } catch (e) {
+    console.warn("[police-stations] failed to load:", e);
+  }
+}
+
+// ── Google 3D Tiles (Cesium) ──────────────────────────────────────────────────
+const CONFIG_URL   = "http://localhost:3000/api/config";
+let googleKey      = null;
+let cesiumViewer   = null;
+let is3D           = false;
+let cesiumClickHandler = null;
+let cesiumPopupUid = null;
+const camerasByUid  = new Map(); // uid → camera object
+const cesiumEntities = new Map(); // uid → Cesium.Entity
+
+async function fetchConfig() {
+  try {
+    const cfg = await fetch(CONFIG_URL).then(r => r.json());
+    googleKey = cfg.googleKey;
+    if (googleKey) document.getElementById("btn-3d").style.display = "block";
+  } catch (_) {}
+}
+
+async function loadCesiumScript() {
+  if (window.Cesium) return;
+  await new Promise((resolve, reject) => {
+    const link = document.createElement("link");
+    link.rel   = "stylesheet";
+    link.href  = "https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Widgets/widgets.css";
+    document.head.appendChild(link);
+    const script  = document.createElement("script");
+    script.src    = "https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Cesium.js";
+    script.onload = resolve;
+    script.onerror = () => reject(new Error("Cesium failed to load"));
+    document.body.appendChild(script);
+  });
+}
+
+async function initCesium() {
+  await loadCesiumScript();
+  if (cesiumViewer) return;
+
+  Cesium.Ion.defaultAccessToken = "";  // not using Ion assets
+
+  cesiumViewer = new Cesium.Viewer("cesium-container", {
+    imageryProvider:      false,
+    baseLayerPicker:      false,
+    geocoder:             false,
+    homeButton:           false,
+    sceneModePicker:      false,
+    navigationHelpButton: false,
+    animation:            false,
+    timeline:             false,
+    fullscreenButton:     false,
+    selectionIndicator:   false,
+    infoBox:              false,
+  });
+
+  cesiumViewer.scene.globe.show = false;
+
+  cesiumViewer.scene.primitives.add(
+    new Cesium.Cesium3DTileset({
+      url: `https://tile.googleapis.com/v1/3dtiles/root.json?key=${googleKey}`,
+      showCreditsOnScreen: true,
+    })
+  );
+
+  // Start over London, pitched down
+  cesiumViewer.camera.setView({
+    destination: Cesium.Cartesian3.fromDegrees(-0.1278, 51.5074, 6000),
+    orientation: { heading: 0, pitch: Cesium.Math.toRadians(-50), roll: 0 },
+  });
+
+  // Populate entities for cameras already loaded
+  for (const [uid, cam] of camerasByUid) _addCesiumEntity(uid, cam);
+
+  // Click handler
+  cesiumClickHandler = new Cesium.ScreenSpaceEventHandler(cesiumViewer.scene.canvas);
+  cesiumClickHandler.setInputAction(({ position }) => {
+    const picked = cesiumViewer.scene.pick(position);
+    if (Cesium.defined(picked) && picked.id) {
+      const uid = picked.id.id;
+      const cam = camerasByUid.get(uid);
+      if (cam) { showCesiumPopup(cam, uid, position); return; }
+    }
+    closeCesiumPopup();
+  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+}
+
+function _addCesiumEntity(uid, cam) {
+  if (!cesiumViewer || cesiumEntities.has(uid)) return;
+  const entity = cesiumViewer.entities.add({
+    id:       uid,
+    name:     cam.name,
+    position: Cesium.Cartesian3.fromDegrees(cam.lon, cam.lat, 80),
+    point: {
+      pixelSize:                10,
+      color:                    Cesium.Color.fromCssColorString("#1a4a2a"),
+      outlineColor:             Cesium.Color.fromCssColorString("#00ff88").withAlpha(0.4),
+      outlineWidth:             1,
+      disableDepthTestDistance: Number.POSITIVE_INFINITY,
+    },
+  });
+  cesiumEntities.set(uid, entity);
+  _updateCesiumEntity(uid);
+}
+
+function _updateCesiumEntity(uid) {
+  const entity = cesiumEntities.get(uid);
+  if (!entity) return;
+  const det = camDetections.get(uid);
+  const n   = det ? filteredCount(det) : 0;
+  entity.point.pixelSize = n > 0 ? Math.max(10, markerRadius(n) * 2) : 8;
+  entity.point.color     = n > 0
+    ? (det.police > 0
+        ? Cesium.Color.fromCssColorString("#4488ff")
+        : Cesium.Color.fromCssColorString("#00ff88"))
+    : Cesium.Color.fromCssColorString("#1a4a2a");
+}
+
+function showCesiumPopup(cam, uid, screenPos) {
+  closeCesiumPopup();
+  const popup = document.getElementById("cesium-popup");
+  const { root } = buildPopup(cam);
+  // keep close button (first child), replace rest
+  const closeBtn = popup.querySelector("#cesium-popup-close");
+  popup.innerHTML = "";
+  popup.appendChild(closeBtn);
+  popup.appendChild(root);
+
+  // Position: prefer right of cursor, flip left if near edge
+  const W = 460, margin = 10;
+  let left = screenPos.x + 14;
+  if (left + W > window.innerWidth  - margin) left = screenPos.x - W - 14;
+  let top  = Math.max(margin, screenPos.y - 100);
+  if (top  + 520 > window.innerHeight - margin) top = window.innerHeight - 530;
+  popup.style.left    = left + "px";
+  popup.style.top     = top  + "px";
+  popup.style.display = "block";
+
+  document.getElementById(`btnLive_${uid}`).onclick = () => { setActive(uid, "btnLive"); startDetectionStream(cam, uid); };
+  document.getElementById(`btnRaw_${uid}`).onclick  = () => { setActive(uid, "btnRaw");  startRawFeed(cam, uid); };
+  document.getElementById(`btnStop_${uid}`).onclick = () => { setActive(uid, "btnStop"); stopStream(uid); };
+  startDetectionStream(cam, uid);
+  cesiumPopupUid = uid;
+}
+
+function closeCesiumPopup() {
+  if (cesiumPopupUid) { stopStream(cesiumPopupUid); cesiumPopupUid = null; }
+  document.getElementById("cesium-popup").style.display = "none";
+}
+
+async function toggle3D() {
+  const btn = document.getElementById("btn-3d");
+  if (!is3D) {
+    btn.textContent = "loading…";
+    btn.disabled = true;
+    try {
+      await initCesium();
+      document.getElementById("map").style.display            = "none";
+      document.getElementById("cesium-container").style.display = "block";
+      is3D = true;
+      btn.textContent = "2D map";
+      btn.classList.add("active");
+    } catch (e) {
+      btn.textContent = "3D tiles";
+      console.error("Cesium init failed:", e);
+    }
+    btn.disabled = false;
+  } else {
+    closeCesiumPopup();
+    document.getElementById("cesium-container").style.display = "none";
+    document.getElementById("map").style.display            = "block";
+    map.invalidateSize();
+    is3D = false;
+    btn.textContent = "3D tiles";
+    btn.classList.remove("active");
+  }
+}
+
+// ── Filter checkbox handlers ───────────────────────────────────────────────────
+document.querySelectorAll("#filter-panel input[type=checkbox]").forEach(cb => {
+  cb.addEventListener("change", () => {
+    if (cb.checked) activeFilters.add(cb.value);
+    else            activeFilters.delete(cb.value);
+    applyFilters();
+  });
+});
+
+fetchConfig();
+loadPoliceStations();
 loadCameras();
 </script>
 </body>

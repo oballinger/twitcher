@@ -68,13 +68,16 @@ CLASS_CAP = {
 camera_counts      = {}
 camera_counts_lock = threading.Lock()
 
-# Thread-local YOLO models (one per thread to avoid GPU contention)
-thread_local = threading.local()
+# Single shared YOLO model — GPU inference serialised via lock.
+# Workers parallelise network I/O and video decode; GPU runs one batch at a time.
+_model      = None
+_model_lock = threading.Lock()
 
 def get_model():
-    if not hasattr(thread_local, "model"):
-        thread_local.model = YOLO("yolo11l.pt")
-    return thread_local.model
+    global _model
+    if _model is None:
+        _model = YOLO("yolo11l.pt")
+    return _model
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -97,12 +100,14 @@ def save_crop(crop: np.ndarray, label: str, camera_id: str, conf: float = 1.0):
 
 def process_frame(frame: np.ndarray, camera_id: str):
     """Run YOLO + police heuristics on a frame, save qualifying crops."""
-    model   = get_model()
-    results = model(frame, verbose=False)[0]
+    with _model_lock:
+        model   = get_model()
+        results = model(frame, verbose=False)[0]
+        names   = model.names
 
     for box in results.boxes:
         cls   = int(box.cls[0])
-        label = model.names[cls]
+        label = names[cls]
         conf  = float(box.conf[0])
 
         if label not in ["car", "truck", "bus", "motorcycle"]:
@@ -227,6 +232,9 @@ if __name__ == "__main__":
     if not TFL_KEY:
         print("[err] TFL_KEY not set. Export it or pass --tfl-key <key>")
         exit(1)
+
+    print("[twitcher] Loading YOLO model…")
+    get_model()
 
     print("[twitcher] Fetching camera list…")
     cameras = fetch_cameras(TFL_KEY)

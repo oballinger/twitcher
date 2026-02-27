@@ -1,0 +1,3502 @@
+[
+  {
+    "name": "Bishopsgate",
+    "police_force": "City of London Police",
+    "latitude": 51.517726,
+    "longitude": -0.079927,
+    "address": "Bishopsgate Police Station 182 Bishopsgate London EC2M 4NP"
+  },
+  {
+    "name": "Bethnal Green Police Station",
+    "police_force": null,
+    "latitude": 51.52916,
+    "longitude": -0.053709,
+    "address": "12 Victoria Park Square E2 9NZ"
+  },
+  {
+    "name": "Islington Police Station",
+    "police_force": null,
+    "latitude": 51.533909,
+    "longitude": -0.111237,
+    "address": "2 Tolpuddle Street N1 0YY"
+  },
+  {
+    "name": "London Bridge",
+    "police_force": "British Transport Police",
+    "latitude": 51.5054,
+    "longitude": -0.088418,
+    "address": "Ivason House 8a London Bridge Street London SE1 9SG"
+  },
+  {
+    "name": "Stoke Newington Police Station",
+    "police_force": null,
+    "latitude": 51.557583,
+    "longitude": -0.074803,
+    "address": "33 Stoke Newington High Street N16 8DS"
+  },
+  {
+    "name": "Charing Cross Police Station",
+    "police_force": null,
+    "latitude": 51.509769,
+    "longitude": -0.12527,
+    "address": "Agar Street WC2N 4JP"
+  },
+  {
+    "name": "Euston Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.52778,
+    "longitude": -0.134442,
+    "address": "British Transport Police Main Concourse Euston Station Melton Street London NW1 2DU"
+  },
+  {
+    "name": "Walworth Police Station",
+    "police_force": null,
+    "latitude": 51.49028,
+    "longitude": -0.097504,
+    "address": "12-28 Manor Place SE17 3RL"
+  },
+  {
+    "name": "Kentish Town Police Station",
+    "police_force": null,
+    "latitude": 51.549702,
+    "longitude": -0.1422,
+    "address": "10-12A Holmes Road NW5 3AE"
+  },
+  {
+    "name": "Spring House",
+    "police_force": "British Transport Police",
+    "latitude": 51.47601,
+    "longitude": -0.105454,
+    "address": "Spring House 6-38 Holloway Road London N7 8JL"
+  },
+  {
+    "name": "West Ham Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.528991,
+    "longitude": 0.005097,
+    "address": "West Ham Station Alan Hocken Way London E15 3AT"
+  },
+  {
+    "name": "Stratford Police Station",
+    "police_force": null,
+    "latitude": 51.539254,
+    "longitude": 0.003865,
+    "address": "18 West Ham Lane E15 4SG"
+  },
+  {
+    "name": "Tottenham Police Station",
+    "police_force": null,
+    "latitude": 51.589844,
+    "longitude": -0.070038,
+    "address": "398 High Road N17 9JA"
+  },
+  {
+    "name": "Brixton Police Station",
+    "police_force": null,
+    "latitude": 51.46484,
+    "longitude": -0.113169,
+    "address": "367 Brixton Road SW9 7DD"
+  },
+  {
+    "name": "Forest Gate Police Station",
+    "police_force": null,
+    "latitude": 51.546735,
+    "longitude": 0.030324,
+    "address": "350-360 Romford Road E7 8BS"
+  },
+  {
+    "name": "Kensington Police Station",
+    "police_force": null,
+    "latitude": 51.496956,
+    "longitude": -0.197544,
+    "address": "72-74 Earls Court Road W8 6EQ"
+  },
+  {
+    "name": "Lewisham Police Station",
+    "police_force": null,
+    "latitude": 51.462971,
+    "longitude": -0.009688,
+    "address": "43 Lewisham High Street SE13 5JZ"
+  },
+  {
+    "name": "Lavender Hill Police Station",
+    "police_force": null,
+    "latitude": 51.464291,
+    "longitude": -0.16307,
+    "address": "176 Lavender Hill SW11 1JX"
+  },
+  {
+    "name": "Hammersmith Police Station",
+    "police_force": null,
+    "latitude": 51.494651,
+    "longitude": -0.223994,
+    "address": "226 Shepherds Bush Road W6 7NX"
+  },
+  {
+    "name": "Edmonton Police Station",
+    "police_force": null,
+    "latitude": 51.622196,
+    "longitude": -0.061046,
+    "address": "462 Fore Street N9 0PW"
+  },
+  {
+    "name": "Barking Learning Centre",
+    "police_force": null,
+    "latitude": 51.536418,
+    "longitude": 0.079856,
+    "address": "2 Town Square Part ground floor and first floor IG11 7NB"
+  },
+  {
+    "name": "Ilford Police Station",
+    "police_force": null,
+    "latitude": 51.560331,
+    "longitude": 0.080507,
+    "address": "270-294 High Road IG1 1GT"
+  },
+  {
+    "name": "Chingford Police Station",
+    "police_force": null,
+    "latitude": 51.632057,
+    "longitude": -0.001344,
+    "address": "Kings Head Hill E4 7EA"
+  },
+  {
+    "name": "Plumstead Police Station",
+    "police_force": null,
+    "latitude": 51.4865,
+    "longitude": 0.0958,
+    "address": "200 Plumstead High Street SE18 1JY"
+  },
+  {
+    "name": "Barkingside Police Station",
+    "police_force": null,
+    "latitude": 51.588443,
+    "longitude": 0.08072,
+    "address": "1 High Street Barkingside IG6 1QB"
+  },
+  {
+    "name": "Colindale Police Station",
+    "police_force": null,
+    "latitude": 51.596867,
+    "longitude": -0.241892,
+    "address": "Grahame Park Way NW9 5TW"
+  },
+  {
+    "name": "Acton Police Station",
+    "police_force": null,
+    "latitude": 51.508499,
+    "longitude": -0.2759,
+    "address": "250 High Street W3 9BH"
+  },
+  {
+    "name": "Wembley Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.56352,
+    "longitude": -0.279805,
+    "address": "Wembley Park Police Station Bridge Road HA9 9AA"
+  },
+  {
+    "name": "Wimbledon Police Station",
+    "police_force": null,
+    "latitude": 51.421471,
+    "longitude": -0.20366,
+    "address": "15-23 Queens Road SW19 8NN"
+  },
+  {
+    "name": "Mitcham Police Station",
+    "police_force": null,
+    "latitude": 51.399521,
+    "longitude": -0.16574,
+    "address": "58 Cricket Green CR4 4LA"
+  },
+  {
+    "name": "Wembley Police Station",
+    "police_force": null,
+    "latitude": 51.551701,
+    "longitude": -0.3052,
+    "address": "603 Harrow Road HA0 2HH"
+  },
+  {
+    "name": "Bromley Police Station",
+    "police_force": null,
+    "latitude": 51.399471,
+    "longitude": 0.017273,
+    "address": "High Street BR1 1ER"
+  },
+  {
+    "name": "Croydon Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.375583,
+    "longitude": -0.090781,
+    "address": "Knolly’s House 17 Addiscombe Road Croydon Surrey CR0 6SR"
+  },
+  {
+    "name": "Dagenham Police Station",
+    "police_force": null,
+    "latitude": 51.545106,
+    "longitude": 0.165682,
+    "address": "561 Rainham Road South RM10 7TU"
+  },
+  {
+    "name": "Croydon Police Station",
+    "police_force": null,
+    "latitude": 51.370842,
+    "longitude": -0.09588,
+    "address": "71 Park Lane CR9 1BP"
+  },
+  {
+    "name": "Bexleyheath Police Station",
+    "police_force": null,
+    "latitude": 51.457001,
+    "longitude": 0.1491,
+    "address": "2 Arnsberg Way DA7 4QS"
+  },
+  {
+    "name": "Ebbsfleet Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.443209,
+    "longitude": -0.320961,
+    "address": "Ebbsfleet International Station Car Park D International Way Dartford DA10 1EB"
+  },
+  {
+    "name": "Harrow Police Station",
+    "police_force": null,
+    "latitude": 51.56873,
+    "longitude": -0.3486,
+    "address": "70-74 Northolt Road HA2 0DN"
+  },
+  {
+    "name": "Twickenham Police Station",
+    "police_force": null,
+    "latitude": 51.448012,
+    "longitude": -0.329153,
+    "address": "41 London Road TW1 3SY"
+  },
+  {
+    "name": "Romford Police Station",
+    "police_force": null,
+    "latitude": 51.58215,
+    "longitude": 0.186156,
+    "address": "19 Main Road RM1 3BJ"
+  },
+  {
+    "name": "Borehamwood Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.65964882220794,
+    "longitude": -0.2680546058027903,
+    "address": "Civic Offices Elstree Way Borehamwood WD6 1WA"
+  },
+  {
+    "name": "Sutton Police Station",
+    "police_force": null,
+    "latitude": 51.361851,
+    "longitude": -0.19119,
+    "address": "6 Carshalton Road SM1 4RF"
+  },
+  {
+    "name": "Cheshunt Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.703531114608644,
+    "longitude": -0.034041513745159985,
+    "address": "101 Turners' Hill Cheshunt EN8 9BD"
+  },
+  {
+    "name": "Kingston Police Station",
+    "police_force": null,
+    "latitude": 51.408108,
+    "longitude": -0.306995,
+    "address": "5 & 7 High Street KT1 1LB"
+  },
+  {
+    "name": "Hounslow Police Station",
+    "police_force": null,
+    "latitude": 51.469101,
+    "longitude": -0.36459,
+    "address": "3-5 Montague Road TW3 1LB"
+  },
+  {
+    "name": "Swanley Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.398114,
+    "longitude": 0.170992,
+    "address": "London Road Swanley Kent BR8 7AJ"
+  },
+  {
+    "name": "Dartford Contact Point",
+    "police_force": "Kent Police",
+    "latitude": 51.446662,
+    "longitude": 0.219167,
+    "address": "Civic Offices Home Gardens Dartford Kent DA1 1DR"
+  },
+  {
+    "name": "Oxhey Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.62603648923867,
+    "longitude": -0.38864824443272333,
+    "address": "Oxhey Drive Watford WD19 7SD"
+  },
+  {
+    "name": "Hayes Police Station",
+    "police_force": null,
+    "latitude": 51.525173,
+    "longitude": -0.435097,
+    "address": "755 Uxbridge Road UB4 8HU"
+  },
+  {
+    "name": "Epsom Town Hall",
+    "police_force": "Surrey Police",
+    "latitude": 51.3329386,
+    "longitude": -0.2648384,
+    "address": "Epsom Town Hall, The Parade, Epsom KT18 5BY"
+  },
+  {
+    "name": "Watford Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.653631649968354,
+    "longitude": -0.39577950218379415,
+    "address": "3 George Street Watford Hertfordshire WD18 0BX"
+  },
+  {
+    "name": "Abbots Langley Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.66483628604055,
+    "longitude": -0.40364096870022564,
+    "address": "Manor Lodge High Street Abbots Langley WD5 0AP"
+  },
+  {
+    "name": "Caterham Police Station",
+    "police_force": "Surrey Police",
+    "latitude": 51.28182,
+    "longitude": -0.07498,
+    "address": "4 Timber Hill Rd Caterham CR3 6LD"
+  },
+  {
+    "name": "Grays Police Station",
+    "police_force": "Essex Police",
+    "latitude": 51.479285,
+    "longitude": 0.322285,
+    "address": "Brooke Road Grays RM17 5BX"
+  },
+  {
+    "name": "Hatfield Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.76579,
+    "longitude": -0.23775,
+    "address": "Comet Way Hatfield Hertfordshire AL10 9SJ"
+  },
+  {
+    "name": "Rickmansworth Police Desk",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.639844,
+    "longitude": -0.468555,
+    "address": "Three Rivers House Northway Rickmansworth Hertfordshire WD3 1RL"
+  },
+  {
+    "name": "Hertford Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.793620423179895,
+    "longitude": -0.0781271867568359,
+    "address": "Hale Road Hertford SG13 8ED"
+  },
+  {
+    "name": "St Albans Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.752102526112296,
+    "longitude": -0.3360797822417247,
+    "address": "Civic Centre St Peter's Street St Albans AL1 3JE"
+  },
+  {
+    "name": "Staines Police Station",
+    "police_force": "Surrey Police",
+    "latitude": 51.434433,
+    "longitude": -0.504508,
+    "address": "22 Kingston Road Staines Surrey TW18 4LQ"
+  },
+  {
+    "name": "Welwyn Garden City Police Office",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.804214845159414,
+    "longitude": -0.20539950293211837,
+    "address": "Welwyn Hatfield Borough Council Office The Campus Welwyn Garden City AL8 6AE"
+  },
+  {
+    "name": "Gravesend Contact Point",
+    "police_force": "Kent Police",
+    "latitude": 51.439893,
+    "longitude": 0.36862,
+    "address": "Civic Centre Windwill Street Gravesend Kent DA12 1AU"
+  },
+  {
+    "name": "Sevenoaks Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.270446,
+    "longitude": 0.193655,
+    "address": "Argyle Road Sevenoaks Kent TN13 1HG Please note that the front counter is within the Sevenoaks District Council Offices."
+  },
+  {
+    "name": "Slough Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 51.507187,
+    "longitude": -0.597649,
+    "address": "Windsor Road Slough Berkshire SL1 2HH"
+  },
+  {
+    "name": "Hemel Hempstead Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.75405531109373,
+    "longitude": -0.47341620395043854,
+    "address": "Combe Street Hemel Hempstead HP1 1HL"
+  },
+  {
+    "name": "Woking Borough Council Civic Offices",
+    "police_force": "Surrey Police",
+    "latitude": 51.32100177095058,
+    "longitude": -0.5589634691874171,
+    "address": "Gloucester Square Woking GU21 6YL"
+  },
+  {
+    "name": "Bishop's Stortford Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.87144958985436,
+    "longitude": 0.15812175372409434,
+    "address": "Basbow Lane Bishop's Stortford CM23 2NA"
+  },
+  {
+    "name": "Berkhamsted Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.76025675553602,
+    "longitude": -0.5640545727203672,
+    "address": "161 High Street Berkhamsted HP4 3HB"
+  },
+  {
+    "name": "Stevenage Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.89933,
+    "longitude": -0.20427,
+    "address": "Lytton Way Stevenage Hertfordshire SG1 1HF"
+  },
+  {
+    "name": "Maidenhead Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 51.524679,
+    "longitude": -0.713629,
+    "address": "Bridge Road Maidenhead Berkshire SL6 8LP"
+  },
+  {
+    "name": "Tonbridge Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.189748,
+    "longitude": 0.27026,
+    "address": "Pembury Road Tonbridge Kent TN9 2HS"
+  },
+  {
+    "name": "Chequer Mead Police Office",
+    "police_force": "Sussex Police",
+    "latitude": 51.125971,
+    "longitude": -0.004543,
+    "address": "Chequer Mead Arts Centre De La Warr Rd East Grinstead West Sussex RH19 3BS"
+  },
+  {
+    "name": "Chelmsford Police Station",
+    "police_force": "Essex Police",
+    "latitude": 51.736707,
+    "longitude": 0.473859,
+    "address": "New Street Chelmsford CM1 1NF"
+  },
+  {
+    "name": "Luton Police Station",
+    "police_force": "Bedfordshire Police",
+    "latitude": 51.87849,
+    "longitude": -0.42099,
+    "address": "Buxton Road Luton Bedfordshire LU1 1SD"
+  },
+  {
+    "name": "Medway Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.396644,
+    "longitude": 0.547586,
+    "address": "Purser Way Gillingham Kent ME7 1NE"
+  },
+  {
+    "name": "Crawley Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 51.117318,
+    "longitude": -0.18103,
+    "address": "Northgate Avenue Crawley West Sussex RH10 8BF"
+  },
+  {
+    "name": "Guildford Police Station",
+    "police_force": "Surrey Police",
+    "latitude": 51.24007,
+    "longitude": -0.575793,
+    "address": "Margaret Road Guildford Surrey GU1 4PZ"
+  },
+  {
+    "name": "Buntingford Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.94657425736668,
+    "longitude": -0.0220195788091242,
+    "address": "Baldock Road Buntingford SG9 9DP"
+  },
+  {
+    "name": "High Wycombe Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 51.627801,
+    "longitude": -0.749721,
+    "address": "Queen Victoria Road High Wycombe Buckinghamshire HP11 1BE"
+  },
+  {
+    "name": "Tring Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 51.79363354499356,
+    "longitude": -0.6622082057991613,
+    "address": "63 High Street Tring HP23 4AB"
+  },
+  {
+    "name": "Maidstone Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.270625,
+    "longitude": 0.515953,
+    "address": "Platform 1 Maidstone West Station Station Approach Maidstone Kent ME16 8RJ"
+  },
+  {
+    "name": "Maidstone Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.271806,
+    "longitude": 0.522613,
+    "address": "Palace Avenue Maidstone Kent ME15 6NF"
+  },
+  {
+    "name": "Stevenage Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.99278,
+    "longitude": -0.204652,
+    "address": "Stevenage Police Station c/o Herts Police Lytton Way Stevenage Hertfordshire SG1 1HF"
+  },
+  {
+    "name": "Horsham Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 51.068207,
+    "longitude": -0.323059,
+    "address": "Hurst Road Horsham West Sussex RH12 2DJ"
+  },
+  {
+    "name": "Crowborough Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 51.058608,
+    "longitude": 0.163434,
+    "address": "Crowborough Police Station The Broadway Crowborough TN6 1DA"
+  },
+  {
+    "name": "Southend Police Station",
+    "police_force": "Essex Police",
+    "latitude": 51.544375,
+    "longitude": 0.710003,
+    "address": "Victoria Avenue Southend-on-Sea SS2 6ES"
+  },
+  {
+    "name": "Yateley Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 51.33934041294683,
+    "longitude": -0.8193286502794134,
+    "address": "Royal Oak Close Yateley GU46 7UD"
+  },
+  {
+    "name": "Aldershot Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 51.250844,
+    "longitude": -0.768887,
+    "address": "Wellington Avenue Aldershot GU11 1NZ"
+  },
+  {
+    "name": "Royston Police Station",
+    "police_force": "Hertfordshire Constabulary",
+    "latitude": 52.04850334154616,
+    "longitude": -0.02041538490016388,
+    "address": "Melbourn Street Royston SG8 7BZ"
+  },
+  {
+    "name": "Haywards Heath Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.999186,
+    "longitude": -0.11324,
+    "address": "Bolnore Road Haywards Heath West Sussex RH16 4BA"
+  },
+  {
+    "name": "Aylesbury Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 51.810986,
+    "longitude": -0.803967,
+    "address": "Wendover Road Aylesbury Buckinghamshire HP21 7LA"
+  },
+  {
+    "name": "Sheerness Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.440361,
+    "longitude": 0.759092,
+    "address": "Millennium Way Sheerness Kent ME12 1PA"
+  },
+  {
+    "name": "Loddon Valley Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 51.42769,
+    "longitude": -0.92367,
+    "address": "Rushey Way Lower Earley Berkshire RG6 4PS"
+  },
+  {
+    "name": "Sittingbourne Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.338848,
+    "longitude": 0.734386,
+    "address": "Central Avenue Sittingbourne Kent ME10 4NR"
+  },
+  {
+    "name": "Reading Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 51.41994521207207,
+    "longitude": -0.9735885784302301,
+    "address": "Atlantic House Imperial Way Reading RG2 0TD"
+  },
+  {
+    "name": "Uckfield Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.966934,
+    "longitude": 0.096249,
+    "address": "New Town Uckfield TN22 5DL"
+  },
+  {
+    "name": "Burgess Hill Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.956158,
+    "longitude": -0.134403,
+    "address": "The Brow Burgess Hill West Sussex RH15 9BU"
+  },
+  {
+    "name": "Cranbrook Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.095922,
+    "longitude": 0.527137,
+    "address": "Wheatfield Drive Cranbrook Kent TN17 3LU"
+  },
+  {
+    "name": "Milton Keynes Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.993857,
+    "longitude": -0.737806,
+    "address": "BTP Milton Keynes Unit 2A Ground Floor Phoenix House Elder Gate Milton Keynes MK9 1BE"
+  },
+  {
+    "name": "Bedfordshire Police Headquarters",
+    "police_force": "Bedfordshire Police",
+    "latitude": 52.10799,
+    "longitude": -0.50128,
+    "address": "Woburn Road Kempston Bedfordshire MK43 9AX"
+  },
+  {
+    "name": "Faversham Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.31559,
+    "longitude": 0.894059,
+    "address": "Church Road Faversham Kent ME13 8AL"
+  },
+  {
+    "name": "Lewes Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.875081,
+    "longitude": 0.011509,
+    "address": "7 North Street Lewes East Sussex BN7 2PA"
+  },
+  {
+    "name": "Brighton Crowhurst Road Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.866994,
+    "longitude": -0.122495,
+    "address": "Crowhurst Road Hollingbury East Sussex BN1 8AF"
+  },
+  {
+    "name": "Milton Keynes Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 52.04177,
+    "longitude": -0.766996,
+    "address": "302 North Row Witan Gate East Milton Keynes MK9 2DS"
+  },
+  {
+    "name": "Parkside Police Station",
+    "police_force": "Cambridgeshire Constabulary",
+    "latitude": 52.20316,
+    "longitude": 0.13022,
+    "address": "Parkside Cambridge Cambridgeshire CB1 1JG"
+  },
+  {
+    "name": "Northern Police Investigation Centre (Basingstoke)",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 51.24582,
+    "longitude": -1.096084,
+    "address": "Jays Close Viables Business Park Basingstoke RG22 4BS"
+  },
+  {
+    "name": "Hailsham Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.861857,
+    "longitude": 0.258445,
+    "address": "George St Hailsham East Sussex BN27 1AB"
+  },
+  {
+    "name": "Brighton Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 50.828957,
+    "longitude": -0.14064,
+    "address": "Brighton Railway Station Colas Building New England Road Brighton BN1 3TU"
+  },
+  {
+    "name": "Battle Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.919074,
+    "longitude": 0.481231,
+    "address": "North Trade Road Battle East Sussex TN33 0EX"
+  },
+  {
+    "name": "Shoreham Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.83373,
+    "longitude": -0.272047,
+    "address": "Ham Rd Shoreham West Sussex BN43 6DB"
+  },
+  {
+    "name": "Brighton John Street Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.823625,
+    "longitude": -0.133706,
+    "address": "John Street Brighton East Sussex BN2 0LA"
+  },
+  {
+    "name": "Colchester Police Station",
+    "police_force": "Essex Police",
+    "latitude": 51.886288,
+    "longitude": 0.894731,
+    "address": "10 Southway Colchester CO3 3BU"
+  },
+  {
+    "name": "Ashford Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.147939,
+    "longitude": 0.872186,
+    "address": "Church Road Ashford Kent TN23 1BT"
+  },
+  {
+    "name": "Colchester North Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.901416,
+    "longitude": 0.89262,
+    "address": "Colchester North Station North Station Road Colchester CO1 1XD"
+  },
+  {
+    "name": "Worthing Durrington Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.828314,
+    "longitude": -0.414122,
+    "address": "Centenary House Durrington Lane Durrington Worthing West Sussex BN13 2PQ"
+  },
+  {
+    "name": "Worthing Chatsworth Road Police",
+    "police_force": "Sussex Police",
+    "latitude": 50.812981,
+    "longitude": -0.369487,
+    "address": "21 Chatsworth Road Worthing West Sussex BN11 1LY"
+  },
+  {
+    "name": "Petersfield Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 51.00402685120238,
+    "longitude": -0.9372600158972128,
+    "address": "10 The Square Petersfield GU32 3HW"
+  },
+  {
+    "name": "St Aldates Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 51.748379,
+    "longitude": -1.256258,
+    "address": "St Aldates Oxford Oxfordshire OX1 1SZ"
+  },
+  {
+    "name": "Seaford Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.771244,
+    "longitude": 0.101046,
+    "address": "37 Church Street Seaford East Sussex BN25 1HG"
+  },
+  {
+    "name": "Bexhill Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.841032,
+    "longitude": 0.464864,
+    "address": "Terminus Rd Bexhill-on-Sea East Sussex TN39 3NR"
+  },
+  {
+    "name": "Rye Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.952046,
+    "longitude": 0.732832,
+    "address": "Cinque Ports St Rye East Sussex TN31 7AS"
+  },
+  {
+    "name": "Littlehampton Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.812415,
+    "longitude": -0.537477,
+    "address": "County Buildings, East Street, Littlehampton, West Sussex, BN17 6AR"
+  },
+  {
+    "name": "Abingdon Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 51.670312,
+    "longitude": -1.298895,
+    "address": "Colwell Drive Abingdon Oxfordshire OX14 1AU"
+  },
+  {
+    "name": "Herne Bay Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.367637035258745,
+    "longitude": 1.1278253376014997,
+    "address": "34 Gordon Road Herne Bay Kent CT6 5QU"
+  },
+  {
+    "name": "Oxford Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.753406,
+    "longitude": -1.270508,
+    "address": "Oxford Station Park End Street Oxford OX1 1HN"
+  },
+  {
+    "name": "Eastbourne Hammonds Drive Patrol Centre",
+    "police_force": "Sussex Police",
+    "latitude": 50.787811,
+    "longitude": 0.297997,
+    "address": "Hammonds Drive Eastbourne East Sussex BN23 6PW"
+  },
+  {
+    "name": "Canterbury Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.26896,
+    "longitude": 1.09197,
+    "address": "Canterbury Police Station Old Dover Road Canterbury Kent CT1 3JQ"
+  },
+  {
+    "name": "Newbury Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 51.400917,
+    "longitude": -1.319032,
+    "address": "Mill Lane RG14 5QU"
+  },
+  {
+    "name": "Hastings Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.859023,
+    "longitude": 0.5662,
+    "address": "Bohemia Road Hastings East Sussex TN34 1JJ"
+  },
+  {
+    "name": "Eastbourne Customer Contact Point",
+    "police_force": "Sussex Police",
+    "latitude": 50.768603,
+    "longitude": 0.279139,
+    "address": "1 Grove Road Eastbourne East Sussex BN21 4TW"
+  },
+  {
+    "name": "Chichester Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.830944,
+    "longitude": -0.779806,
+    "address": "Kingsham Road Chichester West Sussex PO19 8AD"
+  },
+  {
+    "name": "Bognor Regis Police Station",
+    "police_force": "Sussex Police",
+    "latitude": 50.789228,
+    "longitude": -0.671756,
+    "address": "London Road Bognor Regis West Sussex PO21 1BA"
+  },
+  {
+    "name": "Wellingborough",
+    "police_force": "Northamptonshire Police",
+    "latitude": 52.301283,
+    "longitude": -0.68862,
+    "address": "Midland Road Wellingborough NN8 1HF"
+  },
+  {
+    "name": "Weston Favell",
+    "police_force": "Northamptonshire Police",
+    "latitude": 52.25947,
+    "longitude": -0.837358,
+    "address": "Pyramid Close Northampton NN3 8NZ"
+  },
+  {
+    "name": "Bury St Edmunds",
+    "police_force": "Suffolk Constabulary",
+    "latitude": 52.24184,
+    "longitude": 0.72102,
+    "address": "Raingate Street, Bury St Edmunds, Suffolk, IP33 2AP"
+  },
+  {
+    "name": "Campbell Square",
+    "police_force": "Northamptonshire Police",
+    "latitude": 52.24203,
+    "longitude": -0.8957,
+    "address": "The Mounts Northampton NN1 3EL"
+  },
+  {
+    "name": "Havant Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.856377,
+    "longitude": -0.983404,
+    "address": "Civic Centre Road Havant PO9 2AN"
+  },
+  {
+    "name": "Waterlooville Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.879573,
+    "longitude": -1.033439,
+    "address": "Swiss Road Waterlooville PO7 7FX"
+  },
+  {
+    "name": "Operational Headquarters",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 51.06382,
+    "longitude": -1.318744,
+    "address": "Tower Street Winchester SO23 8ZD"
+  },
+  {
+    "name": "Selsey Police Base",
+    "police_force": "Sussex Police",
+    "latitude": 50.734414,
+    "longitude": -0.790053,
+    "address": "Town Hall 55 High Street Selsey West Sussex PO20 0RB"
+  },
+  {
+    "name": "Margate Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.391318,
+    "longitude": 1.384141,
+    "address": "Celt House Fort Hill Margate Kent CT9 1HL"
+  },
+  {
+    "name": "Ipswich",
+    "police_force": "Suffolk Constabulary",
+    "latitude": 52.05323,
+    "longitude": 1.14571,
+    "address": "Princes Street, Ipswich, Suffolk, IP1 1QJ"
+  },
+  {
+    "name": "Eastern Police Investigation Centre (Portsmouth)",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.825479,
+    "longitude": -1.054922,
+    "address": "Airport Service Road Portsmouth PO3 5GE"
+  },
+  {
+    "name": "Andover Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 51.206026,
+    "longitude": -1.479553,
+    "address": "South Street Andover SP10 2ED"
+  },
+  {
+    "name": "Banbury Police Station",
+    "police_force": "Thames Valley Police",
+    "latitude": 52.063911,
+    "longitude": -1.34173,
+    "address": "Warwick Road Banbury Oxfordshire OX16 2AE"
+  },
+  {
+    "name": "Kettering Council",
+    "police_force": "Northamptonshire Police",
+    "latitude": 52.395707,
+    "longitude": -0.726278,
+    "address": "Bowling Green Road Kettering NN15 7QX"
+  },
+  {
+    "name": "Dover Police Station",
+    "police_force": "Kent Police",
+    "latitude": 51.128871,
+    "longitude": 1.309815,
+    "address": "Ladywell Dover Kent CT16 1DJ"
+  },
+  {
+    "name": "Fareham Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.851847,
+    "longitude": -1.176309,
+    "address": "Quay Street Fareham PO16 0NA"
+  },
+  {
+    "name": "Portsmouth Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 50.79852329100577,
+    "longitude": -1.090055173565709,
+    "address": "Portsmouth and Southsea Station Commercial Road Portsmouth Hampshire PO1 1EQ"
+  },
+  {
+    "name": "Portsmouth Central Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.795954,
+    "longitude": -1.089169,
+    "address": "Winston Churchill Avenue Portsmouth PO1 2DG"
+  },
+  {
+    "name": "Gosport Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.795014,
+    "longitude": -1.124187,
+    "address": "Gosport Town Hall High Street Gosport PO12 1EB"
+  },
+  {
+    "name": "Daventry",
+    "police_force": "Northamptonshire Police",
+    "latitude": 52.256242,
+    "longitude": -1.161747,
+    "address": "New Street NN11 4BS"
+  },
+  {
+    "name": "Park Gate Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.87364,
+    "longitude": -1.27429,
+    "address": "60/64 Bridge Road Southampton SO31 7HN"
+  },
+  {
+    "name": "Portswood Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.925852,
+    "longitude": -1.390153,
+    "address": "St Denys Road Southampton SO17 2GN"
+  },
+  {
+    "name": "Gablecross",
+    "police_force": "Wiltshire Police",
+    "latitude": 51.579245,
+    "longitude": -1.725153,
+    "address": "Gablecross Police Station Shrivenham Road Swindon SN3 4RB"
+  },
+  {
+    "name": "Corby Cube",
+    "police_force": "Northamptonshire Police",
+    "latitude": 52.487278,
+    "longitude": -0.704301,
+    "address": "The Cube George Street Corby NN17 1QG"
+  },
+  {
+    "name": "Southampton Central Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.906532,
+    "longitude": -1.415897,
+    "address": "Southern Road Southampton SO15 1AN"
+  },
+  {
+    "name": "Ryde Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.72725345585115,
+    "longitude": -1.1638377971543694,
+    "address": "Station Road Ryde PO33 2QH"
+  },
+  {
+    "name": "Peterborough Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 52.574654,
+    "longitude": -0.249542,
+    "address": "11 Station Road Peterborough PE1 1QL"
+  },
+  {
+    "name": "Swindon Platform office",
+    "police_force": "British Transport Police",
+    "latitude": 51.564996,
+    "longitude": -1.784739,
+    "address": "Swindon Platform Office Swindon Train Station SN11DQ"
+  },
+  {
+    "name": "Totton Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.920163042210156,
+    "longitude": -1.4878599000000001,
+    "address": "Testwood Lane Totton SO40 3ZE"
+  },
+  {
+    "name": "Market Harborough Police Station",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.483006,
+    "longitude": -0.927741,
+    "address": "Fairfield Road Market Harborough LE16 9QJ"
+  },
+  {
+    "name": "Stow-on-the-Wold",
+    "police_force": "Gloucestershire Constabulary",
+    "latitude": 51.931256,
+    "longitude": -1.72373,
+    "address": "The Square Stow-on-the-Wold Gloucester GL54 1AB 01452 907273 For non-emergencies call 101"
+  },
+  {
+    "name": "Rugby Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 52.378917,
+    "longitude": -1.248934,
+    "address": "Rugby Police Office Rugby Railway Station Railway Terrace Rugby Warwickshire CV21 3LA"
+  },
+  {
+    "name": "Rugby",
+    "police_force": "Warwickshire Police",
+    "latitude": 52.377265,
+    "longitude": -1.264293,
+    "address": "Rugby Police Station Newbold Road Rugby Warwickshire CV21 2DH"
+  },
+  {
+    "name": "Newport Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.700539,
+    "longitude": -1.290269,
+    "address": "High Street Newport PO30 1SZ"
+  },
+  {
+    "name": "Stamford",
+    "police_force": "Lincolnshire Police",
+    "latitude": 52.65396,
+    "longitude": -0.48062,
+    "address": "North Street Stamford PE9 1AD"
+  },
+  {
+    "name": "Salisbury",
+    "police_force": "Wiltshire Police",
+    "latitude": 51.072246,
+    "longitude": -1.791097,
+    "address": "Bourne Hill Salisbury SP1 3UZ"
+  },
+  {
+    "name": "Lymington Police Station",
+    "police_force": "Hampshire Constabulary",
+    "latitude": 50.760418,
+    "longitude": -1.550802,
+    "address": "Lymington Police Office New Forest District Council Offices Avenue Road Lymington Hampshire SO41 9ZG"
+  },
+  {
+    "name": "Stratford",
+    "police_force": "Warwickshire Police",
+    "latitude": 52.19143,
+    "longitude": -1.71199,
+    "address": "Stratford Police Station Rother Street Stratford Upon Avon Warwickshire CV37 6RD"
+  },
+  {
+    "name": "Willenhall Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.38657576753977,
+    "longitude": -1.4718927137356532,
+    "address": "Chace Avenue Willenhall Coventry CV3 3PS"
+  },
+  {
+    "name": "Wigston Police Station",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.583077,
+    "longitude": -1.103988,
+    "address": "Bull Head Street Wigston LE18 1WX"
+  },
+  {
+    "name": "Coventry Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.40469,
+    "longitude": -1.50837,
+    "address": "Little Park Street, City Centre, Coventry CV1 2JX"
+  },
+  {
+    "name": "Bourne",
+    "police_force": "Lincolnshire Police",
+    "latitude": 52.76805,
+    "longitude": -0.38235,
+    "address": "West Street Bourne PE10 9PD"
+  },
+  {
+    "name": "King's Lynn",
+    "police_force": "Norfolk Constabulary",
+    "latitude": 52.75191,
+    "longitude": 0.39994,
+    "address": "St James Street, King's Lynn, Norfolk, PE30 5DE"
+  },
+  {
+    "name": "Spalding",
+    "police_force": "Lincolnshire Police",
+    "latitude": 52.78982,
+    "longitude": -0.14758,
+    "address": "Westlode Street Spalding PE11 2AF"
+  },
+  {
+    "name": "Monkton Park",
+    "police_force": "Wiltshire Police",
+    "latitude": 51.461011,
+    "longitude": -2.114982,
+    "address": "Monkton Park Chippenham SN15 1ER"
+  },
+  {
+    "name": "Keyham Lane Police Station",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.650271,
+    "longitude": -1.072837,
+    "address": "Colin Grundy Drive Hamilton LE5 1FY"
+  },
+  {
+    "name": "Leicester British Transport Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 52.6312739464756,
+    "longitude": -1.127787058637367,
+    "address": "First floor 27 East Street LE1 6NB"
+  },
+  {
+    "name": "Braunstone Police Station",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.618442,
+    "longitude": -1.175705,
+    "address": "Hallam Crescent East Braunstone Town Leicester LE3 1FF"
+  },
+  {
+    "name": "Mansfield House Police Station",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.639127,
+    "longitude": -1.132074,
+    "address": "74 Belgrave Gate Leicester LE1 3GG"
+  },
+  {
+    "name": "Hinckley Police Station",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.5448,
+    "longitude": -1.373537,
+    "address": "Upper Bond Street Hinckley LE10 1RJ"
+  },
+  {
+    "name": "Melksham",
+    "police_force": "Wiltshire Police",
+    "latitude": 51.353948,
+    "longitude": -2.142718,
+    "address": "Hampton Park West Melksham SN12 6QQ"
+  },
+  {
+    "name": "Nuneaton",
+    "police_force": "Warwickshire Police",
+    "latitude": 52.523064,
+    "longitude": -1.46281,
+    "address": "Warwickshire Justice Centre Nuneaton Police Station Vicarage Street Nuneaton Warwickshire CV11 4JU"
+  },
+  {
+    "name": "Cheltenham",
+    "police_force": "Gloucestershire Constabulary",
+    "latitude": 51.90242,
+    "longitude": -2.116527,
+    "address": "Princess Elizabeth Way Hester's Way Cheltenham GL51 7SG 01452 753241 What 3 words location: such.gave.scans"
+  },
+  {
+    "name": "Beaumont Leys Police Station",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.667623,
+    "longitude": -1.169222,
+    "address": "2 Beaumont Way Beaumont Leys LE4 1DS"
+  },
+  {
+    "name": "Melton Mowbray Police Station",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.765463,
+    "longitude": -0.884186,
+    "address": "King Street Melton Mowbray LE13 1EE"
+  },
+  {
+    "name": "Trowbridge",
+    "police_force": "Wiltshire Police",
+    "latitude": 51.32075,
+    "longitude": -2.202841,
+    "address": "Polebarn Road Trowbridge BA14 7EP"
+  },
+  {
+    "name": "Stroud",
+    "police_force": "Gloucestershire Constabulary",
+    "latitude": 51.745423,
+    "longitude": -2.214264,
+    "address": "The Cross Parliament Street Stroud Gloucester GL5 1QQ 01452 753500 What 3 words location: sweat.oxidation.greed"
+  },
+  {
+    "name": "Tewkesbury",
+    "police_force": "Gloucestershire Constabulary",
+    "latitude": 51.98705,
+    "longitude": -2.164723,
+    "address": "Tewkesbury Council Offices Gloucester Road Tewkesbury GL20 5TT 01452 907330"
+  },
+  {
+    "name": "Solihull Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.41225,
+    "longitude": -1.78104,
+    "address": "Homer Road, Solihull, B91 3QL"
+  },
+  {
+    "name": "Gloucester",
+    "police_force": "Gloucestershire Constabulary",
+    "latitude": 51.865635,
+    "longitude": -2.249685,
+    "address": "Bearland Longsmith Street Gloucester GL1 2JP 01452 753370 What 3 words location: famous.rise.movie"
+  },
+  {
+    "name": "Norwich Police Station",
+    "police_force": "Norfolk Constabulary",
+    "latitude": 52.628292265612295,
+    "longitude": 1.291177105755089,
+    "address": "Bethel Street Norwich Norfolk NR2 1NN"
+  },
+  {
+    "name": "Redditch Police & Fire Station",
+    "police_force": "West Mercia Police",
+    "latitude": 52.31528,
+    "longitude": -1.940374,
+    "address": "Emergency Services Hub Middlehouse Lane Redditch B97 6EL"
+  },
+  {
+    "name": "Norwich Station",
+    "police_force": "British Transport Police",
+    "latitude": 52.627004,
+    "longitude": 1.306537,
+    "address": "Platform 5 Norwich Rail Station NR1 1EF"
+  },
+  {
+    "name": "Grantham",
+    "police_force": "Lincolnshire Police",
+    "latitude": 52.90089,
+    "longitude": -0.66398,
+    "address": "Swingbridge Road Grantham NG31 7XT"
+  },
+  {
+    "name": "Loughborough Police Station",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.769211,
+    "longitude": -1.204127,
+    "address": "Loughborough Police Station Southfield Road Loughborough LE11 2XF"
+  },
+  {
+    "name": "Stechford Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.4786,
+    "longitude": -1.80734,
+    "address": "338 Station Road, Stechford, B33 8RR"
+  },
+  {
+    "name": "Coalville Front Enquiry Desk",
+    "police_force": "Leicestershire Police",
+    "latitude": 52.7244275,
+    "longitude": -1.3744698,
+    "address": "Customer Centre North West Leicestershire District Council Belvoir Road Coalville LE67 3PD"
+  },
+  {
+    "name": "Poole",
+    "police_force": "Dorset Police",
+    "latitude": 50.722138916682425,
+    "longitude": -1.9795933692481251,
+    "address": "Poole Joint Emergency Services Building Wimborne Road Poole Dorset BH15 2BP"
+  },
+  {
+    "name": "Boston",
+    "police_force": "Lincolnshire Police",
+    "latitude": 52.9779,
+    "longitude": -0.02673,
+    "address": "Lincoln Lane Boston PE21 8QS"
+  },
+  {
+    "name": "Gillingham",
+    "police_force": "Dorset Police",
+    "latitude": 51.038017261122974,
+    "longitude": -2.272194870498517,
+    "address": "1 School Road Gillingham Dorset SP8 4QR"
+  },
+  {
+    "name": "Blandford",
+    "police_force": "Dorset Police",
+    "latitude": 50.862431445442134,
+    "longitude": -2.1598249097184947,
+    "address": "12 Peel Close Blandford Dorset DT11 7HR"
+  },
+  {
+    "name": "Bournville Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.42961,
+    "longitude": -1.9497,
+    "address": "341 Bournville Lane, Bournville, Birmingham B30 1QX"
+  },
+  {
+    "name": "Digbeth Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.47641873797436,
+    "longitude": -1.8905799026473105,
+    "address": "113 Digbeth Birmingham B5 6DT"
+  },
+  {
+    "name": "Birmingham Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 52.477116,
+    "longitude": -1.899658,
+    "address": "52 Grand Central Navigation Street Birmingham B2 4BW"
+  },
+  {
+    "name": "Birmingham New Street Station",
+    "police_force": "British Transport Police",
+    "latitude": 52.477109,
+    "longitude": -1.899699,
+    "address": "52 Grand Central Navigation Street Birmingham B2 4BW"
+  },
+  {
+    "name": "Lowestoft",
+    "police_force": "Suffolk Constabulary",
+    "latitude": 52.47897,
+    "longitude": 1.75598,
+    "address": "Old Nelson Street, Lowestoft, Suffolk, NR32 1PE"
+  },
+  {
+    "name": "Worcester Police Station",
+    "police_force": "West Mercia Police",
+    "latitude": 52.196651,
+    "longitude": -2.225044,
+    "address": "Castle Street Worcester Worcestershire WR1 3QX"
+  },
+  {
+    "name": "Sleaford",
+    "police_force": "Lincolnshire Police",
+    "latitude": 52.9992,
+    "longitude": -0.39514,
+    "address": "The Hoplands Boston Road Sleaford NG34 7LZ"
+  },
+  {
+    "name": "Sutton Coldfield Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.56811354626819,
+    "longitude": -1.8243694436691653,
+    "address": "35-39 Anchorage Road, Sutton Coldfield Birmingham B74 2PJ"
+  },
+  {
+    "name": "Swanage Police Station",
+    "police_force": "Dorset Police",
+    "latitude": 50.608378,
+    "longitude": -1.9591054,
+    "address": "High Street, Swanage, BH192NZ"
+  },
+  {
+    "name": "West Bromwich Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.51743,
+    "longitude": -1.99808,
+    "address": "Moor Street, West Bromwich B70 8HS"
+  },
+  {
+    "name": "Swadlincote Police Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 52.77496569259091,
+    "longitude": -1.5602067962944157,
+    "address": "Civic Way Swadlincote DE11 0AE"
+  },
+  {
+    "name": "Great Yarmouth",
+    "police_force": "Norfolk Constabulary",
+    "latitude": 52.60975,
+    "longitude": 1.72735,
+    "address": "Howard Street North, Great Yarmouth, Norfolk, NR30 1PH"
+  },
+  {
+    "name": "Bristol Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.449089,
+    "longitude": -2.581184,
+    "address": "Temple Meads Railway Station Bristol BS1 6QF"
+  },
+  {
+    "name": "Beeston Shared Service",
+    "police_force": "Nottinghamshire Police",
+    "latitude": 52.927473,
+    "longitude": -1.217029,
+    "address": "Foster Ave Beeston NG9 1AB"
+  },
+  {
+    "name": "Byron House Shared Services",
+    "police_force": "Nottinghamshire Police",
+    "latitude": 52.954072,
+    "longitude": -1.155661,
+    "address": "2A Byron House Maid Marion Way Nottingham NG1 4BH"
+  },
+  {
+    "name": "Radford Road Police Station",
+    "police_force": "Nottinghamshire Police",
+    "latitude": 52.970748,
+    "longitude": -1.174605,
+    "address": "Radford Road Nottingham NG7 5GX"
+  },
+  {
+    "name": "Forest of Dean",
+    "police_force": "Gloucestershire Constabulary",
+    "latitude": 51.793977,
+    "longitude": -2.615362,
+    "address": "Gloucester Road Coleford GL16 8BQ 01452 753803/ 01452 753804 What 3 words location: dome.endlessly.smirk"
+  },
+  {
+    "name": "Burton",
+    "police_force": "Staffordshire Police",
+    "latitude": 52.807554,
+    "longitude": -1.630167,
+    "address": "Horninglow Street Burton upon Trent DE14 1PA"
+  },
+  {
+    "name": "Kidderminster Police Station",
+    "police_force": "West Mercia Police",
+    "latitude": 52.390547,
+    "longitude": -2.265073,
+    "address": "Habberley Road Kidderminster DY11 6AN"
+  },
+  {
+    "name": "Bloxwich Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.6147,
+    "longitude": -2.00548,
+    "address": "1 Station St, Bloxwich, WS3 2PD"
+  },
+  {
+    "name": "Ascot Drive Police Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 52.896676895813336,
+    "longitude": -1.4554819073162797,
+    "address": "Dunstall Park Road (off Ascot Drive) Derby DE24 8HJ"
+  },
+  {
+    "name": "Oxclose Lane Police Station",
+    "police_force": "Nottinghamshire Police",
+    "latitude": 52.99699201723052,
+    "longitude": -1.1535275314963043,
+    "address": "Oxclose Lane Arnold Nottingham NG5 6FZ"
+  },
+  {
+    "name": "Chepstow",
+    "police_force": "Gwent Police",
+    "latitude": 51.64036086135715,
+    "longitude": -2.6771482966936695,
+    "address": "14 Moor Street, Chepstow, NP16 5XW"
+  },
+  {
+    "name": "Derby Pear Tree Enquiry Office",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 52.905078,
+    "longitude": -1.475926,
+    "address": "Pear Tree Section Pear Tree Road Derby DE23 8NQ"
+  },
+  {
+    "name": "Dudley Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.51447,
+    "longitude": -2.173,
+    "address": "Castlegate House, Castlegate Way, Dudley, DY1 4RR"
+  },
+  {
+    "name": "Derby Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 52.916717,
+    "longitude": -1.463268,
+    "address": "Railway Terrace Derby DE1 2RU"
+  },
+  {
+    "name": "Sherborne",
+    "police_force": "Dorset Police",
+    "latitude": 50.94525710336603,
+    "longitude": -2.5151901758432818,
+    "address": "Digby Road Sherborne Dorset DT9 3NL"
+  },
+  {
+    "name": "Ilkeston Police Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 52.97998174851549,
+    "longitude": -1.3117236269833208,
+    "address": "Heanor Road Ilkeston DE7 8DY"
+  },
+  {
+    "name": "Derby St Mary's Wharf Enquiry Office",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 52.928063,
+    "longitude": -1.47043,
+    "address": "Prime Parkway Chester Green Derby DE1 3AB"
+  },
+  {
+    "name": "Wolverhampton Police Station",
+    "police_force": "West Midlands Police",
+    "latitude": 52.58444,
+    "longitude": -2.12453,
+    "address": "Bilston Street, Wolverhampton WV1 3AA"
+  },
+  {
+    "name": "Skegness",
+    "police_force": "Lincolnshire Police",
+    "latitude": 53.14895,
+    "longitude": 0.34466,
+    "address": "Park Avenue Skegness PE25 1BL"
+  },
+  {
+    "name": "Caldicot",
+    "police_force": "Gwent Police",
+    "latitude": 51.59160324294751,
+    "longitude": -2.7498254755603444,
+    "address": "5 Chepstow Road, Caldicot, NP26 4HY"
+  },
+  {
+    "name": "Cannock",
+    "police_force": "Staffordshire Police",
+    "latitude": 52.68809,
+    "longitude": -2.031591,
+    "address": "Wolverhampton Road Cannock Staffordshire WS11 1AW"
+  },
+  {
+    "name": "Horncastle",
+    "police_force": "Lincolnshire Police",
+    "latitude": 53.20625,
+    "longitude": -0.11593,
+    "address": "9 The Wong Horncastle LN9 6EB"
+  },
+  {
+    "name": "Hereford Police Station",
+    "police_force": "West Mercia Police",
+    "latitude": 52.05683,
+    "longitude": -2.711286,
+    "address": "Bath Street Hereford HR1 2HT"
+  },
+  {
+    "name": "Lincoln South Park",
+    "police_force": "Lincolnshire Police",
+    "latitude": 53.21741,
+    "longitude": -0.53828,
+    "address": "South Park Avenue Lincoln LN5 8EL"
+  },
+  {
+    "name": "Birchwood CPO",
+    "police_force": "Lincolnshire Police",
+    "latitude": 53.21516,
+    "longitude": -0.60473,
+    "address": "HU1 & HU2 Birchwood Shopping Centre Jasmine Road LN6 0QB"
+  },
+  {
+    "name": "Lincoln Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.226206,
+    "longitude": -0.539145,
+    "address": "Central Railway Station St Mary's Street Lincoln LN5 7EW"
+  },
+  {
+    "name": "Kirkby Shared Service",
+    "police_force": "Nottinghamshire Police",
+    "latitude": 53.100343,
+    "longitude": -1.249933,
+    "address": "ADC Offices Urban Road Kirkby in Ashfield NG17 8DA"
+  },
+  {
+    "name": "Wyatt's Way Police Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 53.056396828468756,
+    "longitude": -1.396683338625708,
+    "address": "Ripley DE5 3SU"
+  },
+  {
+    "name": "Mansfield",
+    "police_force": "Nottinghamshire Police",
+    "latitude": 53.141701,
+    "longitude": -1.190162,
+    "address": "Great Central Road Mansfield NG18 4HQ"
+  },
+  {
+    "name": "Usk",
+    "police_force": "Gwent Police",
+    "latitude": 51.70177504941573,
+    "longitude": -2.9062860474776095,
+    "address": "2 New Market Street, Usk, NP15 1AT"
+  },
+  {
+    "name": "Alway",
+    "police_force": "Gwent Police",
+    "latitude": 51.58657095362015,
+    "longitude": -2.9452320243956915,
+    "address": "15 Alway Parade, Newport, NP19 9PT"
+  },
+  {
+    "name": "Maindee",
+    "police_force": "Gwent Police",
+    "latitude": 51.590861311309475,
+    "longitude": -2.9824122901812,
+    "address": "81 Chepstow Road, Maindee, Newport, NP19 8XD"
+  },
+  {
+    "name": "Pill",
+    "police_force": "Gwent Police",
+    "latitude": 51.58015831697841,
+    "longitude": -2.9853653300829026,
+    "address": "Canal Terrace, Usk Way, Newport, NP20 2DG"
+  },
+  {
+    "name": "Newport Central",
+    "police_force": "Gwent Police",
+    "latitude": 51.581316,
+    "longitude": -2.992969,
+    "address": "3 Cardiff Road, Newport, NP20 2ED"
+  },
+  {
+    "name": "Shirebrook Joint Police and Fire Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 53.20335583860821,
+    "longitude": -1.2087841865076796,
+    "address": "Portland Road Shirebrook Mansfield NG20 8TY"
+  },
+  {
+    "name": "Newport Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.588649,
+    "longitude": -3.000005,
+    "address": "High Street Railway Station Newport NP9 4RA"
+  },
+  {
+    "name": "Mablethorpe",
+    "police_force": "Lincolnshire Police",
+    "latitude": 53.33922,
+    "longitude": 0.25459,
+    "address": "Mayflower Way/High Street Mablethorpe LN12 1EH"
+  },
+  {
+    "name": "Clay Cross Police Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 53.16406877997423,
+    "longitude": -1.404777533729151,
+    "address": "Pilsley Road S45 9BJ"
+  },
+  {
+    "name": "Gwent Police Headquarters",
+    "police_force": "Gwent Police",
+    "latitude": 51.634004,
+    "longitude": -3.015547,
+    "address": "Llantarnam Park Way, Llantarnam, Cwmbran, NP44 3FW"
+  },
+  {
+    "name": "Bettws",
+    "police_force": "Gwent Police",
+    "latitude": 51.6118159966553,
+    "longitude": -3.0282027988106788,
+    "address": "29 Bettws Shopping Centre, Bettws, Newport, NP20 6TN"
+  },
+  {
+    "name": "Louth",
+    "police_force": "Lincolnshire Police",
+    "latitude": 53.3708,
+    "longitude": 0.0125,
+    "address": "Eastfield Road Louth LN11 7AN"
+  },
+  {
+    "name": "Pontypool",
+    "police_force": "Gwent Police",
+    "latitude": 51.701715250485044,
+    "longitude": -3.041266647721673,
+    "address": "-"
+  },
+  {
+    "name": "Matlock Police Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 53.13939506448804,
+    "longitude": -1.5534861177283772,
+    "address": "Bank Road Matlock DE4 3NF"
+  },
+  {
+    "name": "Abergavenny Community Hub",
+    "police_force": "Gwent Police",
+    "latitude": 51.821793,
+    "longitude": -3.021451,
+    "address": "Town Hall, Cross Street, Abergavenny, NP7 5HD"
+  },
+  {
+    "name": "Abergavenny",
+    "police_force": "Gwent Police",
+    "latitude": 51.814597085999345,
+    "longitude": -3.0268686639084983,
+    "address": "Zinnia Way, Llanfoist, Abergavenny, NP7 9EZ"
+  },
+  {
+    "name": "Telford Police Station",
+    "police_force": "West Mercia Police",
+    "latitude": 52.677434,
+    "longitude": -2.452578,
+    "address": "Malinsgate Telford TF3 4HW"
+  },
+  {
+    "name": "Bridport",
+    "police_force": "Dorset Police",
+    "latitude": 50.73332307614821,
+    "longitude": -2.762418417133928,
+    "address": "Tannery Road Bridport Dorset DT6 3TP"
+  },
+  {
+    "name": "Market Rasen",
+    "police_force": "Lincolnshire Police",
+    "latitude": 53.38325,
+    "longitude": -0.33577,
+    "address": "Linwood Road Market Rasen LN8 3QE"
+  },
+  {
+    "name": "Retford Shared Services",
+    "police_force": "Nottinghamshire Police",
+    "latitude": 53.322498,
+    "longitude": -0.943279,
+    "address": "17b The Square Retford DN22 6DE"
+  },
+  {
+    "name": "Risca",
+    "police_force": "Gwent Police",
+    "latitude": 51.60649549616521,
+    "longitude": -3.099477939820253,
+    "address": "5 Station Road, Risca, Newport, NP11 6BX"
+  },
+  {
+    "name": "Worksop Shared Service",
+    "police_force": "Nottinghamshire Police",
+    "latitude": 53.301876,
+    "longitude": -1.12332,
+    "address": "28-27 Potter Street Worksop S80 2AH"
+  },
+  {
+    "name": "Chesterfield Police Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 53.233924,
+    "longitude": -1.425819,
+    "address": "Beetwell Street Chesterfield S40 1QP"
+  },
+  {
+    "name": "Abertillery",
+    "police_force": "Gwent Police",
+    "latitude": 51.73045392468948,
+    "longitude": -3.1361965866822845,
+    "address": "425 Station Hill, Abertillery, NP13 1UJ"
+  },
+  {
+    "name": "Longton",
+    "police_force": "Staffordshire Police",
+    "latitude": 52.988318,
+    "longitude": -2.132258,
+    "address": "Sutherland Road Longton Stoke on Trent ST3 1HH"
+  },
+  {
+    "name": "Cardiff Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.475151,
+    "longitude": -3.177128,
+    "address": "3 Callaghan Square Cardiff CF10 5BT"
+  },
+  {
+    "name": "Gainsborough",
+    "police_force": "Lincolnshire Police",
+    "latitude": 53.40969,
+    "longitude": -0.77944,
+    "address": "Morton Road Gainsborough DN21 2SY"
+  },
+  {
+    "name": "Brynmawr",
+    "police_force": "Gwent Police",
+    "latitude": 51.79998802725197,
+    "longitude": -3.1741163226163693,
+    "address": "28 Somerset Street, Ebbw Vale, NP23 4YG"
+  },
+  {
+    "name": "Blackwood",
+    "police_force": "Gwent Police",
+    "latitude": 51.659251,
+    "longitude": -3.193629,
+    "address": "Blackwood Road, Pontllanfraith, NP12 2XD"
+  },
+  {
+    "name": "Bedwas",
+    "police_force": "Gwent Police",
+    "latitude": 51.59192151179378,
+    "longitude": -3.1987749635392473,
+    "address": "36 Church Street, Bedwas, CF83 8EB"
+  },
+  {
+    "name": "Killamarsh Police Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 53.32003121533596,
+    "longitude": -1.318631169312854,
+    "address": "Delves Road S21 1AW"
+  },
+  {
+    "name": "Caerphilly",
+    "police_force": "Gwent Police",
+    "latitude": 51.57296480036777,
+    "longitude": -3.2198548448687596,
+    "address": "62 Cardiff Road, Caerphilly, CF83 1JQ"
+  },
+  {
+    "name": "Ebbw Vale",
+    "police_force": "Gwent Police",
+    "latitude": 51.778251,
+    "longitude": -3.207428,
+    "address": "28 Bethcar Street, Ebbw Vale, NP23 6UY"
+  },
+  {
+    "name": "Bargoed",
+    "police_force": "Gwent Police",
+    "latitude": 51.688990022517686,
+    "longitude": -3.229233526762674,
+    "address": "43-44 Hanbury Road, Bargoed, CF81 8XF"
+  },
+  {
+    "name": "Lyme Regis",
+    "police_force": "Dorset Police",
+    "latitude": 50.72764745180149,
+    "longitude": -2.936632615504307,
+    "address": "Hill Road, Lyme Regis. DT7 3PG"
+  },
+  {
+    "name": "Ystrad Mynach",
+    "police_force": "Gwent Police",
+    "latitude": 51.63643169373857,
+    "longitude": -3.2347487676173805,
+    "address": "9 Caerphilly Road, Ystrad Mynach, Hengoed, CF82 7EP"
+  },
+  {
+    "name": "Dronfield Police Station",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 53.30073269079769,
+    "longitude": -1.4693050932538398,
+    "address": "37/39 Lea Road Dronfield S18 1SD"
+  },
+  {
+    "name": "Barry",
+    "police_force": "South Wales Police",
+    "latitude": 51.410661,
+    "longitude": -3.261188,
+    "address": "Gladstone Road Barry CF63 1TD"
+  },
+  {
+    "name": "Rhymney",
+    "police_force": "Gwent Police",
+    "latitude": 51.759638989629515,
+    "longitude": -3.2856188881357338,
+    "address": "High Street, Rhymney, NP22 5LP"
+  },
+  {
+    "name": "Woodseats Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.34422888492035,
+    "longitude": -1.477977161410579,
+    "address": "Chesterfield Road Woodseats Sheffield S8 0SL"
+  },
+  {
+    "name": "Shrewsbury Police Station",
+    "police_force": "West Mercia Police",
+    "latitude": 52.71621,
+    "longitude": -2.725694,
+    "address": "Clive Road Monkmoor Shrewsbury SY2 5RW"
+  },
+  {
+    "name": "Shrewsbury Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 52.711953,
+    "longitude": -2.750101,
+    "address": "Railway Station Castle Foregate Shrewsbury SY1 2DQ"
+  },
+  {
+    "name": "Maltby Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.42386279692842,
+    "longitude": -1.2298570800329152,
+    "address": "Byford Road Maltby Rotherham S66 8ER"
+  },
+  {
+    "name": "Pontypridd",
+    "police_force": "South Wales Police",
+    "latitude": 51.605362,
+    "longitude": -3.339353,
+    "address": "Berw Road Pontypridd CF37 2TR"
+  },
+  {
+    "name": "Pontypridd Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.59943,
+    "longitude": -3.341483,
+    "address": "Pontypridd Railway Station The Broadway Pontypridd CF37 1DT"
+  },
+  {
+    "name": "Sheffield Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.377201,
+    "longitude": -1.462796,
+    "address": "Platform 1 Railway Station Sheaf Street Sheffield S1 2BP"
+  },
+  {
+    "name": "Snig Hill Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.38492,
+    "longitude": -1.46599,
+    "address": "Snig Hill, Sheffield S3 8LY"
+  },
+  {
+    "name": "Brigg Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.553715,
+    "longitude": -0.49213,
+    "address": "Barnard Avenue Brigg North Lincolnshire DN20 8AS"
+  },
+  {
+    "name": "Grimsby Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.569028,
+    "longitude": -0.080812,
+    "address": "Victoria Street Grimsby North East Lincolnshire DN31 1PE"
+  },
+  {
+    "name": "Riverside House Rotherham",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.42924955379351,
+    "longitude": -1.3607798438700252,
+    "address": "Main Street Rotherham S60 1QY"
+  },
+  {
+    "name": "Rotherham Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.429619750802686,
+    "longitude": -1.3611324443545585,
+    "address": "Main Street Rotherham S60 1QY"
+  },
+  {
+    "name": "Buxton Enquiry Office",
+    "police_force": "Derbyshire Constabulary",
+    "latitude": 53.257537,
+    "longitude": -1.906865,
+    "address": "Silverlands Buxton SK17 6QJ"
+  },
+  {
+    "name": "Merthyr Tydfil",
+    "police_force": "South Wales Police",
+    "latitude": 51.739803,
+    "longitude": -3.382508,
+    "address": "Rhydycar Business Park CF48 1DL"
+  },
+  {
+    "name": "Honiton Police Enquiry Office",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.7987,
+    "longitude": -3.1932,
+    "address": "167 High Street, Honiton, EX14 1LQ"
+  },
+  {
+    "name": "Brecon",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 51.94336,
+    "longitude": -3.379796,
+    "address": "Brecon Police Station Plas-y-Ffynnon Cambrian Way Brecon Powys LD3 7HP"
+  },
+  {
+    "name": "Congleton Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.163892,
+    "longitude": -2.210571,
+    "address": "Congleton Police Station, Market Street, Congleton, CW12 1EU"
+  },
+  {
+    "name": "Immingham Police Hub",
+    "police_force": "Humberside Police",
+    "latitude": 53.615877,
+    "longitude": -0.212517,
+    "address": "Civic Centre Pelham Road Immingham Lincolnshire DN40 1QS"
+  },
+  {
+    "name": "Scunthorpe Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.588939,
+    "longitude": -0.650527,
+    "address": "26 Corporation Road Scunthorpe Lincolnshire DN15 6QB"
+  },
+  {
+    "name": "Ecclesfield Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.4427,
+    "longitude": -1.45827,
+    "address": "321, The Common, Sheffield S35 9WL"
+  },
+  {
+    "name": "Doncaster Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.51911080898425,
+    "longitude": -1.1307266681276182,
+    "address": "College Road Doncaster DN1 3HX"
+  },
+  {
+    "name": "Doncaster Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.521574,
+    "longitude": -1.138609,
+    "address": "7 Trafford Court Trafford Way Doncaster South Yorkshire DN1 1PD"
+  },
+  {
+    "name": "Mexborough Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.493803985787686,
+    "longitude": -1.2804541714767002,
+    "address": "14 Adwick Road Mexborough S64 0DB"
+  },
+  {
+    "name": "Davies House Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.53731049778577,
+    "longitude": -1.1668452736702615,
+    "address": "Davies House Barnsley Rd Doncaster DN5 8QE"
+  },
+  {
+    "name": "Crewe Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.089815,
+    "longitude": -2.436145,
+    "address": "Pedley Street Crewe Cheshire CW2 7AA"
+  },
+  {
+    "name": "Crewe Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.097197,
+    "longitude": -2.439098,
+    "address": "Crewe Police Station, Civic Centre, Crewe Street, Crewe, CW1 2DQ"
+  },
+  {
+    "name": "Macclesfield Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.261642,
+    "longitude": -2.1248369444444446,
+    "address": "Macclesfield Police Station, Brunswick Street, Macclesfield, SK10 1HQ"
+  },
+  {
+    "name": "Goldthorpe Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.53400847023559,
+    "longitude": -1.3048624739237595,
+    "address": "5 Barnsley Road Goldthorpe Rotherham S63 9LS"
+  },
+  {
+    "name": "Hoyland Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.499274273992455,
+    "longitude": -1.4585364757737596,
+    "address": "Hoyland Road Hoyland Barnsley S74 0AP"
+  },
+  {
+    "name": "Nantwich Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.06924,
+    "longitude": -2.519152,
+    "address": "Nantwich Police Station, Beam Street, Nantwich, CW5 5NE"
+  },
+  {
+    "name": "Llandrindod Wells",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 52.251704,
+    "longitude": -3.370583,
+    "address": "Llandrindod Wells Police Station Noyadd Park Llandrindod Wells Powys LD1 5DF"
+  },
+  {
+    "name": "Thorne Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.614131387800754,
+    "longitude": -0.9683697990585206,
+    "address": "Durham Avenue Thorne Doncaster DN8 4AN"
+  },
+  {
+    "name": "Barton Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.684446,
+    "longitude": -0.442872,
+    "address": "Holdyke Barton North Lincolnshire DN18 5PR"
+  },
+  {
+    "name": "Kendray Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.53900850225922,
+    "longitude": -1.459870757969445,
+    "address": "72 Cypress Road Kendray Barnsley S70 3LX"
+  },
+  {
+    "name": "The Glass Works",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.552281763263835,
+    "longitude": -1.4785747450872049,
+    "address": "Cheapside Barnsley S70 1GW"
+  },
+  {
+    "name": "Barnsley Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.55475,
+    "longitude": -1.485,
+    "address": "Churchfield, Barnsley, South Yorkshire S70 2DL"
+  },
+  {
+    "name": "Cudworth Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.57364299719292,
+    "longitude": -1.4202950613994823,
+    "address": "Manor Road Cudworth Barnsley S72 8DG"
+  },
+  {
+    "name": "Withernsea Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.728867,
+    "longitude": 0.032718,
+    "address": "Station Road Withernsea Yorkshire HU19 2JH"
+  },
+  {
+    "name": "Hedon Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.739874,
+    "longitude": -0.203431,
+    "address": "52 New Road Hedon East Yorkshire HU12 8BS"
+  },
+  {
+    "name": "Tiverton",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.90389290255166,
+    "longitude": -3.482350890070637,
+    "address": "Lowman House Lowman Green Tiverton Devon EX16 4LA"
+  },
+  {
+    "name": "Osborne Street Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.742425,
+    "longitude": -0.343174,
+    "address": "Osborne Street Hull Humberside HU1 2NW"
+  },
+  {
+    "name": "Newtown",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 52.512088,
+    "longitude": -3.321239,
+    "address": "Newtown Police Station Park Lane Newtown Powys SY16 1EN"
+  },
+  {
+    "name": "Hull Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.744338,
+    "longitude": -0.347581,
+    "address": "Hull Railway Station Hull HU1 3QX"
+  },
+  {
+    "name": "Wilmslow",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.32608,
+    "longitude": -2.239586,
+    "address": "Wilmslow Police Station, Hawthorn Street, Wilmslow, SK9 5HQ"
+  },
+  {
+    "name": "Royston Police Station",
+    "police_force": "South Yorkshire Police",
+    "latitude": 53.600535454510705,
+    "longitude": -1.4569340278948009,
+    "address": "58 Station Road Royston Barnsley S71 4ET"
+  },
+  {
+    "name": "Clough Road Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.767142,
+    "longitude": -0.340159,
+    "address": "Clough Road Hull Humberside HU5 1SW"
+  },
+  {
+    "name": "Knutsford Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.302955,
+    "longitude": -2.374777,
+    "address": "Knutsford Police Station, Toft Road, Knutsford, WA16 0PA"
+  },
+  {
+    "name": "Cheadle Heath Police Station",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.395976,
+    "longitude": -2.180634,
+    "address": "Spectrum Way Stockport SK3 0SA"
+  },
+  {
+    "name": "Goole Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.747021,
+    "longitude": -0.857657,
+    "address": "Estcourt Terrace Goole East Yorkshire DN14 5AF"
+  },
+  {
+    "name": "Exeter",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.718193828690175,
+    "longitude": -3.4766780464926126,
+    "address": "Sidmouth Road Exeter Devon EX2 7RY"
+  },
+  {
+    "name": "Northwich Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.261395,
+    "longitude": -2.510107,
+    "address": "Northwich Police Station, Chester Way, Northwich, CW9 5EP"
+  },
+  {
+    "name": "Ashton Police Station",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.484135,
+    "longitude": -2.107504,
+    "address": "Manchester Road Ashton OL7 0BQ"
+  },
+  {
+    "name": "Havertop Lane Police Station",
+    "police_force": "West Yorkshire Police",
+    "latitude": 53.69953,
+    "longitude": -1.38988,
+    "address": "Havertop Lane Normanton WF6 1FD"
+  },
+  {
+    "name": "Neath",
+    "police_force": "South Wales Police",
+    "latitude": 51.662191,
+    "longitude": -3.799943,
+    "address": "Gnoll Park Road Neath SA11 3BT"
+  },
+  {
+    "name": "Exeter Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 50.728608,
+    "longitude": -3.543337,
+    "address": "St David’s Railway Station Exeter Devon EX4 4NT"
+  },
+  {
+    "name": "Longsight Police Station",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.461372,
+    "longitude": -2.207828,
+    "address": "Grindlow Street Longsight M13 0LL"
+  },
+  {
+    "name": "Selby Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 53.7772628392277,
+    "longitude": -1.079001888547614,
+    "address": "Civic Centre Doncaster Road Selby YO8 9FT"
+  },
+  {
+    "name": "Beverley Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.847768,
+    "longitude": -0.441034,
+    "address": "Sessions House New Walk Beverley East Yorkshire HU17 7AF"
+  },
+  {
+    "name": "Wrexham Town",
+    "police_force": "North Wales Police",
+    "latitude": 53.047821,
+    "longitude": -2.993914,
+    "address": "Former Oriel Gallery Rhosddu Road Wrexham LL11 1AU"
+  },
+  {
+    "name": "Manchester Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.477553,
+    "longitude": -2.231072,
+    "address": "Tower Block Piccadilly Railway Station Manchester M60 9AJ"
+  },
+  {
+    "name": "Stretford",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.457792,
+    "longitude": -2.289354,
+    "address": "Talbot Road Stretford M32 0UX"
+  },
+  {
+    "name": "City Centre Public Enquiry Counter",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.478799,
+    "longitude": -2.245012,
+    "address": "Ground Floor Mount Street Elevation Town Hall Extension Manchester M2 5DB"
+  },
+  {
+    "name": "Huddersfield Police Station",
+    "police_force": "West Yorkshire Police",
+    "latitude": 53.64324,
+    "longitude": -1.78544,
+    "address": "Castlegate Huddersfield HD1 2NJ"
+  },
+  {
+    "name": "Dewsbury Police Station",
+    "police_force": "West Yorkshire Police",
+    "latitude": 53.68951,
+    "longitude": -1.63303,
+    "address": "Aldams Rd Dewsbury WF12 8AR"
+  },
+  {
+    "name": "North Manchester Division Police Station",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.502452,
+    "longitude": -2.200544,
+    "address": "Central Park Northampton Road Manchester M40 5BP"
+  },
+  {
+    "name": "Oldham Police Station",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.541021,
+    "longitude": -2.116529,
+    "address": "Barn Street Oldham OL1 1LR"
+  },
+  {
+    "name": "Hornsea Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.911878,
+    "longitude": -0.162881,
+    "address": "Railway Street Hornsea East Yorkshire HU18 1PS"
+  },
+  {
+    "name": "Chester Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.19667,
+    "longitude": -2.880219,
+    "address": "Railway Station Station Road Chester CH1 3NS"
+  },
+  {
+    "name": "Chester Town Hall Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.191915,
+    "longitude": -2.892601,
+    "address": "Chester Town Hall Police Station, Northgate Street, Chester, CH1 2HJ"
+  },
+  {
+    "name": "Stockton Heath Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.37081764116262,
+    "longitude": -2.5807972318499495,
+    "address": "Stockton Heath Police Station, Grappenhall Road, Stockton Heath, WA4 2AF"
+  },
+  {
+    "name": "Swansea Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 51.625182,
+    "longitude": -3.940943,
+    "address": "High Street Railway Station Swansea West Glamorgan SA1 1NU"
+  },
+  {
+    "name": "Runcorn Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.328607,
+    "longitude": -2.696066,
+    "address": "Runcorn Police Station, Halton Lea, Runcorn, WA7 2HG"
+  },
+  {
+    "name": "Swinton Police Station",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.513351,
+    "longitude": -2.342072,
+    "address": "Chorley Road Swinton M27 6BA"
+  },
+  {
+    "name": "Torquay",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.47055798107034,
+    "longitude": -3.539688112106221,
+    "address": "South Street Torquay Devon TQ2 5AH"
+  },
+  {
+    "name": "Elland Road Police Station",
+    "police_force": "West Yorkshire Police",
+    "latitude": 53.77507,
+    "longitude": -1.57516,
+    "address": "Elland Road Beeston Leeds LS11 8BU"
+  },
+  {
+    "name": "Ammanford",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 51.791726,
+    "longitude": -3.983167,
+    "address": "Ammanford Police Station Foundry Road Ammanford Carmarthenshire SA18 2LS"
+  },
+  {
+    "name": "Newton Abbot",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.52803134904998,
+    "longitude": -3.6124816010529543,
+    "address": "Baker's Hill Newton Abbot Devon TQ12 1 LA"
+  },
+  {
+    "name": "Leeds Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.794862,
+    "longitude": -1.546538,
+    "address": "Leeds City Railway Station Leeds LS1 4PR"
+  },
+  {
+    "name": "Rochdale Police Station",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.615935,
+    "longitude": -2.161246,
+    "address": "The Esplanade Rochdale OL16 1AG"
+  },
+  {
+    "name": "Pocklington Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 53.931747,
+    "longitude": -0.781836,
+    "address": "37 George Street Pocklington East Yorkshire YO42 2DH"
+  },
+  {
+    "name": "Widnes Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.365874,
+    "longitude": -2.727857,
+    "address": "Widnes Police Station, John Briggs House, Gerrard Street, Widnes, WA8 6BE"
+  },
+  {
+    "name": "Halifax Police Station",
+    "police_force": "West Yorkshire Police",
+    "latitude": 53.72608,
+    "longitude": -1.86477,
+    "address": "Richmond Close Halifax HX1 5TW"
+  },
+  {
+    "name": "Ellesmere Port Police Station",
+    "police_force": "Cheshire Constabulary",
+    "latitude": 53.276683,
+    "longitude": -2.905215,
+    "address": "Ellesmere Port Police Station, 4 Stanney Lane, Ellesmere Port, CH65 9ER"
+  },
+  {
+    "name": "Tadcaster Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 53.882926823744754,
+    "longitude": -1.270605471346599,
+    "address": "Station Road Tadcaster North Yorkshire LS24 9JR"
+  },
+  {
+    "name": "Stainbeck Lane Police Station",
+    "police_force": "West Yorkshire Police",
+    "latitude": 53.82846,
+    "longitude": -1.54514,
+    "address": "Stainbeck Lane Chapel Allerton Leeds LS7 3QU"
+  },
+  {
+    "name": "Bury Police Station",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.596198,
+    "longitude": -2.302823,
+    "address": "Dunster Road Bury BL9 0RD"
+  },
+  {
+    "name": "Speke Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.342083,
+    "longitude": -2.838022,
+    "address": "Ganworth Road Speke Liverpool L24 2XQ"
+  },
+  {
+    "name": "Deeside",
+    "police_force": "North Wales Police",
+    "latitude": 53.213727,
+    "longitude": -3.048284,
+    "address": "Wepre Drive Connah's Quay Deeside CH5 4HA"
+  },
+  {
+    "name": "Trafalgar House Police Station",
+    "police_force": "West Yorkshire Police",
+    "latitude": 53.78823117771869,
+    "longitude": -1.75162,
+    "address": "58 Nelson St Broomfields Bradford BD5 0DZ"
+  },
+  {
+    "name": "Newton Le Willows Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.453092,
+    "longitude": -2.642846,
+    "address": "Market Street Earlestown WA12 9BW"
+  },
+  {
+    "name": "Bolton",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.570357,
+    "longitude": -2.418271,
+    "address": "Scholey Street off Manchester Road Bolton BL2 1HD"
+  },
+  {
+    "name": "Driffield Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 54.007089,
+    "longitude": -0.434087,
+    "address": "Wansford Road Driffield East Yorkshire YO25 5ND"
+  },
+  {
+    "name": "York Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 53.946660366885204,
+    "longitude": -1.0721243517718715,
+    "address": "Fulford Road York YO10 4BY"
+  },
+  {
+    "name": "York Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.958169,
+    "longitude": -1.092371,
+    "address": "York Railway Station Station Road York YO24 1AY"
+  },
+  {
+    "name": "St Helens Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.456334,
+    "longitude": -2.737064,
+    "address": "College Street Saint Helens WA10 1TG"
+  },
+  {
+    "name": "Huyton Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.411628,
+    "longitude": -2.837498,
+    "address": "Lathom Road Huyton Liverpool L36 9XU"
+  },
+  {
+    "name": "Barnstaple",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 51.07462514474462,
+    "longitude": -4.058668732398408,
+    "address": "Seven Brethren Barnstaple Devon EX31 2AS"
+  },
+  {
+    "name": "Kirkby Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.411502,
+    "longitude": -2.87308,
+    "address": "St Chads Drive Kirkby Liverpool L32 8RF"
+  },
+  {
+    "name": "Rossendale Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.69347,
+    "longitude": -2.26119,
+    "address": "Bacup Road Rossendale BB4 7JA"
+  },
+  {
+    "name": "Llanelli - Town",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 51.680927,
+    "longitude": -4.16567,
+    "address": "Llanelli Police Station Old Castle Road Llanelli Carmarthenshire SA15 3AD"
+  },
+  {
+    "name": "Lampeter",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 52.11347944595398,
+    "longitude": -4.0823312254284225,
+    "address": "Lampeter Police Station High Street Lampeter Ceredigion SA48 7BH"
+  },
+  {
+    "name": "Wigan Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.543819,
+    "longitude": -2.633393,
+    "address": "North Western Railway Station Wallgate Wigan WN1 1BJ"
+  },
+  {
+    "name": "Wigan Police Station",
+    "police_force": "Greater Manchester Police",
+    "latitude": 53.543895,
+    "longitude": -2.656072,
+    "address": "Robin Park Way Wigan WN5 0UP"
+  },
+  {
+    "name": "Admiral Street Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.387677,
+    "longitude": -2.962466,
+    "address": "Admiral Street Liverpool L8 8JN"
+  },
+  {
+    "name": "Bridlington Police Station",
+    "police_force": "Humberside Police",
+    "latitude": 54.087774,
+    "longitude": -0.203185,
+    "address": "Ashville Street Bridlington East Yorkshire YO16 4EW"
+  },
+  {
+    "name": "Okehampton Police Enquiry Office",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.739786,
+    "longitude": -3.995528,
+    "address": "Barton Road, Okehampton, EX20 1NW"
+  },
+  {
+    "name": "Liverpool Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.408359,
+    "longitude": -2.976976,
+    "address": "2nd Floor Rail House Lord Nelson Street Liverpool L1 1JF"
+  },
+  {
+    "name": "Birkenhead Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.393448,
+    "longitude": -3.012864,
+    "address": "Mortimer Street Birkenhead CH41 5EU"
+  },
+  {
+    "name": "St Anne Street Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.414632,
+    "longitude": -2.978652,
+    "address": "St Anne Street Liverpool L3 3HJ"
+  },
+  {
+    "name": "Keighley Police Station",
+    "police_force": "West Yorkshire Police",
+    "latitude": 53.87576,
+    "longitude": -1.89742,
+    "address": "4b Royd Ings Ave Keighley BD21 4BY"
+  },
+  {
+    "name": "Walton Lane Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.442256,
+    "longitude": -2.960386,
+    "address": "Walton Lane Liverpool L4 5XF"
+  },
+  {
+    "name": "Skelmersdale",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.54992,
+    "longitude": -2.77476,
+    "address": "Southway Skelmersdale WN8 6NH"
+  },
+  {
+    "name": "Harrogate Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 53.97862137010198,
+    "longitude": -1.5682705345735393,
+    "address": "Beckwith Head Road Harrogate North Yorkshire HG3 1FR"
+  },
+  {
+    "name": "Burnley Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.78719,
+    "longitude": -2.2424,
+    "address": "Parker Lane Burnley BB11 2BT"
+  },
+  {
+    "name": "Wallasey Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.422252,
+    "longitude": -3.040555,
+    "address": "Manor Road Liscard CH44 1DA"
+  },
+  {
+    "name": "Aberystwyth",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 52.410477,
+    "longitude": -4.078963,
+    "address": "Aberystwyth Police Station Boulevard St. Brieuc Aberystwyth Ceredigion SY23 1PH"
+  },
+  {
+    "name": "Marsh Lane Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.453923,
+    "longitude": -2.993222,
+    "address": "Marsh Lane Bootle Liverpool L20 5BW"
+  },
+  {
+    "name": "Knaresborough Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.00768915652929,
+    "longitude": -1.4672414578503645,
+    "address": "Castlegate Knaresborough North Yorkshire HG5 8AR"
+  },
+  {
+    "name": "Accrington Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.7536,
+    "longitude": -2.36517,
+    "address": "8-10 Broadway Accrington BB5 1EY"
+  },
+  {
+    "name": "Carmarthen",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 51.85112040974692,
+    "longitude": -4.28401870051428,
+    "address": "Carmarthen Police Station Llangunnor Road Carmarthen Carmarthenshire SA312PD"
+  },
+  {
+    "name": "Denbigh",
+    "police_force": "North Wales Police",
+    "latitude": 53.187545,
+    "longitude": -3.41824,
+    "address": "Graig Road Denbigh Denbighshire LL16 5US"
+  },
+  {
+    "name": "Chorley Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.65392,
+    "longitude": -2.63386,
+    "address": "St Thomas's Road Chorley PR7 1DR"
+  },
+  {
+    "name": "Kingsbridge Police Enquiry Office",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.288687,
+    "longitude": -3.777307,
+    "address": "140 Fore Street Kingsbridge TQ7 1AS"
+  },
+  {
+    "name": "Nelson Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.83579,
+    "longitude": -2.2136,
+    "address": "Broadway Nelson BB9 9SJ"
+  },
+  {
+    "name": "Malton Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.13908482433447,
+    "longitude": -0.7890770149952747,
+    "address": "Ryedale House Old Malton Road Malton YO17 7HH"
+  },
+  {
+    "name": "Blackburn Greenbank Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.75656,
+    "longitude": -2.4499,
+    "address": "Greenbank Business Park off Whitebirk Drive Blackburn BB1 3HP"
+  },
+  {
+    "name": "Blackburn (Town Centre) Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.75062,
+    "longitude": -2.48094,
+    "address": "St John's Court Ainsworth Street Blackburn BB1 6AW"
+  },
+  {
+    "name": "Ivybridge",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.38812,
+    "longitude": -3.91959,
+    "address": "Leonards Rd, Ivybridge. PL21 0SL"
+  },
+  {
+    "name": "Aberaeron",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 52.23968627854315,
+    "longitude": -4.266297228861953,
+    "address": "Aberaeron Police Station Penmorfa Aberaeron Ceredigion SA46 0PA"
+  },
+  {
+    "name": "Leyland Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.69046,
+    "longitude": -2.69969,
+    "address": "Lancastergate Leyland PR25 2EX"
+  },
+  {
+    "name": "Skipton Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 53.96166815767672,
+    "longitude": -2.0105030731964653,
+    "address": "Otley Road Skipton North Yorkshire BD23 1EZ"
+  },
+  {
+    "name": "Eastfield Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.24040975507686,
+    "longitude": -0.40996165598911577,
+    "address": "Manham Hill Scarborough North Yorkshire YO11 3DF"
+  },
+  {
+    "name": "Clitheroe Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.87327,
+    "longitude": -2.39311,
+    "address": "King St Clitheroe BB7 2EU"
+  },
+  {
+    "name": "Tavistock",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.54638,
+    "longitude": -4.14562,
+    "address": "Abbey Rise, Tavistock. PL19 9FD"
+  },
+  {
+    "name": "Preston/Blackpool Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.756015,
+    "longitude": -2.707254,
+    "address": "Railway Station Fishergate Hill Preston Lancashire PR1 8AP"
+  },
+  {
+    "name": "Rhyl Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.318751,
+    "longitude": -3.48899,
+    "address": "Rhyl Railway Station Unit A Rhyl LL18 1AT"
+  },
+  {
+    "name": "Rhyl",
+    "police_force": "North Wales Police",
+    "latitude": 53.319642,
+    "longitude": -3.491047,
+    "address": "Wellington Road Rhyl Denbighshire LL18 1DA"
+  },
+  {
+    "name": "Preston Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.76482,
+    "longitude": -2.70184,
+    "address": "Lancaster Road North Preston PR1 2SA"
+  },
+  {
+    "name": "Pickering Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.24180609332109,
+    "longitude": -0.7747973602170529,
+    "address": "Malton Road Pickering North Yorkshire YO18 7JJ"
+  },
+  {
+    "name": "Scarborough Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.2813139787148,
+    "longitude": -0.40699369964567006,
+    "address": "Northway Scarborough YO12 7AD"
+  },
+  {
+    "name": "Southport Police Station",
+    "police_force": "Merseyside Police",
+    "latitude": 53.652704,
+    "longitude": -2.996987,
+    "address": "Albert Road Southport PR9 0LL"
+  },
+  {
+    "name": "Crownhill",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.41063570180614,
+    "longitude": -4.132283753823326,
+    "address": "Budshead Way Plymouth Devon PL6 5HT"
+  },
+  {
+    "name": "Charles Cross",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.37281122007405,
+    "longitude": -4.135661531159463,
+    "address": "Charles Street Plymouth Devon PL4 8HG"
+  },
+  {
+    "name": "Thirsk Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.23275419915131,
+    "longitude": -1.342969344350447,
+    "address": "33 Market Place Thirsk North Yorkshire YO7 1HG"
+  },
+  {
+    "name": "Kirkham Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.78171,
+    "longitude": -2.87045,
+    "address": "Freckleton St Kirkham PR4 2SN"
+  },
+  {
+    "name": "Devonport",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.37289,
+    "longitude": -4.17534,
+    "address": "Chapel Street Devonport Plymouth Devon PL1 4DW"
+  },
+  {
+    "name": "Tenby",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 51.672349089145754,
+    "longitude": -4.70343284985089,
+    "address": "Tenby Police Station Warren Street Tenby Pembrokeshire SA70 7JS"
+  },
+  {
+    "name": "Blackpool Police Headquarters",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.79634,
+    "longitude": -2.9952,
+    "address": "Gerry Richardson Way off Clifton Road Blackpool FY4 4US"
+  },
+  {
+    "name": "Cardigan",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 52.085271,
+    "longitude": -4.645502,
+    "address": "Cardigan Police Station Parc Teifi Cardigan Ceredigion SA43 1EW"
+  },
+  {
+    "name": "Llandudno",
+    "police_force": "North Wales Police",
+    "latitude": 53.320366,
+    "longitude": -3.825442,
+    "address": "Oxford Road Llandudno Conwy LL30 1DN"
+  },
+  {
+    "name": "Bedale Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.28952941494435,
+    "longitude": -1.5948806731844798,
+    "address": "Wycar Bedale North Yorkshire DL8 1EP"
+  },
+  {
+    "name": "Northallerton Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.337847364950676,
+    "longitude": -1.4284793038715737,
+    "address": "Alverton Court Crosby Road Northallerton North Yorkshire DL6 1BF"
+  },
+  {
+    "name": "Liskeard Police Enquiry Office",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.45728,
+    "longitude": -4.46398,
+    "address": "Greenbank Rd, Liskeard. PL14 3DP"
+  },
+  {
+    "name": "Whitby Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.4846227695002,
+    "longitude": -0.6160571014909312,
+    "address": "Spring Hill Whitby North Yorkshire YO21 1ED"
+  },
+  {
+    "name": "Fleetwood Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 53.92761,
+    "longitude": -3.0103,
+    "address": "North Church Street Fleetwood FY7 6HJ"
+  },
+  {
+    "name": "Bangor",
+    "police_force": "North Wales Police",
+    "latitude": 53.227457,
+    "longitude": -4.127941,
+    "address": "Ffordd Gwynedd Bangor Gwynedd LL57 1DT"
+  },
+  {
+    "name": "Bangor Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 53.222465,
+    "longitude": -4.13419,
+    "address": "Bangor Railway Station Holyhead Road Bangor Gwynedd LL57 2EG"
+  },
+  {
+    "name": "Lancaster Police Station",
+    "police_force": "Lancashire Constabulary",
+    "latitude": 54.04643,
+    "longitude": -2.79858,
+    "address": "Thurnham Street Lancaster LA1 1YB"
+  },
+  {
+    "name": "Catterick Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.377798560231426,
+    "longitude": -1.722152213656301,
+    "address": "Beach Head Lines Richmond Road Catterick Garrison North Yorkshire DL9 3JF"
+  },
+  {
+    "name": "Stokesley Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.46985302183965,
+    "longitude": -1.1927357829640606,
+    "address": "Bridge Road High Street Stokesley North Yorkshire TS9 5DG"
+  },
+  {
+    "name": "Pembroke Dock",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 51.695167,
+    "longitude": -4.939121,
+    "address": "Pembroke Dock Police Station Water Street Pembroke Dock Pembrokeshire SA72 6DW"
+  },
+  {
+    "name": "Caernarfon",
+    "police_force": "North Wales Police",
+    "latitude": 53.142544,
+    "longitude": -4.263986,
+    "address": "Maesincla Lane Caernarfon Gwynedd LL55 1BY"
+  },
+  {
+    "name": "Haverfordwest",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 51.797311,
+    "longitude": -4.975508,
+    "address": "Haverfordwest Police Station Merlins Hill Haverfordwest Pembrokeshire SA61 1PE"
+  },
+  {
+    "name": "Richmond Police Station",
+    "police_force": "North Yorkshire Police",
+    "latitude": 54.408009744555144,
+    "longitude": -1.7321571848190653,
+    "address": "I'Anson Road Richmond North Yorkshire DL10 4ND"
+  },
+  {
+    "name": "Milford Haven",
+    "police_force": "Dyfed-Powys Police",
+    "latitude": 51.71516378913111,
+    "longitude": -5.04368439648629,
+    "address": "Milford Haven Police Station Cedar Court Milford Haven Pembrokeshire SA73 3LS"
+  },
+  {
+    "name": "Bodmin",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.46676412759575,
+    "longitude": -4.699999788217838,
+    "address": "Tollgate Road Bodmin Cornwall PL31 2FJ"
+  },
+  {
+    "name": "Llangefni",
+    "police_force": "North Wales Police",
+    "latitude": 53.25304,
+    "longitude": -4.30725,
+    "address": "Industrial Estate Road Llangefni Anglesey LL77 7JA"
+  },
+  {
+    "name": "Darlington Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 54.52033,
+    "longitude": -1.546856,
+    "address": "Bank Top Railway Station Darlington DL1 4AA"
+  },
+  {
+    "name": "Darlington Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.52406,
+    "longitude": -1.55002,
+    "address": "Darlington Police Station St Cuthberts Way, Darlington, County Durham DL1 5LB"
+  },
+  {
+    "name": "Middlesbrough District Police Station",
+    "police_force": "Cleveland Police",
+    "latitude": 54.579864,
+    "longitude": -1.237367,
+    "address": "Bridge Street West Middlesbrough TS2 1AB"
+  },
+  {
+    "name": "St Austell",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.33981621481853,
+    "longitude": -4.78651461581609,
+    "address": "1 Palace Road St Austell Cornwall PL25 4AL"
+  },
+  {
+    "name": "Barnard Castle Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.54383,
+    "longitude": -1.91664,
+    "address": "Barnard Castle Police Station 1 Crook Lane, Barnard Castle, County Durham DL12 8JX"
+  },
+  {
+    "name": "Newton Aycliffe Fire and Police Community Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.6202,
+    "longitude": -1.56929,
+    "address": "Newton Aycliffe Fire and Police Community Station Central Avenue, Newton Aycliffe, Durham DL5 5QH"
+  },
+  {
+    "name": "Barrow Police Station",
+    "police_force": "Cumbria Constabulary",
+    "latitude": 54.12382435632192,
+    "longitude": -3.242502525488852,
+    "address": "Andrews Way Barrow In Furness Cumbria LA14 2UE"
+  },
+  {
+    "name": "Hartlepool District Police Station",
+    "police_force": "Cleveland Police",
+    "latitude": 54.68615,
+    "longitude": -1.214914,
+    "address": "Avenue Road Hartlepool TS24 8AJ"
+  },
+  {
+    "name": "Kendal Police Station",
+    "police_force": "Cumbria Constabulary",
+    "latitude": 54.33249052634018,
+    "longitude": -2.747350754107179,
+    "address": "Busher Walk Kendal LA9 4RJ"
+  },
+  {
+    "name": "Bishop Auckland Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.6494,
+    "longitude": -1.68135,
+    "address": "Bishop Auckland Police Station Woodhouse Lane, Bishop Auckland, County Durham DL14 6LB"
+  },
+  {
+    "name": "Peterlee Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.75591,
+    "longitude": -1.33632,
+    "address": "Peterlee Police Station St Aidans Way, County Durham SR8 1QR"
+  },
+  {
+    "name": "Newquay",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.414895303761554,
+    "longitude": -5.073807390683092,
+    "address": "Tolcarne Road Newquay Cornwall TR7 1DD"
+  },
+  {
+    "name": "Crook Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.71343,
+    "longitude": -1.74512,
+    "address": "Crook Police Station South Road, Crook, County Durham DL15 8NE"
+  },
+  {
+    "name": "Durham Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.77459,
+    "longitude": -1.57132,
+    "address": "Durham City Police Station New Elvet, Durham DH1 3AQ"
+  },
+  {
+    "name": "Truro",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.266155288972925,
+    "longitude": -5.055706178041833,
+    "address": "Pydar House Pydar Street Truro Cornwall TR1 1XU"
+  },
+  {
+    "name": "Truro Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 50.26424492246993,
+    "longitude": -5.063856823330743,
+    "address": "Truro Railway Station Truro Cornwall TR1 6HH"
+  },
+  {
+    "name": "Seaham Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.83768,
+    "longitude": -1.34866,
+    "address": "Seaham Police Station The Avenue, Seaham, County Durham SR7 8AD"
+  },
+  {
+    "name": "Falmouth",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.16145392766256,
+    "longitude": -5.086318047067702,
+    "address": "Dracaena Avenue Falmouth Cornwall TR11 2ES"
+  },
+  {
+    "name": "Chester-le-Street Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.86176,
+    "longitude": -1.57341,
+    "address": "Chester-le-Street Police Station Newcastle Road, Chester le Street, Durham DH3 3TY"
+  },
+  {
+    "name": "Sunderland Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 54.905495,
+    "longitude": -1.382332,
+    "address": "Railway Station Athenaeum Street Sunderland SR1 3HP"
+  },
+  {
+    "name": "Stanley Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.87052,
+    "longitude": -1.69508,
+    "address": "Stanley Police Station Thomeyholme Terrace, Stanley, County Durham DH9 0BL"
+  },
+  {
+    "name": "Southwick Police Station",
+    "police_force": "Northumbria Police",
+    "latitude": 54.91918,
+    "longitude": -1.40537,
+    "address": "Church Bank, Southwick, Sunderland SR5 2DU"
+  },
+  {
+    "name": "Consett Police Station",
+    "police_force": "Durham Constabulary",
+    "latitude": 54.85371,
+    "longitude": -1.83576,
+    "address": "Consett Police Station Parliament Street, Consett, County Durham DH8 5DL"
+  },
+  {
+    "name": "Hunter Lane Police Station",
+    "police_force": "Cumbria Constabulary",
+    "latitude": 54.66645355489457,
+    "longitude": -2.753176500614391,
+    "address": "1 Hunter Lane Penrith Cumbria CA11 7UY"
+  },
+  {
+    "name": "Camborne",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.210055358392026,
+    "longitude": -5.299258713348353,
+    "address": "South Terrace Camborne Cornwall TR14 8SY"
+  },
+  {
+    "name": "Gateshead Police Station",
+    "police_force": "Northumbria Police",
+    "latitude": 54.95914,
+    "longitude": -1.60134,
+    "address": "High West Street, Gateshead NE8 1BN"
+  },
+  {
+    "name": "Newcastle City Centre Police Station",
+    "police_force": "Northumbria Police",
+    "latitude": 54.96669,
+    "longitude": -1.61868,
+    "address": "Forth Banks, Newcastle upon Tyne NE1 3PH"
+  },
+  {
+    "name": "Newcastle Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 54.968006,
+    "longitude": -1.61949,
+    "address": "1 Neville Street Newcastle NE1 5DP"
+  },
+  {
+    "name": "Middle Engine Lane Police Station",
+    "police_force": "Northumbria Police",
+    "latitude": 55.01116,
+    "longitude": -1.50281,
+    "address": "Middle Engine Lane, Wallsend, Tyne & Wear NE28 9NT"
+  },
+  {
+    "name": "Etal Lane Police Station",
+    "police_force": "Northumbria Police",
+    "latitude": 55.00053343188017,
+    "longitude": -1.6802128315035145,
+    "address": "Etal Lane, Westerhope, Newcastle NE5 4AW"
+  },
+  {
+    "name": "Hexham Police Station",
+    "police_force": "Northumbria Police",
+    "latitude": 54.97071,
+    "longitude": -2.11206,
+    "address": "Shaftoe Leazes, Hexham, NE46 3DG"
+  },
+  {
+    "name": "Whitehaven Police Station",
+    "police_force": "Cumbria Constabulary",
+    "latitude": 54.547773014076974,
+    "longitude": -3.5850473208483966,
+    "address": "Scotch Street Whitehaven CA28 7BJ"
+  },
+  {
+    "name": "Bedlington Police Station",
+    "police_force": "Northumbria Police",
+    "latitude": 55.13298,
+    "longitude": -1.59325,
+    "address": "Schalksmuhle Road, Bedlington NE22 7LA"
+  },
+  {
+    "name": "Penzance",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 50.119004158197676,
+    "longitude": -5.541549116405857,
+    "address": "Penalverne Crescent Penzance Cornwall TR18 2NS"
+  },
+  {
+    "name": "Workington Police Station",
+    "police_force": "Cumbria Constabulary",
+    "latitude": 54.64512387588625,
+    "longitude": -3.541018595891015,
+    "address": "Hall Brow Workington CA14 4AP"
+  },
+  {
+    "name": "Carlisle - Durranhill Police station",
+    "police_force": "Cumbria Constabulary",
+    "latitude": 54.88346087693871,
+    "longitude": -2.909036033957185,
+    "address": "Brunel Way Durranhill Industrial Estate Carlisle CA1 3NQ"
+  },
+  {
+    "name": "Carlisle Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 54.890989,
+    "longitude": -2.93311,
+    "address": "Citadel Station Carlisle Cumbria CA1 1QZ"
+  },
+  {
+    "name": "Isles of Scilly",
+    "police_force": "Devon & Cornwall Police",
+    "latitude": 49.914616,
+    "longitude": -6.317722,
+    "address": "Garrison Lane, Hughtown, St Marys Isles of Scilly, Cornwall, TR21 0JD"
+  },
+  {
+    "name": "Berwick Police Station",
+    "police_force": "Northumbria Police",
+    "latitude": 55.77,
+    "longitude": -2.00207,
+    "address": "Church Street, Berwick upon Tweed TD15 1DZ"
+  },
+  {
+    "name": "Edinburgh Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 55.945490718155924,
+    "longitude": -3.2139920908544934,
+    "address": "3-5 Torphichen Place Edinburgh EH3 8DY"
+  },
+  {
+    "name": "Motherwell Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 55.79162674608147,
+    "longitude": -3.9947907332480175,
+    "address": "Muir Street Motherwell ML1 1BH"
+  },
+  {
+    "name": "Kirkcaldy Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 56.11260274669073,
+    "longitude": -3.1672303427432937,
+    "address": "Station Road Kirkcaldy KY1 1YL"
+  },
+  {
+    "name": "Kilwinning Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 55.65641943508109,
+    "longitude": -4.7095816305972384,
+    "address": "Kilwinning Railway Station Townhead Kilwinning KA13 6NT"
+  },
+  {
+    "name": "Glasgow Central Station",
+    "police_force": "British Transport Police",
+    "latitude": 55.85923822110471,
+    "longitude": -4.2580980728410465,
+    "address": "Gordon Street Glasgow G1 3SL"
+  },
+  {
+    "name": "Glasgow Queen Street Station",
+    "police_force": "British Transport Police",
+    "latitude": 55.86260115180461,
+    "longitude": -4.251183031196636,
+    "address": "North Hanover Street Glasgow G1 2AF"
+  },
+  {
+    "name": "Scotland Divisional Headquarters",
+    "police_force": "British Transport Police",
+    "latitude": 55.86751861150748,
+    "longitude": -4.250440512306668,
+    "address": "90 Cowcaddens Road Glasgow G4 0LU"
+  },
+  {
+    "name": "Paisley Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 55.84737495264547,
+    "longitude": -4.423323332966798,
+    "address": "Gilmour Street County Square Paisley PA1 1RS"
+  },
+  {
+    "name": "Stirling Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 56.119994240305786,
+    "longitude": -3.9351352231103083,
+    "address": "Stirling Railway Station Goosecroft Road Stirling FK8 1PF"
+  },
+  {
+    "name": "Perth Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 56.39211153464832,
+    "longitude": -3.438791780568608,
+    "address": "Perth Railway Station Leonard Street Perth PH2 8HF"
+  },
+  {
+    "name": "Aberdeen Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 57.14446136416721,
+    "longitude": -2.098388171276669,
+    "address": "Aberdeen Railway Station Guild Street Aberdeen AB9 2DQ"
+  },
+  {
+    "name": "Inverness Police Station",
+    "police_force": "British Transport Police",
+    "latitude": 57.47991069772916,
+    "longitude": -4.22280902734523,
+    "address": "Inverness Railway Station Academy Street Inverness IV1 1LE"
+  }
+]
