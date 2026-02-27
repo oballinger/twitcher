@@ -207,6 +207,36 @@ def fetch_frame(url, timeout=8):
     return frame if ret else None
 
 
+def sample_video_frames(url, n_frames=5, timeout=10):
+    """Return up to n_frames evenly-spaced BGR frames from a video URL.
+    Falls back to a single frame for static image URLs."""
+    bare = url.split("?")[0].lower()
+    if any(bare.endswith(e) for e in (".jpg", ".jpeg", ".png", ".bmp")):
+        frame = fetch_frame(url, timeout=timeout)
+        return [frame] if frame is not None else []
+
+    cap = cv2.VideoCapture(url)
+    if not cap.isOpened():
+        return []
+
+    total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    if total > 1:
+        indices = [int(total * i / n_frames) for i in range(n_frames)]
+    else:
+        indices = list(range(n_frames))
+
+    frames = []
+    for idx in indices:
+        if total > 1:
+            cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
+        ret, frame = cap.read()
+        if ret and frame is not None:
+            frames.append(frame)
+
+    cap.release()
+    return frames
+
+
 @app.route("/detect", methods=["POST"])
 def detect():
     try:
@@ -234,6 +264,11 @@ def detect():
         return jsonify({"error": str(e)}), 500
 
 
+BATCH_N_FRAMES       = 5
+POLICE_CONF_BATCH    = 0.5   # minimum police classifier confidence for batch counts
+BATCH_MIN_FRAMES     = 2     # label must appear in at least this many frames
+
+
 @app.route("/detect-batch", methods=["POST"])
 def detect_batch():
     try:
@@ -242,29 +277,37 @@ def detect_batch():
         if not urls:
             return jsonify({"results": []}), 200
 
-        # Fetch all frames in parallel (I/O bound — no GPU involved yet)
-        fetch5 = lambda u: fetch_frame(u, timeout=5)
-        with ThreadPoolExecutor(max_workers=min(len(urls), 16)) as ex:
-            frames_raw = list(ex.map(fetch5, urls))
+        # Fetch N frames per URL in parallel (I/O bound)
+        with ThreadPoolExecutor(max_workers=min(len(urls) * BATCH_N_FRAMES, 16)) as ex:
+            frame_lists = list(ex.map(
+                lambda u: sample_video_frames(u, BATCH_N_FRAMES), urls
+            ))
 
-        valid_idx    = [i for i, f in enumerate(frames_raw) if f is not None]
-        valid_frames = [frames_raw[i] for i in valid_idx]
-        results      = [None] * len(urls)
+        # Flatten all frames into one list, tracking which URL each came from
+        all_frames, frame_origins = [], []
+        for url_idx, flist in enumerate(frame_lists):
+            for f in flist:
+                all_frames.append(f)
+                frame_origins.append(url_idx)
 
-        if valid_frames:
-            # Single batched forward pass — much more GPU-efficient than N serial calls
+        results = [None] * len(urls)
+
+        if all_frames:
+            # Single batched GPU pass over all frames from all cameras
             with model_lock:
-                batch_results = model(valid_frames, verbose=False, device=device)
-            for slot, (orig_idx, result) in enumerate(zip(valid_idx, batch_results)):
-                frame = valid_frames[slot]
+                batch_results = model(all_frames, verbose=False, device=device)
+
+            # Collect per-frame vehicle lists grouped by URL index
+            url_frame_vehicles = {i: [] for i in range(len(urls))}
+
+            for frame, result, url_idx in zip(all_frames, batch_results, frame_origins):
                 fh, fw = frame.shape[:2]
-                vehicles = []
+                frame_vehicles = []
 
                 for box in result.boxes:
-                    cls  = int(box.cls[0])
+                    cls   = int(box.cls[0])
                     label = model.names[cls]
                     conf  = float(box.conf[0])
-
                     if label not in VEHICLES or conf < CONF_THRESHOLD:
                         continue
 
@@ -275,13 +318,45 @@ def detect_batch():
                     with police_lock:
                         police = is_police_vehicle(crop) if crop.size > 0 else {}
 
-                    vehicles.append({
-                        "label":      label,
-                        "confidence": round(conf, 3),
-                        "is_police":  police.get("is_police", False),
+                    frame_vehicles.append({
+                        "label":       label,
+                        "confidence":  round(conf, 3),
+                        "is_police":   police.get("is_police", False),
+                        "police_conf": police.get("confidence", 0.0),
                     })
 
-                results[orig_idx] = {"count": len(vehicles), "vehicles": vehicles}
+                url_frame_vehicles[url_idx].append(frame_vehicles)
+
+            for url_idx, frame_veh_lists in url_frame_vehicles.items():
+                if not frame_veh_lists:
+                    continue
+
+                # Count per label how many frames it appeared in (with police conf gate)
+                label_frame_counts = {}   # label -> list of per-frame counts
+                for fvl in frame_veh_lists:
+                    lc = {}
+                    for v in fvl:
+                        if v["is_police"]:
+                            if v["police_conf"] > POLICE_CONF_BATCH:
+                                lc["police"] = lc.get("police", 0) + 1
+                        else:
+                            k = v["label"]
+                            lc[k] = lc.get(k, 0) + 1
+                    for k, n in lc.items():
+                        label_frame_counts.setdefault(k, []).append(n)
+
+                # Confirm labels seen in >= BATCH_MIN_FRAMES frames
+                vehicles = []
+                for label, frame_counts in label_frame_counts.items():
+                    if len(frame_counts) < BATCH_MIN_FRAMES:
+                        continue
+                    for _ in range(max(frame_counts)):
+                        vehicles.append({
+                            "label":     "car" if label == "police" else label,
+                            "is_police": label == "police",
+                        })
+
+                results[url_idx] = {"count": len(vehicles), "vehicles": vehicles}
 
         return jsonify({"results": results})
 

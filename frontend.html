@@ -681,7 +681,7 @@ async function detectAll(cameras) {
   async function worker() {
     while (queue.length) {
       const batch = queue.shift();
-      const urls  = batch.map(c => c.imageUrl || c.videoUrl);
+      const urls  = batch.map(c => c.videoUrl || c.imageUrl);
       const uids  = batch.map(c => c.id.replace(/[^a-zA-Z0-9]/g, "_"));
 
       try {

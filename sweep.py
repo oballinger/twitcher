@@ -70,6 +70,97 @@ def dedup_5min(paths):
     return kept
 
 
+# DINOv2 embedding-based dedup (lazy-loaded, shared across calls)
+_dino_model     = None
+_dino_device    = None
+_dino_transform = None
+
+DEDUP_SIM_THRESHOLD = 0.95  # cosine similarity >= this => treat as duplicate
+
+
+def _load_dino():
+    global _dino_model, _dino_device, _dino_transform
+    if _dino_model is not None:
+        return
+    _dino_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print("[dedup] Loading DINOv2 (vits14)...")
+    _dino_model = torch.hub.load("facebookresearch/dinov2", "dinov2_vits14",
+                                  verbose=False)
+    _dino_model.to(_dino_device)
+    _dino_model.eval()
+    _dino_transform = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+    ])
+
+
+def dedup_embedding(paths, sim_threshold=DEDUP_SIM_THRESHOLD):
+    """Deduplicate by DINOv2 cosine similarity within each camera.
+
+    Images with cosine similarity >= sim_threshold are considered duplicates
+    (same parked vehicle).  Visually distinct images — moving targets seen
+    from different angles — have lower similarity and are all kept.
+
+    Files that don't match the JamCam naming convention are always kept.
+    Files that can't be embedded (corrupt, unreadable) are also kept.
+    """
+    if not paths:
+        return []
+
+    _load_dino()
+
+    # Group by camera ID (cam1_cam2 from filename prefix)
+    cam_groups: dict[str, list[str]] = {}
+    no_cam: list[str] = []
+    for path in paths:
+        m = re.match(r"JamCams_(\d+)_(\d+)_", os.path.basename(path))
+        if not m:
+            no_cam.append(path)
+            continue
+        cam = m.group(1) + "_" + m.group(2)
+        cam_groups.setdefault(cam, []).append(path)
+
+    kept: list[str] = list(no_cam)
+
+    for cam_paths in cam_groups.values():
+        if len(cam_paths) == 1:
+            kept.append(cam_paths[0])
+            continue
+
+        # Embed all images for this camera
+        embeddings:  list[torch.Tensor] = []
+        valid_paths: list[str]          = []
+        for path in cam_paths:
+            try:
+                img    = Image.open(path).convert("RGB")
+                tensor = _dino_transform(img).unsqueeze(0).to(_dino_device)
+                with torch.no_grad():
+                    emb = _dino_model(tensor).squeeze(0)
+                    emb = emb / emb.norm()
+                embeddings.append(emb)
+                valid_paths.append(path)
+            except Exception:
+                kept.append(path)  # can't embed → always keep
+
+        if not embeddings:
+            continue
+
+        # Greedy uniqueness pass: keep an image only if its cosine similarity
+        # to every already-kept image is below sim_threshold.
+        kept_embs:  list[torch.Tensor] = [embeddings[0]]
+        kept_paths: list[str]          = [valid_paths[0]]
+        for emb, path in zip(embeddings[1:], valid_paths[1:]):
+            max_sim = max(torch.dot(emb, ke).item() for ke in kept_embs)
+            if max_sim < sim_threshold:
+                kept_embs.append(emb)
+                kept_paths.append(path)
+
+        kept.extend(kept_paths)
+
+    return kept
+
+
 def _cam_date_key(fname):
     """Return (cam_id, date_str) from a JamCam filename, or None if not parseable."""
     m = re.match(r"JamCams_(\d+)_(\d+)_(\d{8})_", os.path.basename(fname))
@@ -196,7 +287,7 @@ def scan_dataset(model, device, dataset_dir, folders=None, threshold=0.5):
                      if f.lower().endswith((".jpg", ".jpeg", ".png"))
                      and f not in confirmed_names]
         all_fpaths = [os.path.join(folder_path, f) for f in all_files]
-        deduped    = dedup_5min(all_fpaths)
+        deduped    = dedup_embedding(all_fpaths)
         files      = [os.path.basename(p) for p in deduped]
 
         # Delete files that didn't survive dedup
