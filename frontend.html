@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TfL JamCam Live Map</title>
+  <title>Twitcher</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -362,19 +362,19 @@
   <div class="filter-title" onclick="toggleFilterPanel()">filter by type <span id="filter-arrow">&#9660;</span></div>
   <div id="filter-body">
     <label class="filter-row car">
-      <input type="checkbox" value="car" checked><span>car</span>
+      <input type="checkbox" value="car"><span>car</span>
       <span class="filter-count" id="fc-car">—</span>
     </label>
     <label class="filter-row truck">
-      <input type="checkbox" value="truck" checked><span>truck</span>
+      <input type="checkbox" value="truck"><span>truck</span>
       <span class="filter-count" id="fc-truck">—</span>
     </label>
     <label class="filter-row bus">
-      <input type="checkbox" value="bus" checked><span>bus</span>
+      <input type="checkbox" value="bus"><span>bus</span>
       <span class="filter-count" id="fc-bus">—</span>
     </label>
     <label class="filter-row motorcycle">
-      <input type="checkbox" value="motorcycle" checked><span>moto</span>
+      <input type="checkbox" value="motorcycle"><span>moto</span>
       <span class="filter-count" id="fc-motorcycle">—</span>
     </label>
     <label class="filter-row police">
@@ -399,7 +399,7 @@ const RESCAN_INTERVAL   = 3 * 60 * 1000;  // ms — matches TfL snapshot refresh
 // per-camera detection state
 const camDetections = new Map(); // uid → { car, truck, bus, motorcycle, police, total }
 const camMarkers    = new Map(); // uid → L.circleMarker
-const activeFilters = new Set(["car", "truck", "bus", "motorcycle", "police"]);
+const activeFilters = new Set(["police"]);
 
 // ── Map setup ──────────────────────────────────────────────────────────────────
 const map = L.map("map", {
@@ -645,8 +645,11 @@ function renderBreakdown(det) {
 function applyCamResult(uid, result) {
   const counts = { car: 0, truck: 0, bus: 0, motorcycle: 0, police: 0 };
   for (const v of result.vehicles || []) {
-    const label = v.is_police ? "police" : v.label;
-    if (label in counts) counts[label]++;
+    if (v.is_police) {
+      counts.police++;
+    } else if (v.label in counts) {
+      counts[v.label]++;
+    }
   }
   counts.total = result.count || 0;
   camDetections.set(uid, counts);
@@ -714,9 +717,9 @@ function applyFilters() {
     const det = camDetections.get(uid);
 
     if (!det) {
-      // not yet scanned
+      // not yet scanned — always visible so map looks populated on load
       marker.setRadius(4);
-      marker.setStyle({ opacity: allChecked ? 1 : 0.2, fillOpacity: allChecked ? 0.3 : 0.1 });
+      marker.setStyle({ opacity: 1, fillOpacity: 0.3 });
       continue;
     }
 

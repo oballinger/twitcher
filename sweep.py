@@ -32,6 +32,7 @@ import argparse
 import webbrowser
 from datetime import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
+from socketserver import ThreadingMixIn
 
 import torch
 import torch.nn as nn
@@ -67,6 +68,14 @@ def dedup_5min(paths):
             seen.add(bucket)
             kept.append(path)
     return kept
+
+
+def _cam_date_key(fname):
+    """Return (cam_id, date_str) from a JamCam filename, or None if not parseable."""
+    m = re.match(r"JamCams_(\d+)_(\d+)_(\d{8})_", os.path.basename(fname))
+    if not m:
+        return None
+    return m.group(1) + "_" + m.group(2), m.group(3)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -186,9 +195,23 @@ def scan_dataset(model, device, dataset_dir, folders=None, threshold=0.5):
         all_files = [f for f in os.listdir(folder_path)
                      if f.lower().endswith((".jpg", ".jpeg", ".png"))
                      and f not in confirmed_names]
-        deduped = dedup_5min([os.path.join(folder_path, f) for f in all_files])
-        files = [os.path.basename(p) for p in deduped]
-        print(f"  [{folder}] {len(files)}/{len(all_files)} after dedup...", end=" ", flush=True)
+        all_fpaths = [os.path.join(folder_path, f) for f in all_files]
+        deduped    = dedup_5min(all_fpaths)
+        files      = [os.path.basename(p) for p in deduped]
+
+        # Delete files that didn't survive dedup
+        deduped_set = set(deduped)
+        deleted_n   = 0
+        for p in all_fpaths:
+            if p not in deduped_set:
+                try:
+                    os.remove(p)
+                    deleted_n += 1
+                except OSError:
+                    pass
+
+        print(f"  [{folder}] {len(files)}/{len(all_files)} after dedup"
+              f" ({deleted_n} deleted)...", end=" ", flush=True)
 
         fpaths = [os.path.join(folder_path, f) for f in files]
         scores = score_files_batch(model, device, fpaths)
@@ -406,7 +429,11 @@ def reject_crops(dataset_dir, shown_fnames, confirmed_fnames, dest_folder="polic
 # SERVE
 # ══════════════════════════════════════════════════════════════════════════════
 
-def serve_review(dataset_dir, html_path, confirmed_path, shown_fnames, port=5001):
+class _ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
+    daemon_threads = True
+
+
+def serve_review(dataset_dir, html_path, confirmed_path, shown_fnames, port=5001, path_map=None):
     """Serve the review page and handle confirm/reject actions via HTTP."""
     shown_set = set(shown_fnames)
 
@@ -441,15 +468,53 @@ def serve_review(dataset_dir, html_path, confirmed_path, shown_fnames, port=5001
                             with open(confirmed_path) as f:
                                 existing = {l.strip() for l in f if l.strip()}
                         new_fnames = confirmed_fnames - existing
+
+                        # Hard limit: 10 police images per camera per day in confirmed.txt
+                        cam_date_counts = {}
+                        for fname in existing:
+                            key = _cam_date_key(fname)
+                            if key:
+                                cam_date_counts[key] = cam_date_counts.get(key, 0) + 1
+
+                        allowed = []
+                        capped  = 0
+                        for fname in sorted(new_fnames):
+                            key = _cam_date_key(fname)
+                            if key:
+                                if cam_date_counts.get(key, 0) >= 10:
+                                    capped += 1
+                                    continue
+                                cam_date_counts[key] = cam_date_counts.get(key, 0) + 1
+                            allowed.append(fname)
+
+                        if capped:
+                            print(f"  [cap] {capped} names dropped (10/camera/day limit)")
+
                         with open(confirmed_path, "a") as f:
-                            for fname in sorted(new_fnames):
+                            for fname in allowed:
                                 f.write(fname + "\n")
+                        new_fnames = set(allowed)
 
-                        # Move confirmed → police_confirmed/
-                        confirm_crops(dataset_dir, confirmed_path)
-
-                        # Move rejects → police_rejected/
-                        reject_crops(dataset_dir, shown_set, confirmed_fnames)
+                        # Move files — fast path uses pre-built path_map,
+                        # slow path falls back to os.walk for --confirm mode
+                        if path_map is not None:
+                            confirmed_dest = os.path.join(dataset_dir, "police_confirmed")
+                            rejected_dest  = os.path.join(dataset_dir, "police_rejected")
+                            os.makedirs(confirmed_dest, exist_ok=True)
+                            for fname in confirmed_fnames:
+                                src = path_map.get(fname)
+                                if src and os.path.exists(src):
+                                    shutil.move(src, os.path.join(confirmed_dest, fname))
+                            rejected = shown_set - confirmed_fnames
+                            if rejected:
+                                os.makedirs(rejected_dest, exist_ok=True)
+                                for fname in rejected:
+                                    src = path_map.get(fname)
+                                    if src and os.path.exists(src):
+                                        shutil.move(src, os.path.join(rejected_dest, fname))
+                        else:
+                            confirm_crops(dataset_dir, confirmed_path)
+                            reject_crops(dataset_dir, shown_set, confirmed_fnames)
 
                         result = json.dumps({
                             "appended":  len(new_fnames),
@@ -476,7 +541,7 @@ def serve_review(dataset_dir, html_path, confirmed_path, shown_fnames, port=5001
 
         return Handler
 
-    httpd = HTTPServer(("", port), make_handler())
+    httpd = _ThreadedHTTPServer(("", port), make_handler())
     print(f"\n[sweep] Serving review at http://localhost:{port}/")
     print("[sweep] Click 'Export filenames' in the page to confirm & reject.")
     print("[sweep] Press Ctrl+C to stop.\n")
@@ -553,4 +618,6 @@ if __name__ == "__main__":
         if args.serve:
             confirmed_path = os.path.join(args.dataset, "..", "confirmed.txt")
             confirmed_path = os.path.normpath(confirmed_path)
-            serve_review(args.dataset, html_path, confirmed_path, shown_fnames, args.port)
+            path_map = {fn: fp for _, _, fn, fp in results}
+            serve_review(args.dataset, html_path, confirmed_path, shown_fnames, args.port,
+                         path_map=path_map)

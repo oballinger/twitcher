@@ -14,14 +14,17 @@ app = Flask(__name__)
 import torch
 if torch.cuda.is_available():
     device = "cuda"
+    print(f"Using device: cuda ({torch.cuda.get_device_name(0)})")
 elif torch.backends.mps.is_available():
     device = "mps"
+    print("Using device: mps (Apple Silicon)")
 else:
     device = "cpu"
-print(f"Using device: {device}")
+    print("Using device: cpu (no GPU found)")
 
-model        = YOLO("yolo11n.pt")
+model = YOLO("yolo11n.pt")
 model.to(device)
+print(f"Model loaded on {next(model.model.parameters()).device}")
 model_lock   = threading.Lock()
 police_lock  = threading.Lock()
 
@@ -46,8 +49,8 @@ def draw_boxes(frame, vehicles):
     for v in vehicles:
         x1, y1, x2, y2 = v["box"]
         label     = v["label"]
-        conf      = v["confidence"]
         is_police = v.get("is_police", False)
+        conf      = v.get("police_conf", v["confidence"]) if is_police else v["confidence"]
         color     = POLICE_COLOR if is_police else LABEL_COLORS.get(label, (255, 255, 255))
 
         cv2.rectangle(frame, (x1, y1), (x2, y2), color, 1)
@@ -90,7 +93,6 @@ def draw_boxes(frame, vehicles):
 
 def run_detection(frame):
     with model_lock:
-        #results = model(frame, verbose=False)[0]
         results = model(frame, verbose=False, device=device)[0]
     vehicles = []
 
@@ -252,7 +254,6 @@ def detect_batch():
         if valid_frames:
             # Single batched forward pass — much more GPU-efficient than N serial calls
             with model_lock:
-                #batch_results = model(valid_frames, verbose=False)
                 batch_results = model(valid_frames, verbose=False, device=device)
             for slot, (orig_idx, result) in enumerate(zip(valid_idx, batch_results)):
                 frame = valid_frames[slot]

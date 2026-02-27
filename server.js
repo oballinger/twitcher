@@ -11,9 +11,15 @@ app.get("/", (_req, res) => res.sendFile(__dirname + "/frontend.html"));
 const TFL_KEY = process.env.TFL_KEY;
 if (!TFL_KEY) console.warn("[warn] TFL_KEY not set — /api/cameras will fail");
 
-// ── Cameras list ──────────────────────────────────────────────────────────────
+// ── Cameras list (cached 3 min to match frontend rescan interval) ─────────────
+let _camsCache = null;
+let _camsCacheAt = 0;
+
 app.get("/api/cameras", async (req, res) => {
   try {
+    const now = Date.now();
+    if (_camsCache && now - _camsCacheAt < 3 * 60 * 1000) return res.json(_camsCache);
+
     const response = await fetch(
       `https://api.tfl.gov.uk/Place/Type/JamCam?app_key=${TFL_KEY}`
     );
@@ -40,6 +46,8 @@ app.get("/api/cameras", async (req, res) => {
       };
     });
 
+    _camsCache = cleaned;
+    _camsCacheAt = Date.now();
     res.json(cleaned);
   } catch (err) {
     console.error(err);

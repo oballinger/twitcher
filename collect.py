@@ -24,9 +24,17 @@ import argparse
 import threading
 import requests
 import numpy as np
+import torch
 from datetime import datetime
 from ultralytics import YOLO
 from police_detector import is_police_vehicle
+
+if torch.cuda.is_available():
+    _device = "cuda"
+elif torch.backends.mps.is_available():
+    _device = "mps"
+else:
+    _device = "cpu"
 
 # ── Args ──────────────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser()
@@ -35,15 +43,19 @@ parser.add_argument("--workers", type=int,   default=4,           help="Concurre
 parser.add_argument("--fps",     type=float, default=5,           help="Frames per second to sample")
 parser.add_argument("--dataset", type=str,   default="./dataset", help="Output dataset directory")
 parser.add_argument("--tfl-key", type=str,   default=os.environ.get("TFL_KEY", ""), help="TfL API key")
+parser.add_argument("--types",   type=str,   nargs="+",
+                    default=["police"],
+                    choices=["car", "truck", "bus", "motorcycle", "police"],
+                    help="Vehicle types to collect (default: police)")
 args = parser.parse_args()
 
 CONF_THRESHOLD = 0.60
-VEHICLES       = ["car", "truck", "bus", "motorcycle", "police"]
 DATASET_DIR    = args.dataset
 TFL_KEY        = args.tfl_key
+COLLECT_TYPES  = set(args.types)
 
 # ── Setup dataset folders ─────────────────────────────────────────────────────
-LABELS = ["car", "truck", "bus", "motorcycle", "police"]
+LABELS = sorted(COLLECT_TYPES)
 for label in LABELS:
     os.makedirs(os.path.join(DATASET_DIR, label), exist_ok=True)
 
@@ -77,6 +89,7 @@ def get_model():
     global _model
     if _model is None:
         _model = YOLO("yolo11l.pt")
+        _model.to(_device)
     return _model
 
 
@@ -102,7 +115,7 @@ def process_frame(frame: np.ndarray, camera_id: str):
     """Run YOLO + police heuristics on a frame, save qualifying crops."""
     with _model_lock:
         model   = get_model()
-        results = model(frame, verbose=False)[0]
+        results = model(frame, verbose=False, device=_device)[0]
         names   = model.names
 
     for box in results.boxes:
@@ -127,9 +140,18 @@ def process_frame(frame: np.ndarray, camera_id: str):
         if crop.size == 0:
             continue
 
-        # Police check overrides the vehicle label
-        police = is_police_vehicle(crop)
-        save_label = "police" if police.get("is_police") else label
+        # Police check overrides the vehicle label (skip if not collecting police)
+        if "police" in COLLECT_TYPES:
+            police = is_police_vehicle(crop)
+            save_label = "police" if police.get("is_police") else label
+        else:
+            save_label = label
+
+        # Skip labels we're not collecting
+        if save_label not in COLLECT_TYPES:
+            with stats_lock:
+                stats["skipped"] += 1
+            continue
 
         # Subsample: check per-camera per-class cap
         cap_val = CLASS_CAP.get(save_label)
@@ -170,7 +192,7 @@ def collect_camera(cam: dict, target_fps: float, passes: int):
 
         # Reset per-class counter for this camera pass
         with camera_counts_lock:
-            camera_counts[camera_id] = {label: 0 for label in LABELS}
+            camera_counts[camera_id] = {label: 0 for label in COLLECT_TYPES}
 
         while True:
             ret, frame = cap.read()
@@ -217,14 +239,10 @@ def fetch_cameras(tfl_key: str) -> list:
 
 def print_stats():
     with stats_lock:
-        total  = sum(v for k, v in stats.items() if k != "skipped")
-        police = stats.get("police", 0)
-        print(
-            f"\r  Saved: car={stats['car']} truck={stats['truck']} "
-            f"bus={stats['bus']} motorcycle={stats['motorcycle']} "
-            f"police={police}  |  total={total}  skipped={stats['skipped']}",
-            end="", flush=True
-        )
+        total = sum(v for k, v in stats.items() if k != "skipped")
+        parts = "  ".join(f"{k}={stats[k]}" for k in LABELS)
+        print(f"\r  Saved: {parts}  |  total={total}  skipped={stats['skipped']}",
+              end="", flush=True)
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -233,8 +251,9 @@ if __name__ == "__main__":
         print("[err] TFL_KEY not set. Export it or pass --tfl-key <key>")
         exit(1)
 
-    print("[twitcher] Loading YOLO model…")
+    print(f"[twitcher] Loading YOLO model… (device: {_device})")
     get_model()
+    print(f"[twitcher] Model on {next(get_model().model.parameters()).device}")
 
     print("[twitcher] Fetching camera list…")
     cameras = fetch_cameras(TFL_KEY)
@@ -245,6 +264,8 @@ if __name__ == "__main__":
     print(f"           fps     : {args.fps}")
     print(f"           passes  : {args.passes or '∞'}")
     print(f"           conf    : >{CONF_THRESHOLD:.0%}")
+    print(f"           types   : {', '.join(LABELS)}")
+    print(f"           device  : {_device}")
     print(f"           dataset : {DATASET_DIR}\n")
 
     semaphore = threading.Semaphore(args.workers)
