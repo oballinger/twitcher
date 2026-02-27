@@ -11,7 +11,17 @@ from police_detector import is_police_vehicle
 
 app = Flask(__name__)
 
+import torch
+if torch.cuda.is_available():
+    device = "cuda"
+elif torch.backends.mps.is_available():
+    device = "mps"
+else:
+    device = "cpu"
+print(f"Using device: {device}")
+
 model        = YOLO("yolo11n.pt")
+model.to(device)
 model_lock   = threading.Lock()
 police_lock  = threading.Lock()
 
@@ -80,7 +90,8 @@ def draw_boxes(frame, vehicles):
 
 def run_detection(frame):
     with model_lock:
-        results = model(frame, verbose=False)[0]
+        #results = model(frame, verbose=False)[0]
+        results = model(frame, verbose=False, device=device)[0]
     vehicles = []
 
     for box in results.boxes:
@@ -241,8 +252,8 @@ def detect_batch():
         if valid_frames:
             # Single batched forward pass — much more GPU-efficient than N serial calls
             with model_lock:
-                batch_results = model(valid_frames, verbose=False)
-
+                #batch_results = model(valid_frames, verbose=False)
+                batch_results = model(valid_frames, verbose=False, device=device)
             for slot, (orig_idx, result) in enumerate(zip(valid_idx, batch_results)):
                 frame = valid_frames[slot]
                 fh, fw = frame.shape[:2]

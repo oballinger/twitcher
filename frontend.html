@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TfL JamCam Live Map</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -313,6 +314,40 @@
       padding: 0 2px;
     }
     #cesium-popup-close:hover { color: #00ff88; }
+
+    /* ── Mobile / responsive ─────────────────────────────────────────── */
+    #filter-arrow { display: none; }
+
+    @media (max-width: 520px) {
+      /* Responsive Leaflet popup */
+      .leaflet-popup-content { width: min(440px, calc(100vw - 24px)) !important; }
+      .feed-wrap { width: 100% !important; }
+      .feed-wrap img.stream { width: 100% !important; }
+
+      /* Filter panel: anchor to bottom, collapsible */
+      #filter-panel {
+        top: auto;
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: unset;
+      }
+      #filter-arrow { display: inline; float: right; transition: transform 0.2s; }
+      #filter-panel.open #filter-arrow { transform: rotate(180deg); }
+      .filter-title { cursor: pointer; user-select: none; }
+      #filter-body { display: none; padding-top: 4px; }
+      #filter-panel.open #filter-body { display: block; }
+
+      /* Larger touch targets */
+      .filter-row { padding: 7px 0; font-size: 12px; }
+      .filter-row input[type="checkbox"] { width: 14px; height: 14px; }
+
+      /* Taller control buttons */
+      .ctrl-btn { padding: 13px 6px; }
+
+      /* Cesium popup: full width, anchored above filter panel */
+      #cesium-popup { width: auto; left: 10px; right: 10px; bottom: 80px; top: auto; }
+    }
   </style>
 </head>
 <body>
@@ -324,29 +359,31 @@
 </div>
 
 <div id="filter-panel">
-  <div class="filter-title">filter by type</div>
-  <label class="filter-row car">
-    <input type="checkbox" value="car" checked><span>car</span>
-    <span class="filter-count" id="fc-car">—</span>
-  </label>
-  <label class="filter-row truck">
-    <input type="checkbox" value="truck" checked><span>truck</span>
-    <span class="filter-count" id="fc-truck">—</span>
-  </label>
-  <label class="filter-row bus">
-    <input type="checkbox" value="bus" checked><span>bus</span>
-    <span class="filter-count" id="fc-bus">—</span>
-  </label>
-  <label class="filter-row motorcycle">
-    <input type="checkbox" value="motorcycle" checked><span>moto</span>
-    <span class="filter-count" id="fc-motorcycle">—</span>
-  </label>
-  <label class="filter-row police">
-    <input type="checkbox" value="police" checked><span>police</span>
-    <span class="filter-count" id="fc-police">—</span>
-  </label>
-  <div class="filter-stats" id="filter-stats">loading cameras…</div>
-  <button id="btn-3d" onclick="toggle3D()">3D tiles</button>
+  <div class="filter-title" onclick="toggleFilterPanel()">filter by type <span id="filter-arrow">&#9660;</span></div>
+  <div id="filter-body">
+    <label class="filter-row car">
+      <input type="checkbox" value="car" checked><span>car</span>
+      <span class="filter-count" id="fc-car">—</span>
+    </label>
+    <label class="filter-row truck">
+      <input type="checkbox" value="truck" checked><span>truck</span>
+      <span class="filter-count" id="fc-truck">—</span>
+    </label>
+    <label class="filter-row bus">
+      <input type="checkbox" value="bus" checked><span>bus</span>
+      <span class="filter-count" id="fc-bus">—</span>
+    </label>
+    <label class="filter-row motorcycle">
+      <input type="checkbox" value="motorcycle" checked><span>moto</span>
+      <span class="filter-count" id="fc-motorcycle">—</span>
+    </label>
+    <label class="filter-row police">
+      <input type="checkbox" value="police" checked><span>police</span>
+      <span class="filter-count" id="fc-police">—</span>
+    </label>
+    <div class="filter-stats" id="filter-stats">loading cameras…</div>
+    <button id="btn-3d" onclick="toggle3D()">3D tiles</button>
+  </div>
 </div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -477,7 +514,7 @@ function startRawFeed(cam, uid) {
   vid.loop        = true;
   vid.controls    = true;
   vid.playsInline = true;
-  vid.style.cssText = "width:440px;display:block;";
+  vid.style.cssText = "width:100%;display:block;";
 
   imgEl.style.display = "none";
   feedWrap.appendChild(vid);
@@ -857,14 +894,19 @@ function showCesiumPopup(cam, uid, screenPos) {
   popup.appendChild(closeBtn);
   popup.appendChild(root);
 
-  // Position: prefer right of cursor, flip left if near edge
-  const W = 460, margin = 10;
-  let left = screenPos.x + 14;
-  if (left + W > window.innerWidth  - margin) left = screenPos.x - W - 14;
-  let top  = Math.max(margin, screenPos.y - 100);
-  if (top  + 520 > window.innerHeight - margin) top = window.innerHeight - 530;
-  popup.style.left    = left + "px";
-  popup.style.top     = top  + "px";
+  // Position: mobile → CSS anchors bottom; desktop → follow cursor
+  if (window.innerWidth > 520) {
+    const W = 460, margin = 10;
+    let left = screenPos.x + 14;
+    if (left + W > window.innerWidth  - margin) left = screenPos.x - W - 14;
+    let top  = Math.max(margin, screenPos.y - 100);
+    if (top  + 520 > window.innerHeight - margin) top = window.innerHeight - 530;
+    popup.style.left = left + "px";
+    popup.style.top  = top  + "px";
+  } else {
+    popup.style.left = "";
+    popup.style.top  = "";
+  }
   popup.style.display = "block";
 
   document.getElementById(`btnLive_${uid}`).onclick = () => { setActive(uid, "btnLive"); startDetectionStream(cam, uid); };
@@ -905,6 +947,12 @@ async function toggle3D() {
     btn.textContent = "3D tiles";
     btn.classList.remove("active");
   }
+}
+
+// ── Filter panel toggle (mobile) ──────────────────────────────────────────────
+function toggleFilterPanel() {
+  if (window.innerWidth > 520) return;
+  document.getElementById("filter-panel").classList.toggle("open");
 }
 
 // ── Filter checkbox handlers ───────────────────────────────────────────────────
