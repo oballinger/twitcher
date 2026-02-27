@@ -5,6 +5,7 @@ const fetch   = (...args) => import("node-fetch").then(({ default: f }) => f(...
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
 const TFL_KEY = process.env.TFL_KEY;
 if (!TFL_KEY) console.warn("[warn] TFL_KEY not set — /api/cameras will fail");

@@ -388,11 +388,11 @@
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-const API_URL      = "http://localhost:3000/api/cameras";
-const STREAM_URL   = "http://localhost:3000/api/stream";
-const STATIONS_URL = "http://localhost:3000/api/police-stations";
-const DETECT_URL        = "http://localhost:3000/api/detect";
-const DETECT_BATCH_URL  = "http://localhost:3000/api/detect-batch";
+const API_URL      = "/api/cameras";
+const STREAM_URL   = "/api/stream";
+const STATIONS_URL = "/api/police-stations";
+const DETECT_URL        = "/api/detect";
+const DETECT_BATCH_URL  = "/api/detect-batch";
 const BATCH_SIZE        = 8;               // cameras per GPU forward pass
 const RESCAN_INTERVAL   = 3 * 60 * 1000;  // ms — matches TfL snapshot refresh
 
@@ -770,7 +770,7 @@ async function loadPoliceStations() {
 }
 
 // ── Google 3D Tiles (Cesium) ──────────────────────────────────────────────────
-const CONFIG_URL   = "http://localhost:3000/api/config";
+const CONFIG_URL   = "/api/config";
 let googleKey      = null;
 let cesiumViewer   = null;
 let is3D           = false;
