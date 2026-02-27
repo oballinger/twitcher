@@ -1,7 +1,7 @@
 
 for app:
 `export TFL_KEY= `
-`fuser -k 3000/tcp 5000/tcp 8000/tcp 2>/dev/null; node server.js & python detect.py & python -m http.server 8000 & wait`
+`fuser -k 3000/tcp 5000/tcp 2>/dev/null; node server.js & python detect.py & wait`
 
 for detection: 
 
