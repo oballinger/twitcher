@@ -18,7 +18,12 @@ from PIL import Image
 # ── Load model at import time ─────────────────────────────────────────────────
 
 _MODEL_PATH = os.environ.get("POLICE_MODEL", "police_classifier.pt")
-_DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if torch.cuda.is_available():
+    _DEVICE = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    _DEVICE = torch.device("mps")
+else:
+    _DEVICE = torch.device("cpu")
 _MODEL = None
 
 _TRANSFORM = transforms.Compose([
